@@ -1,10 +1,9 @@
 import peewee
 from peewee import *
-import vars, models
-
+import models
 
 # Connect to DB
-db = MySQLDatabase(vars.dbName, user=vars.dbPassword, passwd=vars.dbUser)
+models.db.connect()
 
 # Create tables
 models.GoatmenFirstName.create_table()
@@ -17,5 +16,8 @@ models.SkeletonFirstName.create_table()
 models.SkeletonLastName.create_table()
 models.TrollFirstName.create_table()
 models.TrollLastName.create_table()
+
+# Commit new tables
+models.db.commit()
 
 
