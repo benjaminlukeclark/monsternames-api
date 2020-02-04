@@ -1,6 +1,6 @@
 import peewee
 from peewee import *
-import models
+import dbVars
 import CustomOutput
 
 CustomOutput.OutputInfo('Attempting DB connection...')
