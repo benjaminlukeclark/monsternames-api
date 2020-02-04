@@ -2,9 +2,6 @@ from flask import make_response, jsonify
 import database.models as models
 from peewee import fn
 
-# Connect to db
-models.db.connect()
-
 def return_name():
     # Connect to db
     models.db.connect()
