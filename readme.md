@@ -78,14 +78,56 @@ python app.py
 
 # Endpoints
 
-/api/v1.0/goatmen
+## /api/v1.0/goatmen
+### GET
 
-/api/v1.0/goblin
+Returns a random name for a Goatman. Goatmen names just contain a first name and will return in the following JSON:
 
-/api/v1.0/ogre
+```json
+{
+  "name": "Dave"
+}
+```
 
-/api/v1.0/orc
+For example: 
 
-/api/v1.0/skeleton
+```bash
+someLaptop:~/Documents/Development/monsternames-api$ curl -i http://127.0.0.1:5000/api/v1.0/goatmen
+HTTP/1.0 200 OK
+Content-Type: application/json
+Content-Length: 21
+Server: Werkzeug/0.16.1 Python/3.6.9
+Date: Tue, 04 Feb 2020 23:38:33 GMT
 
-/api/v1.0/troll
+{
+  "name": "Dave"
+}
+```
+
+### POST
+
+Requires a ```x-www-form-urlencoded``` body with the following key value pair:
+
+```
+firstName=NAME
+```
+
+For example:
+
+```bash
+someLaptop:~/Documents/Development/monsternames-api$ curl -d "firstName=SomeGuy" -X POST http://127.0.0.1:5000/api/v1.0/goatmen
+{
+  "message": "New record created", 
+  "name": "SomeGuy"
+}
+```
+
+## /api/v1.0/goblin
+
+## /api/v1.0/ogre
+
+## /api/v1.0/orc
+
+## /api/v1.0/skeleton
+
+## /api/v1.0/troll

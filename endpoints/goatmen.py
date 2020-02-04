@@ -12,3 +12,15 @@ def return_name():
     models.db.close()
     # Return json data
     return make_response(jsonify({'name' : result}), 200)
+
+def insert_name(firstName):
+    # Connect to db
+    models.db.connect()
+    # First check if the record already exists
+    if (models.GoatmenFirstName.select().where(models.GoatmenFirstName.data == firstName)).exists():
+        return make_response(jsonify({'error' : 'Duplicate record', 'message' : 'Record already exists'}), 400)
+    # Insert
+    models.GoatmenFirstName.create(data=firstName)
+    models.db.commit()
+    # Return success
+    return make_response(jsonify({'name' : firstName, 'message' : 'New record created'}), 200)
