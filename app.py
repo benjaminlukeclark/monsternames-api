@@ -1,5 +1,6 @@
 #!flask/bin/python
 from flask import Flask, make_response, jsonify
+from endpoints import goatmen
 
 app = Flask(__name__)
 
@@ -9,7 +10,7 @@ def get_goblin():
 
 @app.route('/api/v1.0/goatmen')
 def get_goatmen():
-    return "Goatmen!"
+    return goatmen.return_name()
 
 @app.route('/api/v1.0/ogre')
 def get_ogre():

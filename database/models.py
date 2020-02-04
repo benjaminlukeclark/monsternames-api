@@ -1,6 +1,6 @@
 import peewee
 from peewee import *
-import dbVars
+from database import dbVars
 
 # Connect to DB
 db = MySQLDatabase(dbVars.dbName, host=dbVars.dbHost, port=3306, user=dbVars.dbUser, passwd=dbVars.dbPassword)

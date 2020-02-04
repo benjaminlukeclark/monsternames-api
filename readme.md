@@ -8,7 +8,5 @@
 # Usage
 
 - Run app.py in order to run the restapi in dev mode
-
-# Requirements
-
-- database/setup.py requires a MySQL driver installed
+- Run database/setup.py to create required tables in the database
+- 
