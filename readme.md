@@ -94,11 +94,6 @@ mysql> select * from postaudit;
 mysql> 
 ```
 
-
-
-
-# Endpoints
-
 # POST Notes
 
 All post requests require an x-api-key header and relevent key/value pairs in the body
@@ -126,6 +121,7 @@ benjamin@localhost:~/Documents/Development/monsternames-api$ curl -X POST http:/
 ## Obtaining an api key
 For now you'll need to contact me directly for API Key creation.
 
+# Endpoints
 ## /api/v1.0/goatmen
 ### GET
 
