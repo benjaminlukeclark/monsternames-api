@@ -1,3 +1,8 @@
+# Usage notes
+
+- Querying endpoints with get/post will probably be the main usage
+- For mass contribution of data (i.e. my initial port of names from https://github.com/Sudoblark/Butterchase into this) you can quite easily just make a dictionary of data you want to upload then enumerate through it and do post requests on each
+
 # Setup for local development
 
 - clone repo
@@ -50,8 +55,6 @@ python database/setup.py
 
 - For POST of data you'll need to manually create API Keys in the DB and associate with users for auditing purposes
 
-# Usage
-
 ## API
 
 - Run app.py to run a development instance of the API
@@ -73,6 +76,8 @@ python app.py
 
 - When running a development version you can see errors etc in the terminal when you try to access endpoints
 
+
+
 # Auditing
 
 All POST requests are audited in the postaudit table. The purpose of this information is just so I can track how many awesome things have been contributed, and by who, so i can give shoutouts and make pretty graphs.
@@ -88,6 +93,8 @@ mysql> select * from postaudit;
 
 mysql> 
 ```
+
+
 
 
 # Endpoints
@@ -112,7 +119,7 @@ Failure to provide required key/value pairs in the body will result to an error 
 benjamin@localhost:~/Documents/Development/monsternames-api$ curl -X POST http://127.0.0.1:5000/api/v1.0/goatmen -H "x-api-key:MU123"
 {
   "error": "Invalid key error.", 
-  "errorMessage": "Ensure firstName key/value is in bodyr"
+  "errorMessage": "Ensure firstName key/value is in body"
 }
 ```
 For now you'll need to contact me directly for API Key creation.
@@ -131,7 +138,7 @@ Returns a random name for a Goatman. Goatmen names just contain a first name and
 For example: 
 
 ```bash
-benjamin@:~/Documents/Development/monsternames-api$ curl -i http://127.0.0.1:5000/api/v1.0/goatmen
+benjamin@localhost:~/Documents/Development/monsternames-api$ curl -i http://127.0.0.1:5000/api/v1.0/goatmen
 HTTP/1.0 200 OK
 Content-Type: application/json
 Content-Length: 21
@@ -169,3 +176,4 @@ benjamin@localhost:~/Documents/Development/monsternames-api$ curl -d "firstName=
 ## /api/v1.0/skeleton
 
 ## /api/v1.0/troll
+
