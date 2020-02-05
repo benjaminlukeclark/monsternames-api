@@ -99,7 +99,7 @@ mysql>
 
 # Endpoints
 
-## POST Notes
+# POST Notes
 
 All post requests require an x-api-key header and relevent key/value pairs in the body
 
@@ -122,6 +122,8 @@ benjamin@localhost:~/Documents/Development/monsternames-api$ curl -X POST http:/
   "errorMessage": "Ensure firstName key/value is in body"
 }
 ```
+
+## Obtaining an api key
 For now you'll need to contact me directly for API Key creation.
 
 ## /api/v1.0/goatmen
@@ -154,9 +156,9 @@ Date: Tue, 04 Feb 2020 23:38:33 GMT
 
 Requires a ```x-www-form-urlencoded``` body with the following key value pair: ```firstName=NAME```
 
-And a valid x-api-key header. For now API keys are created directly in the DB in the corresponding table.
+Requires a valid x-api-key header. See 'Obtaining an API Key' section for info in how to get a key.
 
-For example:
+Example POST:
 
 ```bash
 benjamin@localhost:~/Documents/Development/monsternames-api$ curl -d "firstName=SomeGuy2" -X POST http://127.0.0.1:5000/api/v1.0/goatmen -H "x-api-key:MU123"
