@@ -2,11 +2,12 @@ import peewee
 from peewee import *
 import dbVars
 import CustomOutput
+import models
 
 CustomOutput.OutputInfo('Attempting DB connection...')
 try:
     # Connect to DB
-    models.db.connect()
+    models.db.connect(reuse_if_open=True)
         # Create tables
     models.GoatmenFirstName.create_table()
     models.GoblinLastName.create_table()
@@ -18,6 +19,8 @@ try:
     models.SkeletonLastName.create_table()
     models.TrollFirstName.create_table()
     models.TrollLastName.create_table()
+    models.ApiKeys.create_table()
+    models.PostAudit.create_table()
 
     # Commit new tables
     models.db.commit()

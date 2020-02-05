@@ -48,6 +48,8 @@ cd monsternames-api
 python database/setup.py
 ```
 
+- For POST of data you'll need to manually create API Keys in the DB and associate with users for auditing purposes
+
 # Usage
 
 ## API
@@ -71,12 +73,49 @@ python app.py
 
 - When running a development version you can see errors etc in the terminal when you try to access endpoints
 
+# Auditing
 
+All POST requests are audited in the postaudit table. The purpose of this information is just so I can track how many awesome things have been contributed, and by who, so i can give shoutouts and make pretty graphs.
 
-## DB Data Entry
+```sql
+mysql> select * from postaudit;
++----+-----------+--------------------------------------------+
+| id | user      | message                                    |
++----+-----------+--------------------------------------------+
+|  1 | Ben Clark | GoatmenFirstName record "SomeGuy2" created |
++----+-----------+--------------------------------------------+
+1 row in set (0.05 sec)
+
+mysql> 
+```
 
 
 # Endpoints
+
+## POST Notes
+
+All post requests require an x-api-key header and relevent key/value pairs in the body
+
+Failure to provide an x-api-key will result in an error similar to below:
+
+```bash
+benjamin@localhost:~/Documents/Development/monsternames-api$ curl -d "firstName=SomeGuy" -X POST http://127.0.0.1:5000/api/v1.0/goatmen
+{
+  "error": "unauthorised.", 
+  "errorMessage": "no x-api-key provided"
+}
+```
+
+Failure to provide required key/value pairs in the body will result to an error similar to below:
+
+```bash
+benjamin@localhost:~/Documents/Development/monsternames-api$ curl -X POST http://127.0.0.1:5000/api/v1.0/goatmen -H "x-api-key:MU123"
+{
+  "error": "Invalid key error.", 
+  "errorMessage": "Ensure firstName key/value is in bodyr"
+}
+```
+For now you'll need to contact me directly for API Key creation.
 
 ## /api/v1.0/goatmen
 ### GET
@@ -92,7 +131,7 @@ Returns a random name for a Goatman. Goatmen names just contain a first name and
 For example: 
 
 ```bash
-someLaptop:~/Documents/Development/monsternames-api$ curl -i http://127.0.0.1:5000/api/v1.0/goatmen
+benjamin@:~/Documents/Development/monsternames-api$ curl -i http://127.0.0.1:5000/api/v1.0/goatmen
 HTTP/1.0 200 OK
 Content-Type: application/json
 Content-Length: 21
@@ -106,20 +145,19 @@ Date: Tue, 04 Feb 2020 23:38:33 GMT
 
 ### POST
 
-Requires a ```x-www-form-urlencoded``` body with the following key value pair:
+Requires a ```x-www-form-urlencoded``` body with the following key value pair: ```firstName=NAME```
 
-```
-firstName=NAME
-```
+And a valid x-api-key header. For now API keys are created directly in the DB in the corresponding table.
 
 For example:
 
 ```bash
-someLaptop:~/Documents/Development/monsternames-api$ curl -d "firstName=SomeGuy" -X POST http://127.0.0.1:5000/api/v1.0/goatmen
+benjamin@localhost:~/Documents/Development/monsternames-api$ curl -d "firstName=SomeGuy2" -X POST http://127.0.0.1:5000/api/v1.0/goatmen -H "x-api-key:MU123"
 {
   "message": "New record created", 
-  "name": "SomeGuy"
+  "name": "SomeGuy2"
 }
+
 ```
 
 ## /api/v1.0/goblin

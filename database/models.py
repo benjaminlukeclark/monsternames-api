@@ -1,6 +1,12 @@
 import peewee
 from peewee import *
-import database.dbVars as dbVars
+try:
+    # direct import is for when this is run from setup.py
+    import dbVars
+except Exception:
+    # database.dbVars import is for when this is run from app.py
+    import database.dbVars as dbVars
+
 
 # Connect to DB
 db = MySQLDatabase(dbVars.dbName, host=dbVars.dbHost, port=3306, user=dbVars.dbUser, passwd=dbVars.dbPassword)
@@ -63,6 +69,20 @@ class TrollFirstName(peewee.Model):
 
 class TrollLastName(peewee.Model):
     data = peewee.CharField()
+
+    class Meta:
+        database = db
+
+class ApiKeys(peewee.Model):
+    apiKey = peewee.CharField()
+    user = peewee.CharField()
+
+    class Meta:
+        database = db
+
+class PostAudit(peewee.Model):
+    user = peewee.CharField()
+    message = peewee.CharField()
 
     class Meta:
         database = db
