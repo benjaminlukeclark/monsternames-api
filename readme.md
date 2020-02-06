@@ -121,6 +121,22 @@ benjamin@localhost:~/Documents/Development/monsternames-api$ curl -X POST http:/
 ## Obtaining an api key
 For now you'll need to contact me directly for API Key creation.
 
+# Mass upload example
+
+If you're particularly taken with inspiration. A mass upload via a bash script is relatively easy:
+
+```bash
+## declare an array variable
+declare -a goatmenarr=("Squiggles" "Fluffy" "Sparkles" "Rover" "Skip" "Dots" "Mittens" "Trixie" "Bubbles" "Giggles" "Floof" "Peaches" "Oreo" "Pebbles" "Polly" "Precious")
+
+## now loop through the above array
+for i in "${goatmenarr[@]}"
+do
+   curl -d "firstName=$i" -X POST http://127.0.0.1:5000/api/v1.0/goatmen/firstName -H "x-api-key:MU123"
+   # or do whatever with individual element of the array
+done
+```
+
 # Endpoints
 ## /api/v1.0/goatmen
 ### GET
