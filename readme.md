@@ -1,3 +1,21 @@
+# monsternames-api
+
+This repo hosts code for the monsternames-api.
+
+This API allows you to generate random names for the following types of monsters:
+
+- goatmen
+- goblins
+- ogres
+- orcs
+- skeletons
+- trolls
+
+It originally arose from my attempt at creating a python text based game: https://github.com/Sudoblark/Butterchase
+
+If you're just interested in the endpoints, go to the endpoints section. Otherwise the rest of the repo details technical things like how to contribute to the Project or how to setup a local version of it for yourself.
+
+
 # Usage notes
 
 - Querying endpoints with get/post will probably be the main usage
@@ -139,7 +157,7 @@ sudo nginx -s reload
 - Install python3
 
 ```bash
-Sudo apt install python3
+sudo apt install python3
 ```
 
 - Install pip3
@@ -180,6 +198,44 @@ sudo apt install gunicorn3
 ```bash
 gunicorn3 --workers=3 application:application
 ```
+
+- Install supervisor (for auto-reloading of the application)
+
+```bash
+sudo apt-get install supervisor
+```
+
+- Create supervisor script
+
+```bash
+sudo nano /etc/supervisor/conf.d/application.conf
+
+[program:monsternames_api]
+directory=/home/monsternames_api
+command=gunicorn3 --workers=3 flask_application:application
+autostart=true
+autorestart=true
+stopasgroup=true
+killasgroup=true
+stderr_logfile=/var/log/monsternames_api/application.err.log
+stdout_logfile=/var/log/monsternames_api/application.out.log
+```
+
+- Create the log directories and files
+
+```bash
+sudo mkdir /var/log/monsternames_api
+sudo touch /var/log/monsternames_api/application.out.log
+sudo touch /var/log/monsternames_api/application.err.log
+```
+
+- Apply supervisor changes
+
+```bash
+sudo supervisorctl reload
+```
+
+- You should now be able to access the app at the specified url
 
 
 
