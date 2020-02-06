@@ -9,7 +9,7 @@ try:
     # Connect to DB
     models.db.connect(reuse_if_open=True)
         # Create tables
-    models.GoatmenFirstName.create_table()
+    models.GoblinFirstName.create_table()
     models.GoblinLastName.create_table()
     models.GoatmenFirstName.create_table()
     models.OgreFirstName.create_table()

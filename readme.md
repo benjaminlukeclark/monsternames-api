@@ -101,7 +101,7 @@ All post requests require an x-api-key header and relevent key/value pairs in th
 Failure to provide an x-api-key will result in an error similar to below:
 
 ```bash
-benjamin@localhost:~/Documents/Development/monsternames-api$ curl -d "firstName=SomeGuy" -X POST http://127.0.0.1:5000/api/v1.0/goatmen
+benjamin@localhost:~/Documents/Development/monsternames-api$ curl -d "firstName=SomeGuy" -X POST http://127.0.0.1:5000/api/v1.0/goatmen/firstName
 {
   "error": "unauthorised.", 
   "errorMessage": "no x-api-key provided"
@@ -111,7 +111,7 @@ benjamin@localhost:~/Documents/Development/monsternames-api$ curl -d "firstName=
 Failure to provide required key/value pairs in the body will result to an error similar to below:
 
 ```bash
-benjamin@localhost:~/Documents/Development/monsternames-api$ curl -X POST http://127.0.0.1:5000/api/v1.0/goatmen -H "x-api-key:MU123"
+benjamin@localhost:~/Documents/Development/monsternames-api$ curl -X POST http://127.0.0.1:5000/api/v1.0/goatmen/firstName -H "x-api-key:MU123"
 {
   "error": "Invalid key error.", 
   "errorMessage": "Ensure firstName key/value is in body"
@@ -125,15 +125,7 @@ For now you'll need to contact me directly for API Key creation.
 ## /api/v1.0/goatmen
 ### GET
 
-Returns a random name for a Goatman. Goatmen names just contain a first name and will return in the following JSON:
-
-```json
-{
-  "name": "Dave"
-}
-```
-
-For example: 
+Returns a random name for a Goatman. Goatmen names just contain a first name. See below for an example:
 
 ```bash
 benjamin@localhost:~/Documents/Development/monsternames-api$ curl -i http://127.0.0.1:5000/api/v1.0/goatmen
@@ -144,20 +136,21 @@ Server: Werkzeug/0.16.1 Python/3.6.9
 Date: Tue, 04 Feb 2020 23:38:33 GMT
 
 {
-  "name": "Dave"
+  "firstName": "Dave"
 }
 ```
 
+## /api/v1.0/goatmen/firstName
 ### POST
 
 Requires a ```x-www-form-urlencoded``` body with the following key value pair: ```firstName=NAME```
 
 Requires a valid x-api-key header. See 'Obtaining an API Key' section for info in how to get a key.
 
-Example POST:
+Sending a post request will add another goatman first name value to the database. See below for an example:
 
 ```bash
-benjamin@localhost:~/Documents/Development/monsternames-api$ curl -d "firstName=SomeGuy2" -X POST http://127.0.0.1:5000/api/v1.0/goatmen -H "x-api-key:MU123"
+benjamin@localhost:~/Documents/Development/monsternames-api$ curl -d "firstName=SomeGuy2" -X POST http://127.0.0.1:5000/api/v1.0/goatmen/firstName -H "x-api-key:MU123"
 {
   "message": "New record created", 
   "name": "SomeGuy2"
@@ -166,6 +159,59 @@ benjamin@localhost:~/Documents/Development/monsternames-api$ curl -d "firstName=
 ```
 
 ## /api/v1.0/goblin
+### GET
+
+Returns a random name for a Goblin. Goblins have first names, last names and full names. See an example below:
+
+```bash
+benjamin@localhost:~/Documents/Development/monsternames-api$ curl -i http://127.0.0.1:5000/api/v1.0/goblin 
+HTTP/1.0 200 OK
+Content-Type: application/json
+Content-Length: 83
+Server: Werkzeug/0.16.1 Python/3.6.9
+Date: Wed, 05 Feb 2020 23:34:13 GMT
+
+{
+  "firstName": "steve", 
+  "fullName": "steve Stupid", 
+  "lastName": "Stupid"
+}
+```
+
+## /api/v1,0/goblin/firstName
+### POST
+
+Requires a ```x-www-form-urlencoded``` body with the following key value pair: ```firstName=NAME```
+
+Requires a valid x-api-key header. See 'Obtaining an API Key' section for info in how to get a key.
+
+Sending a post request will add another goblin first name value to the database. See below for an example:
+
+```bash
+benjamin@localhost:~/Documents/Development/monsternames-api$ curl -d "firstName=Davey" -X POST http://127.0.0.1:5000/api/v1.0/goblin/firstName -H "x-api-key:MU123"
+{
+  "firstName": "Davey", 
+  "message": "New record created"
+}
+```
+
+## /api/v1,0/goblin/lastName
+### POST
+
+Requires a ```x-www-form-urlencoded``` body with the following key value pair: ```lastName=NAME```
+
+Requires a valid x-api-key header. See 'Obtaining an API Key' section for info in how to get a key.
+
+Sending a post request will add another goblin last name value to the database. See below for an example:
+
+```bash
+benjamin@LON-BEN-01:~/Documents/Development/monsternames-api$ curl -d "lastName=Punchy" -X POST http://127.0.0.1:5000/api/v1.0/goblin/lastName -H "x-api-key:MU123"
+{
+  "lastName": "Punchy", 
+  "message": "New record created"
+}
+```
+
 
 ## /api/v1.0/ogre
 

@@ -14,61 +14,61 @@ db = MySQLDatabase(dbVars.dbName, host=dbVars.dbHost, port=3306, user=dbVars.dbU
 ##### LIST OF DATABASE MODELS #####
 
 class GoblinFirstName(peewee.Model):
-    data = peewee.CharField()
+    firstName = peewee.CharField()
 
     class Meta:
         database = db
 
 class GoblinLastName(peewee.Model):
-    data = peewee.CharField()
+    lastName = peewee.CharField()
 
     class Meta:
         database = db
 
 class GoatmenFirstName(peewee.Model):
-    data = peewee.CharField()
+    firstName = peewee.CharField()
 
     class Meta:
         database = db
 
 class OgreFirstName(peewee.Model):
-    data = peewee.CharField()
+    firstName = peewee.CharField()
 
     class Meta:
         database = db
 
 class OrcFirstName(peewee.Model):
-    data = peewee.CharField()
+    firstName = peewee.CharField()
 
     class Meta:
         database = db
 
 class OrcLastName(peewee.Model):
-    data = peewee.CharField()
+    lastName = peewee.CharField()
 
     class Meta:
         database = db
 
 class SkeletonFirstName(peewee.Model):
-    data = peewee.CharField()
+    firstName = peewee.CharField()
 
     class Meta:
         database = db
 
 class SkeletonLastName(peewee.Model):
-    data = peewee.CharField()
+    lastName = peewee.CharField()
 
     class Meta:
         database = db
 
 class TrollFirstName(peewee.Model):
-    data = peewee.CharField()
+    firstName = peewee.CharField()
 
     class Meta:
         database = db
 
 class TrollLastName(peewee.Model):
-    data = peewee.CharField()
+    lastName = peewee.CharField()
 
     class Meta:
         database = db
