@@ -117,17 +117,164 @@ def post_ogre_first_name():
         'errorMessage' : 'Unknown error occured'}), 400)
 
 
-@app.route('/api/v1.0/orc', methods=['GET', 'POST'])
+@app.route('/api/v1.0/orc', methods=['GET'])
 def get_orc():
-    return "Orc!"
+    return orc.return_name()
 
-@app.route('/api/v1.0/skeleton', methods=['GET', 'POST'])
+@app.route('/api/v1.0/orc/firstName', methods=['POST'])
+def post_orc_first_name():
+    try:
+        # First verify the API key and return the user
+        currentUser = users.verify_user(request.headers.get("x-api-key"))
+        # Create new record in DB
+        return orc.insert_first_name(str(request.form['firstName']).strip(),currentUser)
+    except KeyError as error:
+        # This catches if invalid keys were provided in request
+        return make_response(jsonify({'error' : 'Invalid key error.',
+        'errorMessage' : 'Ensure firstName key/value is in body'}), 400)
+    except ReferenceError:
+        # This catches if our verify_users function can't find the x-api-key in the DB
+        return make_response(jsonify({'error' : 'unauthorised.',
+        'errorMessage' : 'unknown x-api-key provided'}), 400)
+    except IndexError:
+        # This catches if no API key was provided in the first place
+        return make_response(jsonify({'error' : 'unauthorised.',
+        'errorMessage' : 'no x-api-key provided'}), 400)
+    except Exception as error:
+        # This catches any other unhandled exceptions
+        return make_response(jsonify({'error' : 'Unhandled error.',
+        'errorMessage' : 'Unknown error occured'}), 400)
+
+@app.route('/api/v1.0/orc/lastName', methods=['POST'])
+def post_orc_last_name():
+    try:
+        # First verify the API key and return the user
+        currentUser = users.verify_user(request.headers.get("x-api-key"))
+        # Create new record in DB
+        return orc.insert_last_name(str(request.form['lastName']).strip(),currentUser)
+    except KeyError as error:
+        # This catches if invalid keys were provided in request
+        return make_response(jsonify({'error' : 'Invalid key error.',
+        'errorMessage' : 'Ensure lastName key/value is in body'}), 400)
+    except ReferenceError:
+        # This catches if our verify_users function can't find the x-api-key in the DB
+        return make_response(jsonify({'error' : 'unauthorised.',
+        'errorMessage' : 'unknown x-api-key provided'}), 400)
+    except IndexError:
+        # This catches if no API key was provided in the first place
+        return make_response(jsonify({'error' : 'unauthorised.',
+        'errorMessage' : 'no x-api-key provided'}), 400)
+    except Exception as error:
+        # This catches any other unhandled exceptions
+        return make_response(jsonify({'error' : 'Unhandled error.',
+        'errorMessage' : 'Unknown error occured'}), 400)
+
+
+@app.route('/api/v1.0/skeleton', methods=['GET'])
 def get_skeleton():
-    return "Skeleton!"
+    return skeleton.return_name()
 
-@app.route('/api/v1.0/troll', methods=['GET', 'POST'])
+@app.route('/api/v1.0/skeleton/firstName', methods=['POST'])
+def post_skeleton_first_name():
+    try:
+        # First verify the API key and return the user
+        currentUser = users.verify_user(request.headers.get("x-api-key"))
+        # Create new record in DB
+        return skeleton.insert_first_name(str(request.form['firstName']).strip(),currentUser)
+    except KeyError as error:
+        # This catches if invalid keys were provided in request
+        return make_response(jsonify({'error' : 'Invalid key error.',
+        'errorMessage' : 'Ensure firstName key/value is in body'}), 400)
+    except ReferenceError:
+        # This catches if our verify_users function can't find the x-api-key in the DB
+        return make_response(jsonify({'error' : 'unauthorised.',
+        'errorMessage' : 'unknown x-api-key provided'}), 400)
+    except IndexError:
+        # This catches if no API key was provided in the first place
+        return make_response(jsonify({'error' : 'unauthorised.',
+        'errorMessage' : 'no x-api-key provided'}), 400)
+    except Exception as error:
+        # This catches any other unhandled exceptions
+        return make_response(jsonify({'error' : 'Unhandled error.',
+        'errorMessage' : 'Unknown error occured'}), 400)
+
+@app.route('/api/v1.0/skeleton/lastName', methods=['POST'])
+def post_skeleton_last_name():
+    try:
+        # First verify the API key and return the user
+        currentUser = users.verify_user(request.headers.get("x-api-key"))
+        # Create new record in DB
+        return skeleton.insert_last_name(str(request.form['lastName']).strip(),currentUser)
+    except KeyError as error:
+        # This catches if invalid keys were provided in request
+        return make_response(jsonify({'error' : 'Invalid key error.',
+        'errorMessage' : 'Ensure lastName key/value is in body'}), 400)
+    except ReferenceError:
+        # This catches if our verify_users function can't find the x-api-key in the DB
+        return make_response(jsonify({'error' : 'unauthorised.',
+        'errorMessage' : 'unknown x-api-key provided'}), 400)
+    except IndexError:
+        # This catches if no API key was provided in the first place
+        return make_response(jsonify({'error' : 'unauthorised.',
+        'errorMessage' : 'no x-api-key provided'}), 400)
+    except Exception as error:
+        # This catches any other unhandled exceptions
+        return make_response(jsonify({'error' : 'Unhandled error.',
+        'errorMessage' : 'Unknown error occured'}), 400)
+
+
+@app.route('/api/v1.0/troll', methods=['GET'])
 def get_troll():
-    return "Troll!"
+    return troll.return_name()
+
+@app.route('/api/v1.0/troll/firstName', methods=['POST'])
+def post_troll_first_name():
+    try:
+        # First verify the API key and return the user
+        currentUser = users.verify_user(request.headers.get("x-api-key"))
+        # Create new record in DB
+        return troll.insert_first_name(str(request.form['firstName']).strip(),currentUser)
+    except KeyError as error:
+        # This catches if invalid keys were provided in request
+        return make_response(jsonify({'error' : 'Invalid key error.',
+        'errorMessage' : 'Ensure firstName key/value is in body'}), 400)
+    except ReferenceError:
+        # This catches if our verify_users function can't find the x-api-key in the DB
+        return make_response(jsonify({'error' : 'unauthorised.',
+        'errorMessage' : 'unknown x-api-key provided'}), 400)
+    except IndexError:
+        # This catches if no API key was provided in the first place
+        return make_response(jsonify({'error' : 'unauthorised.',
+        'errorMessage' : 'no x-api-key provided'}), 400)
+    except Exception as error:
+        # This catches any other unhandled exceptions
+        return make_response(jsonify({'error' : 'Unhandled error.',
+        'errorMessage' : 'Unknown error occured'}), 400)
+
+@app.route('/api/v1.0/troll/lastName', methods=['POST'])
+def post_troll_last_name():
+    try:
+        # First verify the API key and return the user
+        currentUser = users.verify_user(request.headers.get("x-api-key"))
+        # Create new record in DB
+        return troll.insert_last_name(str(request.form['lastName']).strip(),currentUser)
+    except KeyError as error:
+        # This catches if invalid keys were provided in request
+        return make_response(jsonify({'error' : 'Invalid key error.',
+        'errorMessage' : 'Ensure lastName key/value is in body'}), 400)
+    except ReferenceError:
+        # This catches if our verify_users function can't find the x-api-key in the DB
+        return make_response(jsonify({'error' : 'unauthorised.',
+        'errorMessage' : 'unknown x-api-key provided'}), 400)
+    except IndexError:
+        # This catches if no API key was provided in the first place
+        return make_response(jsonify({'error' : 'unauthorised.',
+        'errorMessage' : 'no x-api-key provided'}), 400)
+    except Exception as error:
+        # This catches any other unhandled exceptions
+        return make_response(jsonify({'error' : 'Unhandled error.',
+        'errorMessage' : 'Unknown error occured'}), 400)
+
 
 @app.errorhandler(404)
 def not_found(error):

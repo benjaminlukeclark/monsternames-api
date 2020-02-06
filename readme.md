@@ -229,7 +229,6 @@ Date: Thu, 06 Feb 2020 00:22:40 GMT
 {
   "firstName": "Thunk"
 }
-
 ```
 
 ## /api/v1.0/ogre/firstName
@@ -247,13 +246,109 @@ benjamin@localhost:~/Documents/Development/monsternames-api$ curl -d "firstName=
   "firstName": "Thunk", 
   "message": "New record created"
 }
+```
+
+## /api/v1.0/orc
+### GET
+
+Returns a random name for a Orc. Orcs have first names, last names and full names. See an example below:
+
+```bash
+
+```
+
+## /api/v1.0/orc/firstName
+### POST
+
+Requires a ```x-www-form-urlencoded``` body with the following key value pair: ```firstName=NAME```
+
+Requires a valid x-api-key header. See 'Obtaining an API Key' section for info in how to get a key.
+
+Sending a post request will add another Orc first name value to the database. See below for an example:
+
+```bash
+
+```
+
+## /api/v1.0/orc/lastName
+### POST
+
+Requires a ```x-www-form-urlencoded``` body with the following key value pair: ```lastName=NAME```
+
+Requires a valid x-api-key header. See 'Obtaining an API Key' section for info in how to get a key.
+
+Sending a post request will add another Orc last name value to the database. See below for an example:
+
+```bash
 
 
 ```
 
-## /api/v1.0/orc
-
 ## /api/v1.0/skeleton
+### GET
+
+Returns a random name for a Skeleton. Skeletons have first names, last names and full names. See an example below:
+
+```bash
+
+```
+
+## /api/v1.0/skeleton/firstName
+### POST
+
+Requires a ```x-www-form-urlencoded``` body with the following key value pair: ```firstName=NAME```
+
+Requires a valid x-api-key header. See 'Obtaining an API Key' section for info in how to get a key.
+
+Sending a post request will add another Skeleton first name value to the database. See below for an example:
+
+```bash
+
+```
+
+## /api/v1.0/skeleton/lastName
+### POST
+
+Requires a ```x-www-form-urlencoded``` body with the following key value pair: ```lastName=NAME```
+
+Requires a valid x-api-key header. See 'Obtaining an API Key' section for info in how to get a key.
+
+Sending a post request will add another Skeleton last name value to the database. See below for an example:
+
+```bash
+```
 
 ## /api/v1.0/troll
+### GET
+
+Returns a random name for a Troll. Trolls have first names, last names and full names. See an example below:
+
+```bash
+
+```
+
+## /api/v1.0/troll/firstName
+### POST
+
+Requires a ```x-www-form-urlencoded``` body with the following key value pair: ```firstName=NAME```
+
+Requires a valid x-api-key header. See 'Obtaining an API Key' section for info in how to get a key.
+
+Sending a post request will add another Troll first name value to the database. See below for an example:
+
+```bash
+
+```
+
+## /api/v1.0/troll/lastName
+### POST
+
+Requires a ```x-www-form-urlencoded``` body with the following key value pair: ```lastName=NAME```
+
+Requires a valid x-api-key header. See 'Obtaining an API Key' section for info in how to get a key.
+
+Sending a post request will add another Troll last name value to the database. See below for an example:
+
+```bash
+```
 
