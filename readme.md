@@ -154,26 +154,25 @@ sudo nginx -s reload
 
 - Go to the site URL and confirm you get a bad gateway error
 
-- Install python3
+- Install virtualenv
 
 ```bash
-sudo apt install python3
+sudo apt-get install virtualenv
 ```
 
-- Install pip3
+- Create a new virtualenv inside default user directory - to ensure we have full access to do what we need - then activate it
 
 ```bash
-sudo apt install python3-pip
+sudo virtualenv /home/ubuntu/.env
+source /home/ubuntu/.env/bin/activate
 ```
 
-- Install requirements for pip
-
+- Install required packages
 ```bash
-cd monsternames_api/
-pip3 install -r requirements.txt
+pip install -r /home/monsternames_api/requirements.txt
 ```
 
-- Created config file
+- Create config file
 
 ```bash
 sudo nano /etc/config.json
@@ -187,17 +186,6 @@ sudo nano /etc/config.json
 }
 ```
 
-- Install gunicorn3
-
-```bash
-sudo apt install gunicorn3
-```
-
-- Run app in gunicorn3 and test
-
-```bash
-gunicorn3 --workers=3 application:application
-```
 
 - Install supervisor (for auto-reloading of the application)
 
@@ -210,9 +198,9 @@ sudo apt-get install supervisor
 ```bash
 sudo nano /etc/supervisor/conf.d/monsternames_api.conf
 
-[program:application]
+[program:monsternames_api]
 directory=/home/monsternames_api
-command=gunicorn3 --workers=3 application:application
+command=/home/ubuntu/.env/bin/gunicorn --workers=3 application:application
 autostart=true
 autorestart=true
 stopasgroup=true
@@ -237,8 +225,7 @@ sudo supervisorctl reload
 
 - You should now be able to access the app at the specified url
 
-
-
+If you have issue consult the logs you created. The most likely issue is that a package did not install or there are permission issues with the directory of the virtualenv.
 
 # Auditing
 
