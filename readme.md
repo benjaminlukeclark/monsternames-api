@@ -208,11 +208,11 @@ sudo apt-get install supervisor
 - Create supervisor script
 
 ```bash
-sudo nano /etc/supervisor/conf.d/application.conf
+sudo nano /etc/supervisor/conf.d/monsternames_api.conf
 
-[program:monsternames_api]
+[program:application]
 directory=/home/monsternames_api
-command=gunicorn3 --workers=3 flask_application:application
+command=gunicorn3 --workers=3 application:application
 autostart=true
 autorestart=true
 stopasgroup=true
