@@ -178,7 +178,7 @@ Date: Wed, 05 Feb 2020 23:34:13 GMT
 }
 ```
 
-## /api/v1,0/goblin/firstName
+## /api/v1.0/goblin/firstName
 ### POST
 
 Requires a ```x-www-form-urlencoded``` body with the following key value pair: ```firstName=NAME```
@@ -195,7 +195,7 @@ benjamin@localhost:~/Documents/Development/monsternames-api$ curl -d "firstName=
 }
 ```
 
-## /api/v1,0/goblin/lastName
+## /api/v1.0/goblin/lastName
 ### POST
 
 Requires a ```x-www-form-urlencoded``` body with the following key value pair: ```lastName=NAME```
@@ -205,7 +205,7 @@ Requires a valid x-api-key header. See 'Obtaining an API Key' section for info i
 Sending a post request will add another goblin last name value to the database. See below for an example:
 
 ```bash
-benjamin@LON-BEN-01:~/Documents/Development/monsternames-api$ curl -d "lastName=Punchy" -X POST http://127.0.0.1:5000/api/v1.0/goblin/lastName -H "x-api-key:MU123"
+benjamin@localhost:~/Documents/Development/monsternames-api$ curl -d "lastName=Punchy" -X POST http://127.0.0.1:5000/api/v1.0/goblin/lastName -H "x-api-key:MU123"
 {
   "lastName": "Punchy", 
   "message": "New record created"
