@@ -73,6 +73,116 @@ python app.py
 - When running a development version you can see errors etc in the terminal when you try to access endpoints
 
 
+# Suggested Production Deployment
+
+- Create AWS RDS Instance
+- Create AWS Ububtu 18.06 instance
+- SSH to instance
+- Change to home dir
+
+```bash
+cd /home
+```
+
+- Clone to Server
+
+```bash
+git clone https://github.com/Sudoblark/monsternames-api.git monsternames_api
+```
+
+- Update machine
+
+```bash
+sudo apt-get update
+```
+
+- Install nginx
+
+```bash
+sudo apt install nginx
+```
+
+- Configure nginx site for api
+
+```bash
+sudo nano /etc/nginx/sites-enabled/monsternames_api
+
+server {
+        listen 80;
+        server_name SERVERNAME
+
+        location / {
+                proxy_pass http://127.0.0.1:8000;
+                proxy_set_header Host $host;
+                proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+
+
+        }
+
+}
+```
+
+- Unlink default site
+
+```bash
+sudo unlink /etc/nginx/sites-enabled/default
+```
+
+- Reload nginx
+
+```bash
+sudo nginx -s reload
+```
+
+- Go to the site URL and confirm you get a bad gateway error
+
+- Install python3
+
+```bash
+Sudo apt install python3
+```
+
+- Install pip3
+
+```bash
+sudo apt install python3-pip
+```
+
+- Install requirements for pip
+
+```bash
+cd monsternames_api/
+pip3 install -r requirements.txt
+```
+
+- Created config file
+
+```bash
+sudo nano /etc/config.json
+
+{
+        "dbHost" : "YOUR-HOST",
+        "dbName" : "DB-NAME",
+        "dbPassword" : "PASSWORD",
+        "dbUser" : "USER"
+
+}
+```
+
+- Install gunicorn3
+
+```bash
+sudo apt install gunicorn3
+```
+
+- Run app in gunicorn3 and test
+
+```bash
+gunicorn3 --workers=3 application:application
+```
+
+
+
 
 # Auditing
 
@@ -83,7 +193,7 @@ mysql> select * from postaudit;
 +----+-----------+--------------------------------------------+
 | id | user      | message                                    |
 +----+-----------+--------------------------------------------+
-|  1 | Ben Clark | GoatmenFirstName record "SomeGuy2" created |
+|  1 | Ben Clark | GoatmenFirstName record "Fluffy" created   |
 +----+-----------+--------------------------------------------+
 1 row in set (0.05 sec)
 
