@@ -97,20 +97,45 @@ All post requests require an x-api-key header and relevent key/value pairs in th
 Failure to provide an x-api-key will result in an error similar to below:
 
 ```bash
-benjamin@localhost:~/Documents/Development/monsternames-api$ curl -d "firstName=SomeGuy" -X POST http://127.0.0.1:5000/api/v1.0/goatmen/firstName
 {
   "error": "unauthorised.", 
   "errorMessage": "no x-api-key provided"
 }
 ```
 
+Failure to provide a valid x-api-key will result in an error similar to below:
+
+```bash
+{
+  "error": "unauthorised.", 
+  "errorMessage": "unknown x-api-key provided"
+}
+```
+
 Failure to provide required key/value pairs in the body will result to an error similar to below:
 
 ```bash
-benjamin@localhost:~/Documents/Development/monsternames-api$ curl -X POST http://127.0.0.1:5000/api/v1.0/goatmen/firstName -H "x-api-key:MU123"
 {
   "error": "Invalid key error.", 
   "errorMessage": "Ensure firstName key/value is in body"
+}
+```
+
+Attempting to create an entry which already exists will return an error similar to below:
+
+```bash
+{
+  "error": "Duplicate record", 
+  "message": "Record already exists"
+}
+```
+
+Successful creation of a new record will result in a response similar to the below:
+
+```bash
+{
+  "lastName": "Kornertabel", 
+  "message": "New record created"
 }
 ```
 
