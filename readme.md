@@ -33,17 +33,13 @@ pip install -r monsternames-api/requirements.txt
 
 After following instructions in setup for local development...
 
-- Change vars in ```monsternames-api/database/dbVars.py``` to point to your DB...
+- Setup env vars for connection to DB:
 
 ```bash
-nano monsternames-api/database/dbVars.py
-
-
-dbHost = 'url of DB Server'
-dbName = 'name of database'
-dbUser = 'user'
-dbPassword = 'pwd'
-
+benjamin@localhost:~/Documents/Development/monsternames-api$ export dbHost='test-db-2.cflabebiquae.eu-west-2.rds.amazonaws.com'
+benjamin@localhost:~/Documents/Development/monsternames-api$ export dbName='dev'
+benjamin@localhost:~/Documents/Development/monsternames-api$ export dbUser='admin'
+benjamin@localhost:~/Documents/Development/monsternames-api$ export dbPwd='HelloWorld'
 ```
 
 - Run setup.py to create required tables in database

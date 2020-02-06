@@ -1,4 +1,5 @@
-dbHost = 'test-db-2.cflabebiquae.eu-west-2.rds.amazonaws.com'
-dbName = 'dev'
-dbUser = 'admin'
-dbPassword = 'HelloWorld'
+import os
+dbHost = os.getenv('dbHost')
+dbName = os.getenv('dbName')
+dbUser = os.getenv('dbUser')
+dbPassword = os.getenv('dbPwd')
