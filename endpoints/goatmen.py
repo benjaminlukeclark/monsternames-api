@@ -25,4 +25,4 @@ def insert_first_name(firstName, user):
     models.db.commit()
     models.db.close()
     # Return success
-    return make_response(jsonify({'name' : firstName, 'message' : 'New record created'}), 200)
+    return make_response(jsonify({'firstName' : firstName, 'message' : 'New record created'}), 200)

@@ -88,9 +88,34 @@ def post_goatmen_firstName():
         return make_response(jsonify({'error' : 'Unhandled error.',
         'errorMessage' : 'Unknown error occured'}), 400)
 
-@app.route('/api/v1.0/ogre', methods=['GET', 'POST'])
+@app.route('/api/v1.0/ogre', methods=['GET'])
 def get_ogre():
-    return "Ogre!"
+    return ogre.return_name()
+
+@app.route('/api/v1.0/ogre/firstName', methods=['POST'])
+def post_ogre_first_name():
+    try:
+        # First verify the API key and return the user
+        currentUser = users.verify_user(request.headers.get("x-api-key"))
+        # Create new record in DB
+        return ogre.insert_first_name(str(request.form['firstName']).strip(),currentUser)
+    except KeyError as error:
+        # This catches if invalid keys were provided in request
+        return make_response(jsonify({'error' : 'Invalid key error.',
+        'errorMessage' : 'Ensure firstName key/value is in body'}), 400)
+    except ReferenceError:
+        # This catches if our verify_users function can't find the x-api-key in the DB
+        return make_response(jsonify({'error' : 'unauthorised.',
+        'errorMessage' : 'unknown x-api-key provided'}), 400)
+    except IndexError:
+        # This catches if no API key was provided in the first place
+        return make_response(jsonify({'error' : 'unauthorised.',
+        'errorMessage' : 'no x-api-key provided'}), 400)
+    except Exception as error:
+        # This catches any other unhandled exceptions
+        return make_response(jsonify({'error' : 'Unhandled error.',
+        'errorMessage' : 'Unknown error occured'}), 400)
+
 
 @app.route('/api/v1.0/orc', methods=['GET', 'POST'])
 def get_orc():

@@ -153,7 +153,7 @@ Sending a post request will add another goatman first name value to the database
 benjamin@localhost:~/Documents/Development/monsternames-api$ curl -d "firstName=SomeGuy2" -X POST http://127.0.0.1:5000/api/v1.0/goatmen/firstName -H "x-api-key:MU123"
 {
   "message": "New record created", 
-  "name": "SomeGuy2"
+  "firstName": "SomeGuy2"
 }
 
 ```
@@ -214,6 +214,42 @@ benjamin@localhost:~/Documents/Development/monsternames-api$ curl -d "lastName=P
 
 
 ## /api/v1.0/ogre
+### GET
+
+Returns a random name for a Ogre. Ogre names just contain a first name. See below for an example:
+
+```bash
+benjamin@localhost:~/Documents/Development/monsternames-api$ curl -i http://127.0.0.1:5000/api/v1.0/ogre
+HTTP/1.0 200 OK
+Content-Type: application/json
+Content-Length: 27
+Server: Werkzeug/0.16.1 Python/3.6.9
+Date: Thu, 06 Feb 2020 00:22:40 GMT
+
+{
+  "firstName": "Thunk"
+}
+
+```
+
+## /api/v1.0/ogre/firstName
+### POST
+
+Requires a ```x-www-form-urlencoded``` body with the following key value pair: ```firstName=NAME```
+
+Requires a valid x-api-key header. See 'Obtaining an API Key' section for info in how to get a key.
+
+Sending a post request will add another ogre first name value to the database. See below for an example:
+
+```bash
+benjamin@localhost:~/Documents/Development/monsternames-api$ curl -d "firstName=Thunk" -X POST http://127.0.0.1:5000/api/v1.0/ogre/firstName -H "x-api-key:MU123"
+{
+  "firstName": "Thunk", 
+  "message": "New record created"
+}
+
+
+```
 
 ## /api/v1.0/orc
 
