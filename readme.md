@@ -140,15 +140,9 @@ done
 Returns a random name for a Goatman. Goatmen names just contain a first name. See below for an example:
 
 ```bash
-benjamin@localhost:~/Documents/Development/monsternames-api$ curl -i http://127.0.0.1:5000/api/v1.0/goatmen
-HTTP/1.0 200 OK
-Content-Type: application/json
-Content-Length: 21
-Server: Werkzeug/0.16.1 Python/3.6.9
-Date: Tue, 04 Feb 2020 23:38:33 GMT
-
+curl http://127.0.0.1:5000/api/v1.0/goatmen
 {
-  "firstName": "Dave"
+  "firstName": "Oreo"
 }
 ```
 
@@ -162,12 +156,7 @@ Requires a valid x-api-key header. See 'Obtaining an API Key' section for info i
 Sending a post request will add another goatman first name value to the database. See below for an example:
 
 ```bash
-benjamin@localhost:~/Documents/Development/monsternames-api$ curl -d "firstName=SomeGuy2" -X POST http://127.0.0.1:5000/api/v1.0/goatmen/firstName -H "x-api-key:MU123"
-{
-  "message": "New record created", 
-  "firstName": "SomeGuy2"
-}
-
+curl -d "firstName=$i" -X POST http://127.0.0.1:5000/api/v1.0/goatmen/firstName -H "x-api-key:MU123"
 ```
 
 ## /api/v1.0/goblin
@@ -176,17 +165,11 @@ benjamin@localhost:~/Documents/Development/monsternames-api$ curl -d "firstName=
 Returns a random name for a Goblin. Goblins have first names, last names and full names. See an example below:
 
 ```bash
-benjamin@localhost:~/Documents/Development/monsternames-api$ curl -i http://127.0.0.1:5000/api/v1.0/goblin 
-HTTP/1.0 200 OK
-Content-Type: application/json
-Content-Length: 83
-Server: Werkzeug/0.16.1 Python/3.6.9
-Date: Wed, 05 Feb 2020 23:34:13 GMT
-
+curl http://127.0.0.1:5000/api/v1.0/goblin
 {
-  "firstName": "steve", 
-  "fullName": "steve Stupid", 
-  "lastName": "Stupid"
+  "firstName": "Mick", 
+  "fullName": "Mick Dramatic", 
+  "lastName": "Dramatic"
 }
 ```
 
@@ -200,11 +183,7 @@ Requires a valid x-api-key header. See 'Obtaining an API Key' section for info i
 Sending a post request will add another goblin first name value to the database. See below for an example:
 
 ```bash
-benjamin@localhost:~/Documents/Development/monsternames-api$ curl -d "firstName=Davey" -X POST http://127.0.0.1:5000/api/v1.0/goblin/firstName -H "x-api-key:MU123"
-{
-  "firstName": "Davey", 
-  "message": "New record created"
-}
+curl -d "firstName=$i" -X POST http://127.0.0.1:5000/api/v1.0/goblin/firstName -H "x-api-key:MU123"
 ```
 
 ## /api/v1.0/goblin/lastName
@@ -217,11 +196,7 @@ Requires a valid x-api-key header. See 'Obtaining an API Key' section for info i
 Sending a post request will add another goblin last name value to the database. See below for an example:
 
 ```bash
-benjamin@localhost:~/Documents/Development/monsternames-api$ curl -d "lastName=Punchy" -X POST http://127.0.0.1:5000/api/v1.0/goblin/lastName -H "x-api-key:MU123"
-{
-  "lastName": "Punchy", 
-  "message": "New record created"
-}
+curl -d "lastName=$i" -X POST http://127.0.0.1:5000/api/v1.0/goblin/lastName -H "x-api-key:MU123"
 ```
 
 
@@ -231,15 +206,9 @@ benjamin@localhost:~/Documents/Development/monsternames-api$ curl -d "lastName=P
 Returns a random name for a Ogre. Ogre names just contain a first name. See below for an example:
 
 ```bash
-benjamin@localhost:~/Documents/Development/monsternames-api$ curl -i http://127.0.0.1:5000/api/v1.0/ogre
-HTTP/1.0 200 OK
-Content-Type: application/json
-Content-Length: 27
-Server: Werkzeug/0.16.1 Python/3.6.9
-Date: Thu, 06 Feb 2020 00:22:40 GMT
-
+curl http://127.0.0.1:5000/api/v1.0/ogre
 {
-  "firstName": "Thunk"
+  "firstName": "Gunk"
 }
 ```
 
@@ -253,11 +222,7 @@ Requires a valid x-api-key header. See 'Obtaining an API Key' section for info i
 Sending a post request will add another ogre first name value to the database. See below for an example:
 
 ```bash
-benjamin@localhost:~/Documents/Development/monsternames-api$ curl -d "firstName=Thunk" -X POST http://127.0.0.1:5000/api/v1.0/ogre/firstName -H "x-api-key:MU123"
-{
-  "firstName": "Thunk", 
-  "message": "New record created"
-}
+curl -d "firstName=$i" -X POST http://127.0.0.1:5000/api/v1.0/ogre/firstName -H "x-api-key:MU123"
 ```
 
 ## /api/v1.0/orc
@@ -266,7 +231,12 @@ benjamin@localhost:~/Documents/Development/monsternames-api$ curl -d "firstName=
 Returns a random name for a Orc. Orcs have first names, last names and full names. See an example below:
 
 ```bash
-
+curl http://127.0.0.1:5000/api/v1.0/orc
+{
+  "firstName": "Lemon", 
+  "fullName": "Lemon The double dipper", 
+  "lastName": "The double dipper"
+}
 ```
 
 ## /api/v1.0/orc/firstName
@@ -279,6 +249,7 @@ Requires a valid x-api-key header. See 'Obtaining an API Key' section for info i
 Sending a post request will add another Orc first name value to the database. See below for an example:
 
 ```bash
+curl -d "firstName=$i" -X POST http://127.0.0.1:5000/api/v1.0/orc/firstName -H "x-api-key:MU123"
 
 ```
 
@@ -292,8 +263,7 @@ Requires a valid x-api-key header. See 'Obtaining an API Key' section for info i
 Sending a post request will add another Orc last name value to the database. See below for an example:
 
 ```bash
-
-
+curl -d "lastName=$i" -X POST http://127.0.0.1:5000/api/v1.0/orc/lastName -H "x-api-key:MU123"
 ```
 
 ## /api/v1.0/skeleton
@@ -302,7 +272,12 @@ Sending a post request will add another Orc last name value to the database. See
 Returns a random name for a Skeleton. Skeletons have first names, last names and full names. See an example below:
 
 ```bash
-
+curl http://127.0.0.1:5000/api/v1.0/skeleton
+{
+  "firstName": "Cornelius", 
+  "fullName": "Cornelius Plantagenate", 
+  "lastName": "Plantagenate"
+}
 ```
 
 ## /api/v1.0/skeleton/firstName
@@ -315,6 +290,7 @@ Requires a valid x-api-key header. See 'Obtaining an API Key' section for info i
 Sending a post request will add another Skeleton first name value to the database. See below for an example:
 
 ```bash
+curl -d "firstName=$i" -X POST http://127.0.0.1:5000/api/v1.0/skeleton/firstName -H "x-api-key:MU123"
 
 ```
 
@@ -328,6 +304,7 @@ Requires a valid x-api-key header. See 'Obtaining an API Key' section for info i
 Sending a post request will add another Skeleton last name value to the database. See below for an example:
 
 ```bash
+curl -d "lastName=$i" -X POST http://127.0.0.1:5000/api/v1.0/skeleton/lastName -H "x-api-key:MU123"
 ```
 
 ## /api/v1.0/troll
@@ -336,7 +313,12 @@ Sending a post request will add another Skeleton last name value to the database
 Returns a random name for a Troll. Trolls have first names, last names and full names. See an example below:
 
 ```bash
-
+curl http://127.0.0.1:5000/api/v1.0/troll
+{
+  "firstName": "Bjon", 
+  "fullName": "Bjon Angledik", 
+  "lastName": "Angledik"
+}
 ```
 
 ## /api/v1.0/troll/firstName
@@ -349,6 +331,7 @@ Requires a valid x-api-key header. See 'Obtaining an API Key' section for info i
 Sending a post request will add another Troll first name value to the database. See below for an example:
 
 ```bash
+curl -d "firstName=$i" -X POST http://127.0.0.1:5000/api/v1.0/troll/firstName -H "x-api-key:MU123"
 
 ```
 
@@ -362,5 +345,6 @@ Requires a valid x-api-key header. See 'Obtaining an API Key' section for info i
 Sending a post request will add another Troll last name value to the database. See below for an example:
 
 ```bash
+curl -d "lastName=$i" -X POST http://127.0.0.1:5000/api/v1.0/troll/lastName -H "x-api-key:MU123"
 ```
 
