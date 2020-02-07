@@ -338,6 +338,9 @@ curl http://127.0.0.1:5000/api/v1.0/goatmen
 ```
 
 ## /api/v1.0/goatmen/firstName
+### Naming theme
+Goatmen first names should fit in the theme of 'cute pet names'
+
 ### POST
 
 Requires a ```x-www-form-urlencoded``` body with the following key value pair: ```firstName=NAME```
@@ -365,6 +368,9 @@ curl http://127.0.0.1:5000/api/v1.0/goblin
 ```
 
 ## /api/v1.0/goblin/firstName
+### Naming theme
+Goblin last names should fit in the theme of 'typical bloke names'
+
 ### POST
 
 Requires a ```x-www-form-urlencoded``` body with the following key value pair: ```firstName=NAME```
@@ -378,6 +384,9 @@ curl -d "firstName=$i" -X POST http://127.0.0.1:5000/api/v1.0/goblin/firstName -
 ```
 
 ## /api/v1.0/goblin/lastName
+### Naming theme
+Goblin last names should fit in the theme of 'typical bloke names'
+
 ### POST
 
 Requires a ```x-www-form-urlencoded``` body with the following key value pair: ```lastName=NAME```
@@ -404,6 +413,9 @@ curl http://127.0.0.1:5000/api/v1.0/ogre
 ```
 
 ## /api/v1.0/ogre/firstName
+### Naming theme
+Ogre first names should fit in the theme of 'dumb sounding cavemen'
+
 ### POST
 
 Requires a ```x-www-form-urlencoded``` body with the following key value pair: ```firstName=NAME```
@@ -431,6 +443,9 @@ curl http://127.0.0.1:5000/api/v1.0/orc
 ```
 
 ## /api/v1.0/orc/firstName
+### Naming theme
+Orc first names should fit in the theme of 'random nouns'
+
 ### POST
 
 Requires a ```x-www-form-urlencoded``` body with the following key value pair: ```firstName=NAME```
@@ -445,6 +460,9 @@ curl -d "firstName=$i" -X POST http://127.0.0.1:5000/api/v1.0/orc/firstName -H "
 ```
 
 ## /api/v1.0/orc/lastName
+### Naming theme
+Orc last names should fit in the theme of 'negative adjectives'
+
 ### POST
 
 Requires a ```x-www-form-urlencoded``` body with the following key value pair: ```lastName=NAME```
@@ -472,6 +490,9 @@ curl http://127.0.0.1:5000/api/v1.0/skeleton
 ```
 
 ## /api/v1.0/skeleton/firstName
+### Naming theme
+Skeleton first names should fit in the theme of 'classy'
+
 ### POST
 
 Requires a ```x-www-form-urlencoded``` body with the following key value pair: ```firstName=NAME```
@@ -486,6 +507,9 @@ curl -d "firstName=$i" -X POST http://127.0.0.1:5000/api/v1.0/skeleton/firstName
 ```
 
 ## /api/v1.0/skeleton/lastName
+### Naming theme
+Skeleton last names should fit in the theme of 'classy'
+
 ### POST
 
 Requires a ```x-www-form-urlencoded``` body with the following key value pair: ```lastName=NAME```
@@ -513,6 +537,9 @@ curl http://127.0.0.1:5000/api/v1.0/troll
 ```
 
 ## /api/v1.0/troll/firstName
+### Naming theme
+Troll first names should fit in the theme of 'sounds vaguely Scandinavian'
+
 ### POST
 
 Requires a ```x-www-form-urlencoded``` body with the following key value pair: ```firstName=NAME```
@@ -527,6 +554,9 @@ curl -d "firstName=$i" -X POST http://127.0.0.1:5000/api/v1.0/troll/firstName -H
 ```
 
 ## /api/v1.0/troll/lastName
+### Naming theme
+Troll last names should fit in the theme of 'sounds vaguely Scandinavian'
+
 ### POST
 
 Requires a ```x-www-form-urlencoded``` body with the following key value pair: ```lastName=NAME```
