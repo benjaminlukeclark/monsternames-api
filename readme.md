@@ -15,6 +15,8 @@ It originally arose from my attempt at creating a python text based game: https:
 
 If you're just interested in the endpoints, go to the endpoints section. Otherwise the rest of the repo details technical things like how to contribute to the Project or how to setup a local version of it for yourself.
 
+If you want to contribute to the database of potential names please contact me directly @ bclark@sudoblark.com and I'll set you up with an API key :unicorn:
+
 
 # Usage notes
 
