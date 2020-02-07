@@ -5,10 +5,11 @@
     <!-- load bootstrap-->
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-    <!-- Latest compiled JavaScript -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <!-- Our CSS -->
     <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/home.css') }}">
+    <!-- Our JS -->
+    <script type="text/javascript"
+    src="{{ url_for('static', filename='js/home.js') }}"></script>
   </head>
   <body>
     <nav class="navbar navbar-dark bg-primary"> </nav>
@@ -29,12 +30,12 @@
       <h3> Open source monster name generation for all your creative needs.</h3>
       <p class="pt-1">Check out the <a href= "{{ url_for('endpoints') }}" >endpoints</a> available for name generation or try it out yourself below.</p>
       <!-- Example interaction with endpoints -->
-      <form class="form-inline" action="/action_page.php">
+      <form class="form-inline">
         <div class="form-group">
           <label for="endpoint"></label>
           <pre id="endpoint">http://monsternames-api.com/api/v1.0/orc</pre>
         </div>
-        <button type="submit" class="btn btn-default">GET!</button>
+        <button type="button" class="btn btn-default" onclick="apiGet()">GET!</button>
       </form> 
       <!-- Display results of interaction with endpoint -->
       <div>
