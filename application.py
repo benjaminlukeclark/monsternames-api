@@ -21,6 +21,16 @@ application = Flask(__name__)
 def home():
     return render_template('home.html')
 
+@application.route('/contribute')
+def contribute():
+    return render_template('contribute.html')
+
+
+@application.route('/endpoints')
+def endpoints():
+    return render_template('endpoints.html')
+
+
 
 
 
