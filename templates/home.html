@@ -23,40 +23,32 @@
         <li><a href="{{ url_for('contribute') }}" >Contribute</a></li>
     </ul>
     </div>
+    <!-- Main body for content -->
     <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-      <!-- Main body for content -->
-    <h3> Open source monster name generation for all your creative needs.</h3>
-      <br>
-    <p>Check out the <a href= "{{ url_for('endpoints') }}" >endpoints</a> available for name generation or try it out yourself below.</p>
-
-  <!-- Example endpoint -->
-      <!-- TO DO: select when each GET endpoint along with get button and example json -->
- <form class="form-inline" action="/action_page.php">
-  <div class="form-group">
-    <label for="endpoint"></label>
-    <pre id="endpoint">http://monsternames-api.com/api/v1.0/orc</pre>
-  </div>
-  <button type="submit" class="btn btn-default">GET!</button>
-</form> 
-
-  <!-- Result -->
-<div>
-  <pre>
-    {
-      "firstName": "Pot",
-      "fullName": "Pot The ugly",
-      "lastName": "The ugly"
-    }
-  </pre>
-</div>
-
+      <!-- Header and first para -->
+      <h3> Open source monster name generation for all your creative needs.</h3>
+      <p class="pt-1">Check out the <a href= "{{ url_for('endpoints') }}" >endpoints</a> available for name generation or try it out yourself below.</p>
+      <!-- Example interaction with endpoints -->
+      <form class="form-inline" action="/action_page.php">
+        <div class="form-group">
+          <label for="endpoint"></label>
+          <pre id="endpoint">http://monsternames-api.com/api/v1.0/orc</pre>
+        </div>
+        <button type="submit" class="btn btn-default">GET!</button>
+      </form> 
+      <!-- Display results of interaction with endpoint -->
+      <div>
+        <pre style="max-width: 50%;">
+        {
+          "firstName": "Pot",
+          "fullName": "Pot The ugly",
+          "lastName": "The ugly"
+        }
+        </pre>
+      </div>
     <p>Have a funny name stuck in your head, an idea for a naming schema or figured some more endpoints would be cool? Have a gander at how to <a href="{{ url_for('contribute') }}" >contribute</a>.</p>
-
-    </div>
-    </div>
-    </div>
-
-
-
-  </body>
+  </div>
+</div>
+</div>
+</body>
 </html>
