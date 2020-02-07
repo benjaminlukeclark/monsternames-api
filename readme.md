@@ -127,7 +127,7 @@ sudo nano /etc/nginx/sites-enabled/monsternames_api
 
 server {
         listen 80;
-        server_name SERVERNAME
+        server_name SERVERNAME;
 
         location / {
                 proxy_pass http://127.0.0.1:8000;
@@ -160,6 +160,12 @@ sudo nginx -s reload
 sudo apt-get install virtualenv
 ```
 
+Note: If you get issues about the python path not existing then run 
+
+```bash
+sudo apt-get install python
+```
+
 - Create a new virtualenv inside default user directory - to ensure we have full access to do what we need - then activate it
 
 ```bash
@@ -170,6 +176,11 @@ source /home/ubuntu/.env/bin/activate
 - Install required packages
 ```bash
 pip install -r /home/monsternames_api/requirements.txt
+```
+
+Note: If you get issues about permission denied when installing packages then recursively give yourself all the permissions 
+```bash 
+sudo chmod a+rwx -R /home/ubuntu/.env
 ```
 
 - Create config file
