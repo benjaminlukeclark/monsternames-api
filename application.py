@@ -1,11 +1,39 @@
 #!flask/bin/python
-from flask import Flask, make_response, jsonify, request
+from flask import Flask, make_response, jsonify, request, render_template
 from endpoints import goatmen, goblin, ogre, orc, skeleton, troll, users
 from database import models
 
 application = Flask(__name__)
 
 
+
+#################################################
+#                                               #
+#                                               #
+#                   Website                     #
+#                                               #
+#                                               #
+#                                               #
+#################################################
+
+# Home page of the website
+@application.route('/')
+def home():
+    return render_template('home.html')
+
+
+
+
+
+
+#################################################
+#                                               #
+#                                               #
+#                   API                         #
+#                                               #
+#                                               #
+#                                               #
+#################################################
 
 @application.route('/api/v1.0/goblin', methods=['GET'])
 def get_goblin():
