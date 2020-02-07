@@ -11,11 +11,12 @@
     <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/home.css') }}">
   </head>
   <body>
-    <nav> nav stuff </nav>
+    <nav class="navbar navbar-dark bg-primary"> </nav>
     <div class="container-fluid">
     <div class="row">
     <div class="col-sm-3 col-md-2 sidebar">
     <ul class="nav nav-sidebar">
+        <li><p>monsternames-api</p></li>
         <li class="active"><a href= "{{ url_for('home') }}" >Home</a></li>
         <li><a href="https://github.com/Sudoblark/monsternames-api">Git Repo</a></li>
         <li><a href= "{{ url_for('endpoints') }}" >Endpoints</a></li>
@@ -23,9 +24,8 @@
     </ul>
     </div>
     <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-    <h1 class="page-header">monsternames-api</h1>
-    main content stuff
-    
+      <!-- Main body for content -->
+
     </div>
     </div>
     </div>
