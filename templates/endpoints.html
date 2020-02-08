@@ -9,6 +9,8 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <!-- Our CSS -->
     <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/home.css') }}">
+    <!-- Title for the webpage -->
+    <title>Endpoints</title>
   </head>
   <body>
     <nav class="navbar navbar-dark bg-primary"> </nav>
@@ -25,6 +27,109 @@
     </div>
     <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
       <!-- Main body for content -->
+      <div>
+        <h3>How to get silly names</h3>
+        <p>Let see how we can get silly names out of this API. How a look at how to <a href="{{ url_for('contribute') }}" >contribute</a>. if you're thinking of adding to the database.</p>
+      </div>
+
+      <div>
+          <p>
+            You can query this API like any other RESTAPI on the interwebs.
+        
+            If you're not looking to query the RESTAPI in a program then simply browsing to the available endpoints is enough to get names. 
+          
+            However, if you do intend on using this in any sort of programming project then I've included a few examples below to help you get started.
+          </p>
+
+          <!-- JavaScript example -->
+          <h4>JavaScript</h4>
+          <pre lang="js">
+            function apiGet() {
+              // set the url for the api call
+              let url = http://monsternames-api.com/api/v1.0/goatmen
+              fetch(url)
+              .then((resp) => resp.json()) // Transform the data into json
+              .then(function(data) {
+                return errorJson
+                })
+              .catch(function(err) {
+                let errorDict = {"error" : err.toString()}
+                let errorJson = JSON.stringify(errorDict)
+                return errorJson
+              })
+            } 
+          </pre>
+
+          <!-- Python example -->
+          <h4>Python</h4>
+          <pre lang="python">
+            hiss
+          </pre>
+
+          <!-- C# example -->
+          <h4>C#</h4>
+          <pre lang="c-sharp">
+              c-sharp   
+          </pre>
+
+          <!-- Bash example -->
+          <h4>Bash#</h4>
+          <pre lang="bash">
+                bash                                 
+          </pre>
+      </div>
+
+      <div>
+        <h3>The lowdown on endpoints</h3>
+        <p>
+          <h4>Formatting</h4>
+          All GET endpoints return JSON. A successful GET request returns one of two json models...
+
+          - If the endpoint returns a first and last name:
+          <pre lang="json">
+            {
+              "firstName": "Mick", 
+              "fullName": "Mick Dramatic", 
+              "lastName": "Dramatic"
+            }
+          </pre>
+          - If the endpoint returns just a first name:
+          <pre lang="json">
+            {
+              "firstName": "Oreo"
+            }
+          </pre>
+          <h4>Error handling</h4>
+          <p>
+            If you query an unregistered endpoint then the following JSON is returned:
+
+            <pre lang="json">
+              {
+                "error":"Path not found, consult repo for valid endpoints",
+                "repo":"https://github.com/Sudoblark/monsternames-api"
+              }
+            </pre>
+
+            Whilst if there's any errors in the server's handling of the request then the following JSON is returned:
+
+            <pre lang="json">
+              {
+                "error" : "Unhandled error.",
+                "errorMessage" : "Unknown error occured"
+              }
+            </pre>
+
+            If this happens please log an issue against the <a href="https://github.com/Sudoblark/monsternames-api">repo</a>, along with steps on how to reproduce your the error and when you attempted the query.
+
+          </p>
+          <h3>Available endpoints</h3>
+          <table id="endpointTable">
+          </table>
+
+
+          </types>
+        </p>
+      </div>
 
     </div>
     </div>
