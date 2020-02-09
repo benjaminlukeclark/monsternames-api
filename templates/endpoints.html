@@ -9,6 +9,9 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <!-- Our CSS -->
     <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/home.css') }}">
+      <!-- Our JS -->
+      <script type="text/javascript"
+      src="{{ url_for('static', filename='js/endpoints.js') }}"></script>
     <!-- Title for the webpage -->
     <title>Endpoints</title>
   </head>
@@ -43,7 +46,8 @@
 
           <!-- JavaScript example -->
           <h4>JavaScript</h4>
-          <pre lang="js">
+          <pre class=".pre-scrollable">
+            <code>
             function apiGet() {
               // set the url for the api call
               let url = http://monsternames-api.com/api/v1.0/goatmen
@@ -58,24 +62,26 @@
                 return errorJson
               })
             } 
+            </code>
           </pre>
 
           <!-- Python example -->
           <h4>Python</h4>
-          <pre lang="python">
-            hiss
-          </pre>
-
-          <!-- C# example -->
-          <h4>C#</h4>
-          <pre lang="c-sharp">
-              c-sharp   
+          <pre class=".pre-scrollable">
+            <code>
+            import urllib.request, json
+            with urllib.request.urlopen('http://monsternames-api.com/api/v1.0/orc') as response:
+               responseText = response.read()
+               print(json.loads(responseText))
+            </code>
           </pre>
 
           <!-- Bash example -->
-          <h4>Bash#</h4>
-          <pre lang="bash">
-                bash                                 
+          <h4>Bash</h4>
+          <pre class=".pre-scrollable">
+            <code>
+              curl  http://monsternames-api.com/api/v1.0/orc
+            </code>                               
           </pre>
       </div>
 
@@ -125,7 +131,11 @@
           <h3>Available endpoints</h3>
           <table id="endpointTable">
           </table>
-
+            <tr>
+              <head>Endpoint</head>
+              <head>First name</head>
+              <head>Last name</head>
+            </tr>
 
           </types>
         </p>
