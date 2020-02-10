@@ -314,6 +314,18 @@ def post_troll_last_name():
         'errorMessage' : 'Unknown error occured'}), 400)
 
 
+# Add cors header to all responses
+def add_cors_headers(response):
+    response.headers['Access-Control-Allow-Origin'] = '*'
+    if request.method == 'OPTIONS':
+        response.headers['Access-Control-Allow-Methods'] = 'DELETE, GET, POST, PUT'
+        headers = request.headers.get('Access-Control-Request-Headers')
+        if headers:
+            response.headers['Access-Control-Allow-Headers'] = headers
+    return response
+@application.after_request(add_cors_headers)
+
+
 @application.errorhandler(404)
 def not_found(error):
     return make_response(jsonify({'error': 'Path not found, consult repo for valid endpoints',
