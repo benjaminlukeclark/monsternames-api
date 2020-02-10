@@ -5,10 +5,6 @@
     <!-- load bootstrap-->
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-    <!-- Latest compiled JavaScript -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-    <!-- Our CSS -->
-    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/home.css') }}">
       <!-- Our JS -->
       <script type="text/javascript"
       src="{{ url_for('static', filename='js/endpoints.js') }}"></script>
@@ -16,7 +12,6 @@
     <title>Endpoints</title>
   </head>
   <body>
-    <nav class="navbar navbar-dark bg-primary"> </nav>
     <div class="container-fluid">
     <div class="row">
     <div class="col-sm-3 col-md-2 sidebar">
@@ -28,117 +23,119 @@
         <li><a href="{{ url_for('contribute') }}" >Contribute</a></li>
     </ul>
     </div>
-    <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+    <div class="col-sm-9 col-md-10 main">
       <!-- Main body for content -->
       <div>
-        <h3>How to get silly names</h3>
-        <p>Let see how we can get silly names out of this API. How a look at how to <a href="{{ url_for('contribute') }}" >contribute</a>. if you're thinking of adding to the database.</p>
+        <h3>But how do i get these silly names?</h3>
+        <p>Let see how we can get silly names out of this API. How a look at how to <a href="{{ url_for('contribute') }}" >contribute</a> if you're thinking of adding to the database.</p>
       </div>
 
       <div>
-          <p>
-            You can query this API like any other RESTAPI on the interwebs.
-        
-            If you're not looking to query the RESTAPI in a program then simply browsing to the available endpoints is enough to get names. 
-          
-            However, if you do intend on using this in any sort of programming project then I've included a few examples below to help you get started.
-          </p>
-
-          <!-- JavaScript example -->
-          <h4>JavaScript</h4>
-          <pre class=".pre-scrollable">
-            <code>
-            function apiGet() {
-              // set the url for the api call
-              let url = http://monsternames-api.com/api/v1.0/goatmen
-              fetch(url)
-              .then((resp) => resp.json()) // Transform the data into json
-              .then(function(data) {
-                return errorJson
-                })
-              .catch(function(err) {
-                let errorDict = {"error" : err.toString()}
-                let errorJson = JSON.stringify(errorDict)
-                return errorJson
-              })
-            } 
-            </code>
-          </pre>
-
-          <!-- Python example -->
-          <h4>Python</h4>
-          <pre class=".pre-scrollable">
-            <code>
-            import urllib.request, json
-            with urllib.request.urlopen('http://monsternames-api.com/api/v1.0/orc') as response:
-               responseText = response.read()
-               print(json.loads(responseText))
-            </code>
-          </pre>
-
-          <!-- Bash example -->
-          <h4>Bash</h4>
-          <pre class=".pre-scrollable">
-            <code>
-              curl  http://monsternames-api.com/api/v1.0/orc
-            </code>                               
-          </pre>
-      </div>
-
-      <div>
-        <h3>The lowdown on endpoints</h3>
         <p>
-          <h4>Formatting</h4>
-          All GET endpoints return JSON. A successful GET request returns one of two json models...
+          You can query this API like any other RESTAPI on the interwebs.
+      
+          If you're not looking to query the RESTAPI in a program then simply browsing to the available endpoint is enough to get a name. 
+        
+          However, if you do intend on using this in any sort of programming project then I've included a few examples at the bottom of the page to help you get started.
+        </p>
+      </div>
 
-          - If the endpoint returns a first and last name:
-          <pre lang="json">
-            {
-              "firstName": "Mick", 
-              "fullName": "Mick Dramatic", 
-              "lastName": "Dramatic"
-            }
-          </pre>
-          - If the endpoint returns just a first name:
-          <pre lang="json">
-            {
-              "firstName": "Oreo"
-            }
-          </pre>
-          <h4>Error handling</h4>
+      <br><br><h3>Available endpoints</h3>
+      <table class="table"> 
+        <thead>
+          <tr>
+            <th scope="col">Endpoint</th>
+            <th scope="col">First Name</th>
+            <th scope="col">Last Name</th>
+          </tr>
+          <tbody id="endpointTBody">
+
+          </tbody>
+        </thead>
+      </table>      
+
+
+      <div>
+        <p>
+          <br><br><h4>Formatting</h4>
+          All GET endpoints return JSON. A successful GET request returns one of two JSON models...
+          <br><br>- If the endpoint returns a first and last name:<br><br>
+          <pre class=".pre-scrollable" style="max-width: 60%;">
+{
+  "firstName": "Mick", 
+  "fullName": "Mick Dramatic", 
+  "lastName": "Dramatic"
+}</pre>
+          <br><br>- If the endpoint returns just a first name:<br><br>
+          <pre class=".pre-scrollable" style="max-width: 60%;">
+{
+  "firstName": "Oreo"
+}</pre>
+          <br><br><h4>Error handling</h4>
           <p>
             If you query an unregistered endpoint then the following JSON is returned:
 
-            <pre lang="json">
-              {
-                "error":"Path not found, consult repo for valid endpoints",
-                "repo":"https://github.com/Sudoblark/monsternames-api"
-              }
-            </pre>
+            <pre class=".pre-scrollable" style="max-width: 60%;">
+{
+  "error":"Path not found, consult repo for valid endpoints",
+  "repo":"https://github.com/Sudoblark/monsternames-api"
+}</pre>
 
-            Whilst if there's any errors in the server's handling of the request then the following JSON is returned:
+            Whilst if there any errors in the server's handling of the request then the following JSON is returned:
 
-            <pre lang="json">
-              {
-                "error" : "Unhandled error.",
-                "errorMessage" : "Unknown error occured"
-              }
-            </pre>
+            <pre class=".pre-scrollable" style="max-width: 60%;">
+{
+  "error" : "Unhandled error.",
+  "errorMessage" : "Unknown error occured"
+}</pre>
 
             If this happens please log an issue against the <a href="https://github.com/Sudoblark/monsternames-api">repo</a>, along with steps on how to reproduce your the error and when you attempted the query.
 
           </p>
-          <h3>Available endpoints</h3>
-          <table id="endpointTable">
-          </table>
-            <tr>
-              <head>Endpoint</head>
-              <head>First name</head>
-              <head>Last name</head>
-            </tr>
-
-          </types>
         </p>
+      </div>
+
+
+      <div>
+        <br><br><h3>Programming Examples</h3>
+          <!-- JavaScript example -->
+          <h4>JavaScript</h4>
+          <p>Note: This is how I've actually programmed the GET button on the home page</p><br>
+          <pre class=".pre-scrollable" style="max-width: 60%;"><code>// function called on home page to get example restapi output
+function apiGet() {
+    // get url from page
+    let url = document.getElementById('endpoint').innerHTML
+    console.log(url)
+    fetch(url)
+    .then((resp) => resp.json()) // Transform the data into json
+    .then(function(data) {
+      let dataJson = JSON.stringify(data, null, 4)
+      document.getElementById("apiGETResult").innerHTML = dataJson
+      })
+    .catch(function(err) {
+      let errorDict = {"error" : "Unable to query API", "errorDetails" : {} }
+      errorDict["errorDetails"] = {
+        "exception" : err.name,
+        "message" : err.message
+      }
+      console.log(errorDict)
+      let errorJson = JSON.stringify(errorDict, null, 4)
+      document.getElementById("apiGETResult").innerHTML = errorJson
+    })
+
+    return false // done to prevent reload of page
+}</code></pre>
+
+          <!-- Python example -->
+          <br><br><h4>Python</h4><br>
+          <pre class=".pre-scrollable" style="max-width: 60%;"><code>import urllib.request, json
+with urllib.request.urlopen('http://monsternames-api.com/api/v1.0/orc') as response:
+  responseText = response.read()
+  print(json.loads(responseText))</code></pre>
+
+          <!-- Bash example -->
+          <br><br><h4>Bash</h4><br>
+          <pre class=".pre-scrollable" style="max-width: 60%;"><code>curl  http://monsternames-api.com/api/v1.0/orc</code></pre>
       </div>
 
     </div>
