@@ -12,7 +12,10 @@
 
     <!-- Sidebar -->
     <div style="position: fixed; top: 0; width: 20%;">
-      <ul class="nav nav-sidebar" >
+      <div>
+        <h5 class="font-weight-bold text-center">monsternames-api</h5>
+      </div>
+      <ul class="nav nav-sidebar">
           <li class="active"><a href= "{{ url_for('home') }}" >Home</a></li>
           <li><a href="https://github.com/Sudoblark/monsternames-api">Git Repo</a></li>
           <li><a href= "{{ url_for('endpoints') }}" >Endpoints</a></li>
@@ -92,46 +95,59 @@
           <p>All post requests require an x-api-key header and relevent key/value pairs in the body</p>
           <p>Failure to provide an x-api-key will result in an error similar to below:</p>
 
-  <pre class=".pre-scrollable" style="max-width: 60%;">{
+  <pre class=".pre-scrollable" style="max-width: 80%;">{
     "error": "unauthorised.", 
     "errorMessage": "no x-api-key provided"
   }</pre>
 
   <p>Failure to provide a valid x-api-key will result in an error similar to below:</p>
 
-  <pre class=".pre-scrollable" style="max-width: 60%;">{
+  <pre class=".pre-scrollable" style="max-width: 80%;">{
     "error": "unauthorised.", 
     "errorMessage": "unknown x-api-key provided"
   }</pre>
 
   <p>Failure to provide required key/value pairs in the body will result to an error similar to below:</p>
 
-  <pre class=".pre-scrollable" style="max-width: 60%;">{
+  <pre class=".pre-scrollable" style="max-width: 80%;">{
     "error": "Invalid key error.", 
     "errorMessage": "Ensure firstName key/value is in body"
   }</pre>
 
   <p>Attempting to create an entry which already exists will return an error similar to below:</p>
 
-  <pre class=".pre-scrollable" style="max-width: 60%;">{
+  <pre class=".pre-scrollable" style="max-width: 80%;">{
     "error": "Duplicate record", 
     "message": "Record already exists"
   }</pre>
 
   <p>Successful creation of a new record will result in a response similar to the below:</p>
 
-  <pre class=".pre-scrollable" style="max-width: 60%;">
+  <pre class=".pre-scrollable" style="max-width: 80%;">
   {
     "lastName": "Kornertabel", 
     "message": "New record created"
   }
   </pre>
+  <p>All POST requests are audited in the postaudit table. The purpose of this information is just so I can track how many awesome things have been contributed, and by who, so i can give shoutouts and make pretty graphs.</p>
+
+<pre><code>
+mysql> select * from postaudit;
++----+-----------+--------------------------------------------+
+| id | user      | message                                    |
++----+-----------+--------------------------------------------+
+|  1 | Ben Clark | GoatmenFirstName record "Fluffy" created   |
++----+-----------+--------------------------------------------+
+1 row in set (0.05 sec)
+
+mysql> 
+</code></pre>
         </div>
 
         <div>
           <br><h4>Examples</h4>
           <p>Mass upload using bash</p>
-  <pre class=".pre-scrollable" style="max-width: 60%;">## declare an array variable
+  <pre class=".pre-scrollable" style="max-width: 80%;">## declare an array variable
   declare -a goatmenarr=("Squiggles" "Fluffy" "Sparkles" "Rover" "Skip" "Dots" "Mittens" "Trixie" "Bubbles" "Giggles" "Floof" "Peaches" "Oreo" "Pebbles" "Polly" "Precious")
 
   ## now loop through the above array

@@ -14,14 +14,17 @@
   <body>
 
     <!-- Sidebar -->
-  <div style="position: fixed; top: 0; width: 20%;">
-    <ul class="nav nav-sidebar" >
-        <li class="active"><a href= "{{ url_for('home') }}" >Home</a></li>
-        <li><a href="https://github.com/Sudoblark/monsternames-api">Git Repo</a></li>
-        <li><a href= "{{ url_for('endpoints') }}" >Endpoints</a></li>
-        <li><a href="{{ url_for('contribute') }}" >Contribute</a></li>
-    </ul>
-  </div>
+    <div style="position: fixed; top: 0; width: 20%;">
+      <div>
+        <h5 class="font-weight-bold text-center">monsternames-api</h5>
+      </div>
+      <ul class="nav nav-sidebar">
+          <li class="active"><a href= "{{ url_for('home') }}" >Home</a></li>
+          <li><a href="https://github.com/Sudoblark/monsternames-api">Git Repo</a></li>
+          <li><a href= "{{ url_for('endpoints') }}" >Endpoints</a></li>
+          <li><a href="{{ url_for('contribute') }}" >Contribute</a></li>
+      </ul>
+    </div>
 
     <!-- Main body -->
     <div class="container-fluid" style="margin-left: 25%;">
