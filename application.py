@@ -1,11 +1,49 @@
 #!flask/bin/python
-from flask import Flask, make_response, jsonify, request
+from flask import Flask, make_response, jsonify, request, render_template
 from endpoints import goatmen, goblin, ogre, orc, skeleton, troll, users
 from database import models
 
 application = Flask(__name__)
 
 
+
+#################################################
+#                                               #
+#                                               #
+#                   Website                     #
+#                                               #
+#                                               #
+#                                               #
+#################################################
+
+# Home page of the website
+@application.route('/')
+def home():
+    return render_template('home.html')
+
+@application.route('/contribute')
+def contribute():
+    return render_template('contribute.html')
+
+
+@application.route('/endpoints')
+def endpoints():
+    return render_template('endpoints.html')
+
+
+
+
+
+
+
+#################################################
+#                                               #
+#                                               #
+#                   API                         #
+#                                               #
+#                                               #
+#                                               #
+#################################################
 
 @application.route('/api/v1.0/goblin', methods=['GET'])
 def get_goblin():
@@ -274,6 +312,18 @@ def post_troll_last_name():
         # This catches any other unhandled exceptions
         return make_response(jsonify({'error' : 'Unhandled error.',
         'errorMessage' : 'Unknown error occured'}), 400)
+
+
+# Add cors header to all responses
+def add_cors_headers(response):
+    response.headers['Access-Control-Allow-Origin'] = '*'
+    if request.method == 'OPTIONS':
+        response.headers['Access-Control-Allow-Methods'] = 'DELETE, GET, POST, PUT'
+        headers = request.headers.get('Access-Control-Request-Headers')
+        if headers:
+            response.headers['Access-Control-Allow-Headers'] = headers
+    return response
+@application.after_request(add_cors_headers)
 
 
 @application.errorhandler(404)
