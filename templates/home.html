@@ -12,18 +12,20 @@
     <title>monsternames-api</title>
   </head>
   <body>
-    <div class="container-fluid">
-    <div class="row">
-    <div class="col-sm-3 col-md-2 sidebar">
-    <ul class="nav nav-sidebar">
-        <li><p>monsternames-api</p></li>
-        <li class="active"><a href= "{{ url_for('home') }}" >Home</a></li>
-        <li><a href="https://github.com/Sudoblark/monsternames-api">Git Repo</a></li>
-        <li><a href= "{{ url_for('endpoints') }}" >Endpoints</a></li>
-        <li><a href="{{ url_for('contribute') }}" >Contribute</a></li>
-    </ul>
+
+    <!-- Sidebar -->
+    <div style="position: fixed; top: 0; width: 20%;">
+      <ul class="nav nav-sidebar" >
+          <li class="active"><a href= "{{ url_for('home') }}" >Home</a></li>
+          <li><a href="https://github.com/Sudoblark/monsternames-api">Git Repo</a></li>
+          <li><a href= "{{ url_for('endpoints') }}" >Endpoints</a></li>
+          <li><a href="{{ url_for('contribute') }}" >Contribute</a></li>
+      </ul>
     </div>
-    <!-- Main body for content -->
+
+    <!-- Main body -->
+    <div class="container-fluid" style="margin-left: 25%;">
+    <div class="row">
     <div class="col-sm-9 col-md-10 main">
       <!-- Header and first para -->
       <h3> Open source monster name generation for all your creative needs.</h3>
@@ -38,7 +40,7 @@
       </form> 
       <!-- Display results of interaction with endpoint -->
       <div>
-        <pre style="max-width: 60%;" id="apiGETResult">
+        <pre style="max-width: 80%;" id="apiGETResult">
 {
   "firstName": "Pot",
   "fullName": "Pot The ugly",

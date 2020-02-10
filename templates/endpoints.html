@@ -12,62 +12,65 @@
     <title>Endpoints</title>
   </head>
   <body>
-    <div class="container-fluid">
-    <div class="row">
-    <div class="col-sm-3 col-md-2 sidebar">
-    <ul class="nav nav-sidebar">
-        <li><p>monsternames-api</p></li>
+
+    <!-- Sidebar -->
+  <div style="position: fixed; top: 0; width: 20%;">
+    <ul class="nav nav-sidebar" >
         <li class="active"><a href= "{{ url_for('home') }}" >Home</a></li>
         <li><a href="https://github.com/Sudoblark/monsternames-api">Git Repo</a></li>
         <li><a href= "{{ url_for('endpoints') }}" >Endpoints</a></li>
         <li><a href="{{ url_for('contribute') }}" >Contribute</a></li>
     </ul>
-    </div>
-    <div class="col-sm-9 col-md-10 main">
-      <!-- Main body for content -->
-      <div>
-        <h3>But how do i get these silly names?</h3>
-        <p>Let see how we can get silly names out of this API. How a look at how to <a href="{{ url_for('contribute') }}" >contribute</a> if you're thinking of adding to the database.</p>
-      </div>
+  </div>
 
-      <div>
-        <p>
-          You can query this API like any other RESTAPI on the interwebs.
-      
-          If you're not looking to query the RESTAPI in a program then simply browsing to the available endpoint is enough to get a name. 
+    <!-- Main body -->
+    <div class="container-fluid" style="margin-left: 25%;">
+      <div class="row">
+        <div class="col-sm-9 col-md-10 main">
+          <!-- Main body for content -->
+          <div>
+            <h3>But how do i get these silly names?</h3>
+            <p>Let see how we can get silly names out of this API. How a look at how to <a href="{{ url_for('contribute') }}" >contribute</a> if you're thinking of adding to the database.</p>
+        </div>
+
+        <div>
+          <p>
+            You can query this API like any other RESTAPI on the interwebs.
         
-          However, if you do intend on using this in any sort of programming project then we've included a few examples at the bottom of the page to help you get started.
-        </p>
-      </div>
+            If you're not looking to query the RESTAPI in a program then simply browsing to the available endpoint is enough to get a name. 
+          
+            However, if you do intend on using this in any sort of programming project then we've included a few examples at the bottom of the page to help you get started.
+          </p>
+        </div>
 
-      <br><br><h3>Available endpoints</h3>
-      <table class="table"> 
-        <thead>
-          <tr>
-            <th scope="col">Endpoint</th>
-            <th scope="col">First Name</th>
-            <th scope="col">Last Name</th>
-          </tr>
-          <tbody id="endpointTBody">
+        <br><br><h3>Available endpoints</h3>
+        <table class="table"> 
+          <thead>
+            <tr>
+              <th scope="col">Endpoint</th>
+              <th scope="col">First Name</th>
+              <th scope="col">Last Name</th>
+            </tr>
+            <tbody id="endpointTBody">
 
-          </tbody>
-        </thead>
-      </table>      
+            </tbody>
+          </thead>
+        </table>      
 
 
-      <div>
-        <p>
-          <br><br><h4>Formatting</h4>
-          All GET endpoints return JSON. A successful GET request returns one of two JSON models...
-          <br><br>- If the endpoint returns a first and last name:<br><br>
-          <pre class=".pre-scrollable" style="max-width: 60%;">
+        <div>
+          <p>
+            <br><br><h4>Formatting</h4>
+            All GET endpoints return JSON. A successful GET request returns one of two JSON models...
+            <br><br>- If the endpoint returns a first and last name:<br><br>
+            <pre class=".pre-scrollable" style="max-width: 80%;">
 {
   "firstName": "Mick", 
   "fullName": "Mick Dramatic", 
   "lastName": "Dramatic"
 }</pre>
-          <br><br>- If the endpoint returns just a first name:<br><br>
-          <pre class=".pre-scrollable" style="max-width: 60%;">
+            <br><br>- If the endpoint returns just a first name:<br><br>
+            <pre class=".pre-scrollable" style="max-width: 80%;">
 {
   "firstName": "Oreo"
 }</pre>
@@ -75,7 +78,7 @@
           <p>
             If you query an unregistered endpoint then the following JSON is returned:
 
-            <pre class=".pre-scrollable" style="max-width: 60%;">
+            <pre class=".pre-scrollable" style="max-width: 80%;">
 {
   "error":"Path not found, consult repo for valid endpoints",
   "repo":"https://github.com/Sudoblark/monsternames-api"
@@ -83,7 +86,7 @@
 
             Whilst if there any errors in the server's handling of the request then the following JSON is returned:
 
-            <pre class=".pre-scrollable" style="max-width: 60%;">
+            <pre class=".pre-scrollable" style="max-width: 80%;">
 {
   "error" : "Unhandled error.",
   "errorMessage" : "Unknown error occured"
@@ -101,7 +104,7 @@
           <!-- JavaScript example -->
           <h4>JavaScript</h4>
           <p>Note: This is how I've actually programmed the GET button on the home page</p><br>
-          <pre class=".pre-scrollable" style="max-width: 60%;"><code>// function called on home page to get example restapi output
+          <pre class=".pre-scrollable" style="max-width: 80%;"><code>// function called on home page to get example restapi output
 function apiGet() {
     // get url from page
     let url = document.getElementById('endpoint').innerHTML
@@ -128,14 +131,14 @@ function apiGet() {
 
           <!-- Python example -->
           <br><br><h4>Python</h4><br>
-          <pre class=".pre-scrollable" style="max-width: 60%;"><code>import urllib.request, json
+          <pre class=".pre-scrollable" style="max-width: 80%;"><code>import urllib.request, json
 with urllib.request.urlopen('http://monsternames-api.com/api/v1.0/orc') as response:
   responseText = response.read()
   print(json.loads(responseText))</code></pre>
 
           <!-- Bash example -->
           <br><br><h4>Bash</h4><br>
-          <pre class=".pre-scrollable" style="max-width: 60%;"><code>curl  http://monsternames-api.com/api/v1.0/orc</code></pre>
+          <pre class=".pre-scrollable" style="max-width: 80%;"><code>curl  http://monsternames-api.com/api/v1.0/orc</code></pre>
       </div>
 
     </div>
