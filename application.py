@@ -47,7 +47,7 @@ def endpoints():
 
 @application.route('/api/v1.0/goblin', methods=['GET'])
 def get_goblin():
-    return goblin.return_name()
+    return add_cors_headers(goblin.return_name())
 
 @application.route('/api/v1.0/goblin/firstName', methods=['POST'])
 def post_goblin_first_name():
@@ -55,23 +55,23 @@ def post_goblin_first_name():
         # First verify the API key and return the user
         currentUser = users.verify_user(request.headers.get("x-api-key"))
         # Create new record in DB
-        return goblin.insert_first_name(str(request.form['firstName']).strip(),currentUser)
+        return add_cors_headers(goblin.insert_first_name(str(request.form['firstName']).strip(),currentUser))
     except KeyError:
         # This catches if invalid keys were provided in request
-        return make_response(jsonify({'error' : 'Invalid key error.',
-        'errorMessage' : 'Ensure firstName key/value is in body'}), 400)
+        return add_cors_headers(make_response(jsonify({'error' : 'Invalid key error.',
+        'errorMessage' : 'Ensure firstName key/value is in body'}), 400))
     except ReferenceError:
         # This catches if our verify_users function can't find the x-api-key in the DB
-        return make_response(jsonify({'error' : 'unauthorised.',
-        'errorMessage' : 'unknown x-api-key provided'}), 400)
+        return add_cors_headers(make_response(jsonify({'error' : 'unauthorised.',
+        'errorMessage' : 'unknown x-api-key provided'}), 400))
     except IndexError:
         # This catches if no API key was provided in the first place
-        return make_response(jsonify({'error' : 'unauthorised.',
-        'errorMessage' : 'no x-api-key provided'}), 400)
+        return add_cors_headers(make_response(jsonify({'error' : 'unauthorised.',
+        'errorMessage' : 'no x-api-key provided'}), 400))
     except Exception:
         # This catches any other unhandled exceptions
-        return make_response(jsonify({'error' : 'Unhandled error.',
-        'errorMessage' : 'Unknown error occured'}), 400)
+        return add_cors_headers(make_response(jsonify({'error' : 'Unhandled error.',
+        'errorMessage' : 'Unknown error occured'}), 400))
 
 @application.route('/api/v1.0/goblin/lastName', methods=['POST'])
 def post_goblin_last_name():
@@ -79,11 +79,11 @@ def post_goblin_last_name():
         # First verify the API key and return the user
         currentUser = users.verify_user(request.headers.get("x-api-key"))
         # Create new record in DB
-        return goblin.insert_last_name(str(request.form['lastName']).strip(),currentUser)
+        return add_cors_headers(goblin.insert_last_name(str(request.form['lastName']).strip(),currentUser))
     except KeyError:
         # This catches if invalid keys were provided in request
-        return make_response(jsonify({'error' : 'Invalid key error.',
-        'errorMessage' : 'Ensure lastName key/value is in body'}), 400)
+        return add_cors_headers(make_response(jsonify({'error' : 'Invalid key error.',
+        'errorMessage' : 'Ensure lastName key/value is in body'}), 400))
     except ReferenceError:
         # This catches if our verify_users function can't find the x-api-key in the DB
         return make_response(jsonify({'error' : 'unauthorised.',
@@ -123,12 +123,12 @@ def post_goatmen_firstName():
         'errorMessage' : 'no x-api-key provided'}), 400)
     except Exception:
         # This catches any other unhandled exceptions
-        return make_response(jsonify({'error' : 'Unhandled error.',
-        'errorMessage' : 'Unknown error occured'}), 400)
+        return add_cors_headers(make_response(jsonify({'error' : 'Unhandled error.',
+        'errorMessage' : 'Unknown error occured'}), 400))
 
 @application.route('/api/v1.0/ogre', methods=['GET'])
 def get_ogre():
-    return ogre.return_name()
+    return add_cors_headers(ogre.return_name())
 
 @application.route('/api/v1.0/ogre/firstName', methods=['POST'])
 def post_ogre_first_name():
@@ -136,28 +136,28 @@ def post_ogre_first_name():
         # First verify the API key and return the user
         currentUser = users.verify_user(request.headers.get("x-api-key"))
         # Create new record in DB
-        return ogre.insert_first_name(str(request.form['firstName']).strip(),currentUser)
+        return add_cors_headers(ogre.insert_first_name(str(request.form['firstName']).strip(),currentUser))
     except KeyError:
         # This catches if invalid keys were provided in request
-        return make_response(jsonify({'error' : 'Invalid key error.',
-        'errorMessage' : 'Ensure firstName key/value is in body'}), 400)
+        return add_cors_headers(make_response(jsonify({'error' : 'Invalid key error.',
+        'errorMessage' : 'Ensure firstName key/value is in body'}), 400))
     except ReferenceError:
         # This catches if our verify_users function can't find the x-api-key in the DB
-        return make_response(jsonify({'error' : 'unauthorised.',
-        'errorMessage' : 'unknown x-api-key provided'}), 400)
+        return add_cors_headers(make_response(jsonify({'error' : 'unauthorised.',
+        'errorMessage' : 'unknown x-api-key provided'}), 400))
     except IndexError:
         # This catches if no API key was provided in the first place
-        return make_response(jsonify({'error' : 'unauthorised.',
-        'errorMessage' : 'no x-api-key provided'}), 400)
+        return add_cors_headers(make_response(jsonify({'error' : 'unauthorised.',
+        'errorMessage' : 'no x-api-key provided'}), 400))
     except Exception:
         # This catches any other unhandled exceptions
-        return make_response(jsonify({'error' : 'Unhandled error.',
-        'errorMessage' : 'Unknown error occured'}), 400)
+        return add_cors_headers(make_response(jsonify({'error' : 'Unhandled error.',
+        'errorMessage' : 'Unknown error occured'}), 400))
 
 
 @application.route('/api/v1.0/orc', methods=['GET'])
 def get_orc():
-    return orc.return_name()
+    return add_cors_headers(orc.return_name())
 
 @application.route('/api/v1.0/orc/firstName', methods=['POST'])
 def post_orc_first_name():
@@ -165,23 +165,23 @@ def post_orc_first_name():
         # First verify the API key and return the user
         currentUser = users.verify_user(request.headers.get("x-api-key"))
         # Create new record in DB
-        return orc.insert_first_name(str(request.form['firstName']).strip(),currentUser)
+        return add_cors_headers(orc.insert_first_name(str(request.form['firstName']).strip(),currentUser))
     except KeyError:
         # This catches if invalid keys were provided in request
-        return make_response(jsonify({'error' : 'Invalid key error.',
-        'errorMessage' : 'Ensure firstName key/value is in body'}), 400)
+        return add_cors_headers(make_response(jsonify({'error' : 'Invalid key error.',
+        'errorMessage' : 'Ensure firstName key/value is in body'}), 400))
     except ReferenceError:
         # This catches if our verify_users function can't find the x-api-key in the DB
-        return make_response(jsonify({'error' : 'unauthorised.',
-        'errorMessage' : 'unknown x-api-key provided'}), 400)
+        return add_cors_headers(make_response(jsonify({'error' : 'unauthorised.',
+        'errorMessage' : 'unknown x-api-key provided'}), 400))
     except IndexError:
         # This catches if no API key was provided in the first place
-        return make_response(jsonify({'error' : 'unauthorised.',
-        'errorMessage' : 'no x-api-key provided'}), 400)
+        return add_cors_headers(make_response(jsonify({'error' : 'unauthorised.',
+        'errorMessage' : 'no x-api-key provided'}), 400))
     except Exception:
         # This catches any other unhandled exceptions
-        return make_response(jsonify({'error' : 'Unhandled error.',
-        'errorMessage' : 'Unknown error occured'}), 400)
+        return add_cors_headers(make_response(jsonify({'error' : 'Unhandled error.',
+        'errorMessage' : 'Unknown error occured'}), 400))
 
 @application.route('/api/v1.0/orc/lastName', methods=['POST'])
 def post_orc_last_name():
@@ -189,28 +189,28 @@ def post_orc_last_name():
         # First verify the API key and return the user
         currentUser = users.verify_user(request.headers.get("x-api-key"))
         # Create new record in DB
-        return orc.insert_last_name(str(request.form['lastName']).strip(),currentUser)
+        return add_cors_headers(orc.insert_last_name(str(request.form['lastName']).strip(),currentUser))
     except KeyError:
         # This catches if invalid keys were provided in request
-        return make_response(jsonify({'error' : 'Invalid key error.',
-        'errorMessage' : 'Ensure lastName key/value is in body'}), 400)
+        return add_cors_headers(make_response(jsonify({'error' : 'Invalid key error.',
+        'errorMessage' : 'Ensure lastName key/value is in body'}), 400))
     except ReferenceError:
         # This catches if our verify_users function can't find the x-api-key in the DB
-        return make_response(jsonify({'error' : 'unauthorised.',
-        'errorMessage' : 'unknown x-api-key provided'}), 400)
+        return add_cors_headers(make_response(jsonify({'error' : 'unauthorised.',
+        'errorMessage' : 'unknown x-api-key provided'}), 400))
     except IndexError:
         # This catches if no API key was provided in the first place
-        return make_response(jsonify({'error' : 'unauthorised.',
-        'errorMessage' : 'no x-api-key provided'}), 400)
+        return add_cors_headers(make_response(jsonify({'error' : 'unauthorised.',
+        'errorMessage' : 'no x-api-key provided'}), 400))
     except Exception:
         # This catches any other unhandled exceptions
-        return make_response(jsonify({'error' : 'Unhandled error.',
-        'errorMessage' : 'Unknown error occured'}), 400)
+        return add_cors_headers(make_response(jsonify({'error' : 'Unhandled error.',
+        'errorMessage' : 'Unknown error occured'}), 400))
 
 
 @application.route('/api/v1.0/skeleton', methods=['GET'])
 def get_skeleton():
-    return skeleton.return_name()
+    return add_cors_headers(skeleton.return_name())
 
 @application.route('/api/v1.0/skeleton/firstName', methods=['POST'])
 def post_skeleton_first_name():
@@ -218,23 +218,23 @@ def post_skeleton_first_name():
         # First verify the API key and return the user
         currentUser = users.verify_user(request.headers.get("x-api-key"))
         # Create new record in DB
-        return skeleton.insert_first_name(str(request.form['firstName']).strip(),currentUser)
+        return add_cors_headers(skeleton.insert_first_name(str(request.form['firstName']).strip(),currentUser))
     except KeyError:
         # This catches if invalid keys were provided in request
-        return make_response(jsonify({'error' : 'Invalid key error.',
-        'errorMessage' : 'Ensure firstName key/value is in body'}), 400)
+        return add_cors_headers(make_response(jsonify({'error' : 'Invalid key error.',
+        'errorMessage' : 'Ensure firstName key/value is in body'}), 400))
     except ReferenceError:
         # This catches if our verify_users function can't find the x-api-key in the DB
-        return make_response(jsonify({'error' : 'unauthorised.',
-        'errorMessage' : 'unknown x-api-key provided'}), 400)
+        return add_cors_headers(make_response(jsonify({'error' : 'unauthorised.',
+        'errorMessage' : 'unknown x-api-key provided'}), 400))
     except IndexError:
         # This catches if no API key was provided in the first place
-        return make_response(jsonify({'error' : 'unauthorised.',
-        'errorMessage' : 'no x-api-key provided'}), 400)
+        return add_cors_headers(make_response(jsonify({'error' : 'unauthorised.',
+        'errorMessage' : 'no x-api-key provided'}), 400))
     except Exception:
         # This catches any other unhandled exceptions
-        return make_response(jsonify({'error' : 'Unhandled error.',
-        'errorMessage' : 'Unknown error occured'}), 400)
+        return add_cors_headers(make_response(jsonify({'error' : 'Unhandled error.',
+        'errorMessage' : 'Unknown error occured'}), 400))
 
 @application.route('/api/v1.0/skeleton/lastName', methods=['POST'])
 def post_skeleton_last_name():
@@ -242,28 +242,28 @@ def post_skeleton_last_name():
         # First verify the API key and return the user
         currentUser = users.verify_user(request.headers.get("x-api-key"))
         # Create new record in DB
-        return skeleton.insert_last_name(str(request.form['lastName']).strip(),currentUser)
+        return add_cors_headers(skeleton.insert_last_name(str(request.form['lastName']).strip(),currentUser))
     except KeyError:
         # This catches if invalid keys were provided in request
-        return make_response(jsonify({'error' : 'Invalid key error.',
-        'errorMessage' : 'Ensure lastName key/value is in body'}), 400)
+        return add_cors_headers(make_response(jsonify({'error' : 'Invalid key error.',
+        'errorMessage' : 'Ensure lastName key/value is in body'}), 400))
     except ReferenceError:
         # This catches if our verify_users function can't find the x-api-key in the DB
-        return make_response(jsonify({'error' : 'unauthorised.',
-        'errorMessage' : 'unknown x-api-key provided'}), 400)
+        return add_cors_headers(make_response(jsonify({'error' : 'unauthorised.',
+        'errorMessage' : 'unknown x-api-key provided'}), 400))
     except IndexError:
         # This catches if no API key was provided in the first place
-        return make_response(jsonify({'error' : 'unauthorised.',
-        'errorMessage' : 'no x-api-key provided'}), 400)
+        return add_cors_headers(make_response(jsonify({'error' : 'unauthorised.',
+        'errorMessage' : 'no x-api-key provided'}), 400))
     except Exception:
         # This catches any other unhandled exceptions
-        return make_response(jsonify({'error' : 'Unhandled error.',
-        'errorMessage' : 'Unknown error occured'}), 400)
+        return add_cors_headers(make_response(jsonify({'error' : 'Unhandled error.',
+        'errorMessage' : 'Unknown error occured'}), 400))
 
 
 @application.route('/api/v1.0/troll', methods=['GET'])
 def get_troll():
-    return troll.return_name()
+    return add_cors_headers(troll.return_name())
 
 @application.route('/api/v1.0/troll/firstName', methods=['POST'])
 def post_troll_first_name():
@@ -271,23 +271,23 @@ def post_troll_first_name():
         # First verify the API key and return the user
         currentUser = users.verify_user(request.headers.get("x-api-key"))
         # Create new record in DB
-        return troll.insert_first_name(str(request.form['firstName']).strip(),currentUser)
+        return add_cors_headers(troll.insert_first_name(str(request.form['firstName']).strip(),currentUser))
     except KeyError:
         # This catches if invalid keys were provided in request
-        return make_response(jsonify({'error' : 'Invalid key error.',
-        'errorMessage' : 'Ensure firstName key/value is in body'}), 400)
+        return add_cors_headers(make_response(jsonify({'error' : 'Invalid key error.',
+        'errorMessage' : 'Ensure firstName key/value is in body'}), 400))
     except ReferenceError:
         # This catches if our verify_users function can't find the x-api-key in the DB
-        return make_response(jsonify({'error' : 'unauthorised.',
-        'errorMessage' : 'unknown x-api-key provided'}), 400)
+        return add_cors_headers(make_response(jsonify({'error' : 'unauthorised.',
+        'errorMessage' : 'unknown x-api-key provided'}), 400))
     except IndexError:
         # This catches if no API key was provided in the first place
-        return make_response(jsonify({'error' : 'unauthorised.',
-        'errorMessage' : 'no x-api-key provided'}), 400)
+        return add_cors_headers(make_response(jsonify({'error' : 'unauthorised.',
+        'errorMessage' : 'no x-api-key provided'}), 400))
     except Exception:
         # This catches any other unhandled exceptions
-        return make_response(jsonify({'error' : 'Unhandled error.',
-        'errorMessage' : 'Unknown error occured'}), 400)
+        return add_cors_headers(make_response(jsonify({'error' : 'Unhandled error.',
+        'errorMessage' : 'Unknown error occured'}), 400))
 
 @application.route('/api/v1.0/troll/lastName', methods=['POST'])
 def post_troll_last_name():
@@ -295,43 +295,35 @@ def post_troll_last_name():
         # First verify the API key and return the user
         currentUser = users.verify_user(request.headers.get("x-api-key"))
         # Create new record in DB
-        return troll.insert_last_name(str(request.form['lastName']).strip(),currentUser)
+        return add_cors_headers(troll.insert_last_name(str(request.form['lastName']).strip(),currentUser))
     except KeyError:
         # This catches if invalid keys were provided in request
-        return make_response(jsonify({'error' : 'Invalid key error.',
-        'errorMessage' : 'Ensure lastName key/value is in body'}), 400)
+        return add_cors_headers(make_response(jsonify({'error' : 'Invalid key error.',
+        'errorMessage' : 'Ensure lastName key/value is in body'}), 400))
     except ReferenceError:
         # This catches if our verify_users function can't find the x-api-key in the DB
-        return make_response(jsonify({'error' : 'unauthorised.',
-        'errorMessage' : 'unknown x-api-key provided'}), 400)
+        return add_cors_headers(make_response(jsonify({'error' : 'unauthorised.',
+        'errorMessage' : 'unknown x-api-key provided'}), 400))
     except IndexError:
         # This catches if no API key was provided in the first place
-        return make_response(jsonify({'error' : 'unauthorised.',
-        'errorMessage' : 'no x-api-key provided'}), 400)
+        return add_cors_headers(make_response(jsonify({'error' : 'unauthorised.',
+        'errorMessage' : 'no x-api-key provided'}), 400))
     except Exception:
         # This catches any other unhandled exceptions
-        return make_response(jsonify({'error' : 'Unhandled error.',
-        'errorMessage' : 'Unknown error occured'}), 400)
+        return add_cors_headers(make_response(jsonify({'error' : 'Unhandled error.',
+        'errorMessage' : 'Unknown error occured'}), 400))
 
 
-# Add cors header to all responses
+# Add cors header to response
 def add_cors_headers(response):
     response.headers['Access-Control-Allow-Origin'] = '*'
-    if request.method == 'OPTIONS':
-        response.headers['Access-Control-Allow-Methods'] = 'DELETE, GET, POST, PUT'
-        headers = request.headers.get('Access-Control-Request-Headers')
-        if headers:
-            response.headers['Access-Control-Allow-Headers'] = headers
     return response
-@application.after_request(add_cors_headers)
 
 
 @application.errorhandler(404)
 def not_found(error):
     return make_response(jsonify({'error': 'Path not found, consult repo for valid endpoints',
                                  'repo' : 'https://github.com/Sudoblark/monsternames-api'}), 404)
-
-
 
 if __name__ == '__main__':
     application.run()
