@@ -116,7 +116,7 @@ function apiGet() {
     .then((resp) => resp.json()) // Transform the data into json
     .then(function(data) {
       let dataJson = JSON.stringify(data, null, 4)
-      document.getElementById("apiGETResult").innerHTML = dataJson
+      document.getElementById("apiGetResult").innerHTML = dataJson
       })
     .catch(function(err) {
       let errorDict = {"error" : "Unable to query API", "errorDetails" : {} }
@@ -126,7 +126,7 @@ function apiGet() {
       }
       console.log(errorDict)
       let errorJson = JSON.stringify(errorDict, null, 4)
-      document.getElementById("apiGETResult").innerHTML = errorJson
+      document.getElementById("apiGetResult").innerHTML = errorJson
     })
 
     return false // done to prevent reload of page

@@ -1,5 +1,5 @@
 // function called on home page to get example restapi output
-function apiGet() {
+function apiGet(e) {
     // get url from page
     let url = document.getElementById('endpoint').innerHTML
     console.log(url)
@@ -7,7 +7,8 @@ function apiGet() {
     .then((resp) => resp.json()) // Transform the data into json
     .then(function(data) {
       let dataJson = JSON.stringify(data, null, 4)
-      document.getElementById("apiGETResult").innerHTML = dataJson
+      console.log(dataJson)
+      document.getElementById("apiGetResult").innerHTML = dataJson
       })
     .catch(function(err) {
       let errorDict = {"error" : "Unable to query API", "errorDetails" : {} }
@@ -17,12 +18,8 @@ function apiGet() {
       }
       console.log(errorDict)
       let errorJson = JSON.stringify(errorDict, null, 4)
-      document.getElementById("apiGETResult").innerHTML = errorJson
+      document.getElementById("apiGetResult").innerHTML = errorJson
     })
 
     return false // done to prevent reload of page
-}
-
-window.onload = function() {
-  document.getElementById("apiGET").onclick = apiGet()
 }
