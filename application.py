@@ -100,7 +100,7 @@ def post_goblin_last_name():
 @application.route('/api/v1.0/goatmen', methods=['GET'])
 def get_goatmen():
     # GET request
-    return goatmen.return_name()
+    return add_cors_headers(goatmen.return_name())
 
 @application.route('/api/v1.0/goatmen/firstName', methods=['POST'])
 def post_goatmen_firstName():

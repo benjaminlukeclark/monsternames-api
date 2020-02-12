@@ -1,7 +1,8 @@
 // function called on home page to get example restapi output
 function apiGet(e) {
     // get url from page
-    let url = document.getElementById('endpoint').innerHTML
+    var selectList = document.getElementById("endpointSelect");
+    var url = selectList.options[selectList.selectedIndex].value;
     console.log(url)
     fetch(url)
     .then((resp) => resp.json()) // Transform the data into json

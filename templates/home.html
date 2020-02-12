@@ -32,26 +32,34 @@
     <div class="col-sm-9 col-md-10 main">
       <!-- Header and first para -->
       <h3> Open source monster name generation for all your creative needs.</h3>
-      <p class="pt-1">Check out the <a href= "{{ url_for('endpoints') }}" >endpoints</a> available for name generation or try it out yourself below.</p>
+      <p>Simply use the form below to generate random names. If you're interested in using the api programming then check out the <a href= "{{ url_for('endpoints') }}" >endpoints</a>  section, you can also <a href= "{{ url_for('contribute') }}" >contribute</a>  if you want.</p>
       <!-- Example interaction with endpoints -->
+      <br>
       <form class="form-inline">
         <div class="form-group">
-          <label for="endpoint"></label>
-          <pre id="endpoint">http://monsternames-api.com/api/v1.0/orc</pre>
+          <label for="endpointSelect">Monster</label>
+          <select id="endpointSelect" class="form-control p-3">
+            <option value="http://monsternames-api.com/api/v1.0/goatmen">Goatmen</option>
+            <option value="http://monsternames-api.com/api/v1.0/goblin">Goblin</option>
+            <option value="http://monsternames-api.com/api/v1.0/ogre">Ogre</option>
+            <option value="http://monsternames-api.com/api/v1.0/orc">Orc</option>
+            <option value="http://monsternames-api.com/api/v1.0/skeleton">Skeleton</option>
+            <option value="http://monsternames-api.com/api/v1.0/troll">Troll</option>
+            <!-- Programmatically add stuff here -->
+          </select>
         </div>
         <button type="button" class="btn btn-default" id="apiGetButton" onclick="apiGet()">GET!</button>
       </form> 
       <!-- Display results of interaction with endpoint -->
-      <div>
+      <br><br>
         <pre style="max-width: 80%;" id="apiGetResult">
 {
-  "firstName": "Pot",
-  "fullName": "Pot The ugly",
-  "lastName": "The ugly"
+    "firstName": "Pot",
+    "fullName": "Pot The ugly",
+    "lastName": "The ugly"
 }
         </pre>
       </div>
-    <p>Have a funny name stuck in your head, an idea for a naming schema or figured some more endpoints would be cool? Have a gander at how to <a href="{{ url_for('contribute') }}" >contribute</a>.</p>
   </div>
 </div>
 </div>
