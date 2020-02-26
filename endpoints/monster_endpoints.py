@@ -3,6 +3,8 @@ import database.models as models
 import peewee
 from peewee import *
 from peewee import fn
+from database.models import GoblinFirstName, GoblinLastName, GoatmenFirstName, OgreFirstName, OrcFirstName, OrcLastName, SkeletonFirstName, SkeletonLastName, TrollFirstName, TrollLastName
+
 
 # Base Class for all monster endpoints
 class monster_endpoint:
@@ -39,7 +41,9 @@ class monster_endpoint:
         return make_response(jsonify(resultDic), 200)
 
     # Insert first name method
-    def insert_first_name(self,firstName, user):
+    def insert_first_name(self,firstName, apiKey):
+        # First verify the API key and return the user
+        user = self.__verify_user(apiKey)
         # Connect to db
         models.db.connect(reuse_if_open=True)
         # First check if the record already exists
@@ -54,7 +58,9 @@ class monster_endpoint:
         return make_response(jsonify({'firstName' : firstName, 'message' : 'New record created'}), 200)
 
     # Insert last name method
-    def insert_last_name(self,lastName, user):
+    def insert_last_name(self,lastName, apiKey):
+        # First verify the API key and return the user
+        user = self.__verify_user(apiKey)
         # Connect to db
         models.db.connect(reuse_if_open=True)
         # First check if the record already exists
@@ -80,6 +86,26 @@ class monster_endpoint:
             raise TypeError(f"{model_name} provided is invalid. Must either be of type peewee.Model or None.")
         else:
             return model
+    # Method in order to verify that the user is authorised to make a POST request
+    def __verify_user(self,xApiKey):
+        # If there is no xApiKey provided...
+        if xApiKey is None:
+            raise IndexError
+        # Connect to db
+        models.db.connect(reuse_if_open=True)
+        # Check if the key exists
+        apiKeyCheck = models.ApiKeys.select().where(models.ApiKeys.apiKey == xApiKey)
+        models.db.close()
+        if apiKeyCheck.exists():
+            return apiKeyCheck[0].user
+        else:
+            raise ReferenceError
 
 
+GoblinEndpoint = monster_endpoint(GoblinFirstName, GoblinLastName, True, True, "Goblin")
+GoatmenEndpoint = monster_endpoint(GoatmenFirstName, None, True, False, "Goatmen")
+OgreEndpoint = monster_endpoint(GoblinFirstName, OgreFirstName, True, False, "Ogre")
+OrcEndpoint = monster_endpoint(OrcFirstName, OrcLastName, True, True, "Orc")
+SkeletonEndpoint = monster_endpoint(SkeletonFirstName, SkeletonLastName, True, True, "Skeleton")
+TrollEndpoint = monster_endpoint(TrollFirstName, TrollLastName, True, True, "Troll")
     
