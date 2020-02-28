@@ -45,7 +45,7 @@ Last_Name_Key_Message = "Ensure lastName key/value is in body"
 Get_Key_Message = "No key required for GET request"
 
 # Decorator for all monster route functions providing endpoint functionality
-def monster_route(func, key_error_message):
+def monster_route(func):
     def decorated(*args, **kwargs):
         try:
             # Attempt endpoint query
@@ -66,17 +66,9 @@ def monster_route(func, key_error_message):
             # This catches any other unhandled exceptions
             return add_cors_headers(make_response(jsonify({'error' : 'Unhandled error.',
             'errorMessage' : 'Unknown error occured'}), 400))
+    # Renaming the function name:
+    monster_route.__name__ = func.__name_
     return decorated
-
-# Function to strip first name from request form
-def return_request_first_name(request):
-    return str(request.form['firstName']).strip()
-# Function to strip last name from request form
-def return_request_last_name(request):
-    return str(request.form['lastName']).strip()
-# Function to return x-api-key from request headers
-def return_request_api_key(request):
-    return request.headers.get("x-api-key")
 # Function to cors header to response
 def add_cors_headers(response):
     response.headers['Access-Control-Allow-Origin'] = '*'
@@ -84,73 +76,89 @@ def add_cors_headers(response):
 
 ##### GOBLIN #####
 @application.route('/api/v1.0/goblin', methods=['GET'])
+@monster_route
 def get_goblin():
-    return monster_route(GoblinEndpoint.return_name(),Get_Key_Message)
+    return GoblinEndpoint.return_name()
 
 @application.route('/api/v1.0/goblin/firstName', methods=['POST'])
+@monster_route
 def post_goblin_first_name():
-    return monster_route(GoblinEndpoint.insert_first_name(return_request_first_name(request),return_request_api_key(request)), First_Name_Key_Message)
+    return GoblinEndpoint.insert_first_name(request)
 
 @application.route('/api/v1.0/goblin/lastName', methods=['POST'])
+@monster_route
 def post_goblin_last_name():
-    return monster_route(GoblinEndpoint.insert_last_name(return_request_last_name(request),return_request_api_key(request)), Last_Name_Key_Message)
+    return GoblinEndpoint.insert_last_name(request)
 
 ##### GOATMEN #####
 @application.route('/api/v1.0/goatmen', methods=['GET'])
+@monster_route
 def get_goatmen():
-    return monster_route(GoatmenEndpoint.return_name(),Get_Key_Message)
+    return GoatmenEndpoint.return_name()
 
 @application.route('/api/v1.0/goatmen/firstName', methods=['POST'])
+@monster_route
 def post_goatmen_first_name():
-    return monster_route(GoatmenEndpoint.insert_first_name(return_request_first_name(request),return_request_api_key(request)), First_Name_Key_Message)
+    return GoatmenEndpoint.insert_first_name(request)
 
 ##### OGRE #####
 @application.route('/api/v1.0/ogre', methods=['GET'])
+@monster_route
 def get_ogre():
-    return monster_route(GoatmenEndpoint.return_name(),Get_Key_Message)
+    return OgreEndpoint.return_name()
 
 @application.route('/api/v1.0/ogre/firstName', methods=['POST'])
+@monster_route
 def post_ogre_first_name():
-    return monster_route(OgreEndpoint.insert_first_name(return_request_first_name(request),return_request_api_key(request)), First_Name_Key_Message)
+    return OgreEndpoint.insert_first_name(request)
 
 ##### ORC #####
 @application.route('/api/v1.0/orc', methods=['GET'])
+@monster_route
 def get_orc():
-    return monster_route(OrcEndpoint.return_name(),Get_Key_Message)
+    return OrcEndpoint.return_name()
 
 @application.route('/api/v1.0/orc/firstName', methods=['POST'])
+@monster_route
 def post_orc_first_name():
-    return monster_route(OrcEndpoint.insert_first_name(return_request_first_name(request),return_request_api_key(request)), First_Name_Key_Message)
+    return OrcEndpoint.insert_first_name(request)
 
 @application.route('/api/v1.0/rc/lastName', methods=['POST'])
+@monster_route
 def post_orc_last_name():
-    return monster_route(OrcEndpoint.insert_last_name(return_request_last_name(request),return_request_api_key(request)), Last_Name_Key_Message)
+    return OrcEndpoint.insert_last_name(request)
 
 ##### SKELETON #####
 @application.route('/api/v1.0/skeleton', methods=['GET'])
+@monster_route
 def get_skeleton():
-    return monster_route(SkeletonEndpoint.return_name(),Get_Key_Message)
+    return SkeletonEndpoint.return_name()
 
 @application.route('/api/v1.0/skeleton/firstName', methods=['POST'])
+@monster_route
 def post_skeleton_first_name():
-    return monster_route(SkeletonEndpoint.insert_first_name(return_request_first_name(request),return_request_api_key(request)), First_Name_Key_Message)
+    return SkeletonEndpoint.insert_first_name(request)
 
 @application.route('/api/v1.0/skeleton/lastName', methods=['POST'])
+@monster_route
 def post_skeleton_last_name():
-    return monster_route(SkeletonEndpoint.insert_last_name(return_request_last_name(request),return_request_api_key(request)), Last_Name_Key_Message)
+    return SkeletonEndpoint.insert_last_name(request)
 
 ##### TROLL #####
 @application.route('/api/v1.0/troll', methods=['GET'])
+@monster_route
 def get_troll():
-    return monster_route(TrollEndpoint.return_name(),Get_Key_Message)
+    return TrollEndpoint.return_name()
 
 @application.route('/api/v1.0/troll/firstName', methods=['POST'])
+@monster_route
 def post_troll_first_name():
-    return monster_route(TrollEndpoint.insert_first_name(return_request_first_name(request),return_request_api_key(request)), First_Name_Key_Message)
+    return TrollEndpoint.insert_first_name(request)
 
 @application.route('/api/v1.0/troll/lastName', methods=['POST'])
+@monster_route
 def post_troll_last_name():
-    return monster_route(TrollEndpoint.insert_last_name(return_request_last_name(request),return_request_api_key(request)), Last_Name_Key_Message)
+    return TrollEndpoint.insert_last_name(request)
 
 
 @application.errorhandler(404)
