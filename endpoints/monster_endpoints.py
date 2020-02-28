@@ -82,7 +82,8 @@ class monster_endpoint:
             return var
     # Method to verify that a valid model has been passed through
     def __verify_model(self, model, model_name):
-        if (((isinstance(model, peewee.Model)) == False) & ((isinstance(model, None)) == False)):
+        model_type = type(model)
+        if model_type == peewee.Model:
             raise TypeError(f"{model_name} provided is invalid. Must either be of type peewee.Model or None.")
         else:
             return model
@@ -104,7 +105,7 @@ class monster_endpoint:
 
 GoblinEndpoint = monster_endpoint(GoblinFirstName, GoblinLastName, True, True, "Goblin")
 GoatmenEndpoint = monster_endpoint(GoatmenFirstName, None, True, False, "Goatmen")
-OgreEndpoint = monster_endpoint(GoblinFirstName, OgreFirstName, True, False, "Ogre")
+OgreEndpoint = monster_endpoint(OgreFirstName, None, True, False, "Ogre")
 OrcEndpoint = monster_endpoint(OrcFirstName, OrcLastName, True, True, "Orc")
 SkeletonEndpoint = monster_endpoint(SkeletonFirstName, SkeletonLastName, True, True, "Skeleton")
 TrollEndpoint = monster_endpoint(TrollFirstName, TrollLastName, True, True, "Troll")
