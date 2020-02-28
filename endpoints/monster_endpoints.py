@@ -67,7 +67,7 @@ class monster_endpoint:
         return make_response(jsonify({'firstName' : firstName, 'message' : 'New record created'}), 200)
 
     # Insert last name method
-    def insert_last_name(self,lastName, apiKey):
+    def insert_last_name(self,request):
         # First verify the API key and return the user
         user = self.__verify_user(self.__return_request_api_key(request))
         # Then get the last name, handle the error exception here and return error

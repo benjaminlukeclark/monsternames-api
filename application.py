@@ -50,10 +50,6 @@ def monster_route(func):
         try:
             # Attempt endpoint query
             return add_cors_headers(func(*args, **kwargs))
-        except KeyError:
-            # This catches if invalid keys were provided in request
-            return add_cors_headers(make_response(jsonify({'error' : 'Invalid key error.',
-            'errorMessage' : key_error_message}), 400))
         except ReferenceError:
             # This catches if our verify_users function can't find the x-api-key in the DB
             return add_cors_headers(make_response(jsonify({'error' : 'unauthorised.',
