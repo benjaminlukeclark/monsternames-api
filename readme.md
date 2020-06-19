@@ -107,24 +107,43 @@ sudo apt-get update
 sudo apt install nginx
 ```
 
+- Generate an SSL cert
+```bash
+cd ubutu
+openssl req -x509 -newkey rsa:4096 -nodes -out cert.pem -keyout key.pem -days 365
+cd ..
+```
+
 - Configure nginx site for api
 
 ```bash
 sudo nano /etc/nginx/sites-enabled/monsternames_api
 
 server {
-        listen 80;
+        listen 443 ssl;
         server_name SERVERNAME;
+        ssl_certificate /path/to/cert.key;
+        ssl_certificate_key /path/to/key.pem;
 
         location / {
                 proxy_pass http://127.0.0.1:8000;
                 proxy_set_header Host $host;
                 proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-
-
         }
 
 }
+
+server {
+        listen 80;
+        server_name SERVERNAME;
+
+        location / {
+                return 301 https://$host$request_uri;
+        }
+
+}
+
+
 ```
 
 - Unlink default site
