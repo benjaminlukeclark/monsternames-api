@@ -13,6 +13,7 @@ db = MySQLDatabase(dbVars.dbName, host=dbVars.dbHost, port=3306, user=dbVars.dbU
 
 ##### LIST OF DATABASE MODELS #####
 
+
 class GoblinFirstName(peewee.Model):
     firstName = peewee.CharField()
 
