@@ -39,8 +39,7 @@ class monster_endpoint:
         # Disconnect from DB
         models.db.close()
         # Return json data
-        #return make_response(jsonify(json.dumps(resultDic)), 200)
-        return make_response("Hello")
+        return make_response(jsonify(json.dumps(resultDic)), 200)
 
     # Insert first name method
     def insert_first_name(self,request):
