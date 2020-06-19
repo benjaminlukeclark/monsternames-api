@@ -14,8 +14,8 @@ class monster_endpoint:
         self._First_Name = self.__verify_param(First_Name_Present, True)
         self._Last_Name = self.__verify_param(Last_Name_Present, True)
         self._Monster_Name = self.__verify_param(Monster_Name, "String")
-        self._First_Name_Model = self.__verify_model(First_Name_Model, "{fMonsterName} first name model".format(fMonsterName = self.Monster_Name))
-        self._Last_Name_Model = self.__verify_model(Last_Name_Model, "{fMonsterName} last name model".format(fMonsterName = self.Monster_Name))
+        self._First_Name_Model = self.__verify_model(First_Name_Model, "{fMonsterName} first name model".format(fMonsterName = self._Monster_Name))
+        self._Last_Name_Model = self.__verify_model(Last_Name_Model, "{fMonsterName} last name model".format(fMonsterName = self._Monster_Name))
     # Return name method
     def return_name(self):
         # Connect to db
@@ -60,7 +60,7 @@ class monster_endpoint:
             return make_response(jsonify({'error' : 'Duplicate record', 'message' : 'Record already exists'}), 400)
         # Insert
         self._First_Name_Model.create(firstName=firstName)
-        models.PostAudit.create(user=user, message="{fMonsterName} first name record '{fFirstName}' created".format(fMonsterName = self.Monster_Name, fFirstName = firstName))
+        models.PostAudit.create(user=user, message="{fMonsterName} first name record '{fFirstName}' created".format(fMonsterName = self._Monster_Name, fFirstName = firstName))
         models.db.commit()
         models.db.close()
         # Return success
@@ -84,7 +84,7 @@ class monster_endpoint:
             return make_response(jsonify({'error' : 'Duplicate record', 'message' : 'Record already exists'}), 400)
         # Insert
         self._Last_Name_Model.create(lastName=lastName)
-        models.PostAudit.create(user=user, message="{fMonsterName} firstlast name record '{fLastName}' created".format(fMonsterName = self.Monster_Name, fLastName = lastName))
+        models.PostAudit.create(user=user, message="{fMonsterName} firstlast name record '{fLastName}' created".format(fMonsterName = self._Monster_Name, fLastName = lastName))
         models.db.commit()
         models.db.close()
         # Return success
