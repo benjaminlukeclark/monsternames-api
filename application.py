@@ -1,7 +1,7 @@
 #!flask/bin/python
 from flask import Flask, make_response, jsonify, request, render_template
 from endpoints.monster_endpoints import GoblinEndpoint, GoatmenEndpoint, OgreEndpoint, OrcEndpoint, SkeletonEndpoint, TrollEndpoint 
-
+from functools import wraps
 
 application = Flask(__name__)
 
