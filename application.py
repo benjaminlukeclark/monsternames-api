@@ -46,6 +46,7 @@ Get_Key_Message = "No key required for GET request"
 
 # Decorator for all monster route functions providing endpoint functionality
 def monster_route(func):
+    @wraps(func)
     def decorated(*args, **kwargs):
         try:
             # Attempt endpoint query
@@ -62,7 +63,6 @@ def monster_route(func):
             # This catches any other unhandled exceptions
             return add_cors_headers(make_response(jsonify({'error' : 'Unhandled error.',
             'errorMessage' : 'Unknown error occured'}), 400))
-        monster_route().__class__.__name__ = func.__name_
     return decorated
 # Function to cors header to response
 def add_cors_headers(response):
