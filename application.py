@@ -62,6 +62,7 @@ def monster_route(func):
             # This catches any other unhandled exceptions
             return add_cors_headers(make_response(jsonify({'error' : 'Unhandled error.',
             'errorMessage' : 'Unknown error occured'}), 400))
+        monster_route.().class.__name__ = func.__name_
     return decorated
 # Function to cors header to response
 def add_cors_headers(response):
