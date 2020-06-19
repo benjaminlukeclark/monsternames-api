@@ -26,10 +26,10 @@ class monster_endpoint:
         if self._First_Name:
             FName = self._First_Name_Model.select().order_by(fn.Rand()).limit(1)
             fullName = (FName[0].firstName)
-            resultDic["firstName"] = FName
+            resultDic["firstName"] = FName[0].firstName
         if self._Last_Name:
             LName = self._Last_Name_Model.select().order_by(fn.Rand()).limit(1)
-            resultDic["lastName"] = LName
+            resultDic["lastName"] = LName[0].lastName
             if len(fullName) != 0:
                 fullName += " " + (LName[0].lastName)
             else:
