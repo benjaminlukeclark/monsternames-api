@@ -1,6 +1,6 @@
 # monsternames-api
 
-This repo hosts code for the monsternames-api hosted at http://monsternames-api.com.
+This repo hosts code for the monsternames-api hosted at https://monsternames-api.com.
 
 This API allows you to generate random names for monsters.
 
