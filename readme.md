@@ -243,3 +243,36 @@ sudo supervisorctl reload
 - You should now be able to access the app at the specified url
 
 If you have issue consult the logs you created. The most likely issue is that a package did not install or there are permission issues with the directory of the virtualenv.
+
+# Using Lets Encrypt for an actually trusted certificate
+Luckily, as we're using nginx for the proxy of this, we can setup an actually trusted certificate (method above will be self-signed) and have automatic renewal. Neat.
+
+If you already have a self-signed certificiate, ensure you remove the following lines from ```/etc/nginx/sites-enabled/monsternames_api``` before continuing:
+```bash
+ssl_certificate = xxx
+ssl_certificate_key = xxx
+```
+Ensure you also reboot nginx after to prevent any errors
+
+1) First, trust the [certbot](https://certbot.eff.org/) repo:
+
+```bash
+add-apt-repository ppa:certbot/certbot
+```
+
+2) Install certbot:
+
+```bash
+apt-get update
+apt-get install python-certbot-nginx
+```
+
+3) Generate an SSL cert:
+
+```bash
+sudo certbot --nginx -d monsternames-api.com
+```
+
+Now if you view ```/etc/nginx/sites-enabled/monsternames_api``` you should see that the ```ssl_certificate``` and ```ssl_certificate_key``` blocks state they're managed by certbot.
+
+If, for whatever reason, the certificate was created but not installed then you'll need to manually add ssl_certificate and ssl_certificate_key directives to the server block in nginx.
