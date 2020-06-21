@@ -279,7 +279,7 @@ If, for whatever reason, the certificate was created but not installed then you'
 
 What's also neat about this is that we can schedule a cronjob so that the cert automatically renews:
 
-``bash
+```bash
 crontab -e
 0 12 * * * /usr/bin/certbot renew --quiet
 ```
