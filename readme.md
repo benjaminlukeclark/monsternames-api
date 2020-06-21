@@ -276,3 +276,10 @@ sudo certbot --nginx -d monsternames-api.com
 Now if you view ```/etc/nginx/sites-enabled/monsternames_api``` you should see that the ```ssl_certificate``` and ```ssl_certificate_key``` blocks state they're managed by certbot.
 
 If, for whatever reason, the certificate was created but not installed then you'll need to manually add ssl_certificate and ssl_certificate_key directives to the server block in nginx.
+
+What's also neat about this is that we can schedule a cronjob so that the cert automatically renews:
+
+``bash
+crontab -e
+0 12 * * * /usr/bin/certbot renew --quiet
+```
