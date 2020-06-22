@@ -30,6 +30,11 @@ def contribute():
 def endpoints():
     return render_template('endpoints.html')
 
+@application.route('/addNames')
+def endpoints():
+    return render_template('add_names.html')
+
+
 
 #################################################
 #                                               #
