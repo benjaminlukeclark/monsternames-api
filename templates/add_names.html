@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <!-- load bootstrap-->
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <!-- Our JS -->
+    <script type="text/javascript"
+    src="{{ url_for('static', filename='js/add_names.js') }}"></script>
+    <!-- Title for the webpage -->
+    <title>monsternames-api</title>
+  </head>
+  <body>
+
+    <!-- Sidebar -->
+    <div style="position: fixed; top: 0; width: 20%;">
+      <div>
+        <h5 class="font-weight-bold text-center">monsternames-api</h5>
+      </div>
+      <ul class="nav nav-sidebar">
+          <li class="active"><a href= "{{ url_for('home') }}" >Home</a></li>
+          <li><a href="https://github.com/Sudoblark/monsternames-api">Git Repo</a></li>
+          <li><a href= "{{ url_for('endpoints') }}" >Endpoints</a></li>
+          <li><a href="{{ url_for('contribute_guide') }}" >Contribution Guide</a></li>
+          <li><a href="{{ url_for('add_names') }}" > Add Names </a></li>
+      </ul>
+    </div>
+
+    <!-- Main body -->
+    <div class="container-fluid" style="margin-left: 25%;">
+    <div class="row">
+    <div class="col-sm-9 col-md-10 main">
+      <!-- Header and first para -->
+      <h3>Add some nonsense</h3>
+      <p>You can use the form below to add names right here on the website! This is mainly aimed at those who look at the <a href="{{ url_for('contribute') }}" >contribution guide</a> and think "huh, all that code doesn't make much sense but I have a cool name or too I want to add to this". Just remember you need an api key!</p>
+      <!-- Example interaction with endpoints -->
+      <br>
+      <form class="form">
+        <!-- Input API key -->
+        <div class="form-group row">
+          <label for="apiKeyInput" class="col-sm-2 col-form-label">API Key</label>
+          <div class="col-sm-10">
+            <input type="password" class="form-control" id="apiKeyInput" placeholder="x-api-key">
+          </div>
+        </div>
+        <!-- Select monster -->
+        <div class="form-group row">
+          <label for="monsterSelect" class="col-sm-2 col-form-label">API Key</label>
+          <div class="col-sm-10">
+            <select id="monsterSelect" class="form-control p-3">
+              <option value="Goatmen">Goatmen</option>
+              <option value="Goblin">Goblin</option>
+              <option value="Ogre">Ogre</option>
+              <option value="Orc">Orc</option>
+              <option value="Skeleton">Skeleton</option>
+              <option value="Troll">Troll</option>
+            </select>
+          </div>
+        </div>
+        <!-- Input first name -->
+        <div class="form-group row">
+          <label for="firstNameInput" class="col-sm-2 col-form-label">First name</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" id="firstNameInput" placeholder="Enter first name if applicable">
+          </div>
+        </div>
+        <!-- Input last name -->
+        <div class="form-group row">
+          <label for="lastNameInput" class="col-sm-2 col-form-label">First name</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" id="lastNameInput" placeholder="Enter last name if applicable">
+          </div>
+        </div>
+        <button type="button" class="btn btn-primary" id="apiPostButton" onclick="apiPost()">Add a silly name!</button>
+      </form> 
+      <!-- Display results of interaction with endpoint -->
+      <br><br>
+        <h4> Add name results </h4>
+        <pre style="max-width: 80%;" id="apiPostResult">
+        </pre>
+      </div>
+  </div>
+</div>
+</div>
+</body>
+</html>
