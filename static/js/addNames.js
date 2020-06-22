@@ -62,11 +62,20 @@ function apiPost(e) {
   }
 
   if ((firstNameValue.length + lastNameValue.length) == 0) {
-    let errorDict = {"error" : "Unable to query API", "errorDetails" : {} }
+    let errorDict = {"error" : "Invalid Input", "errorDetails" : {} }
     errorDict["errorDetails"] = {
       "exception" : 'NoValidInput',
       "message" : 'You must enter data into either the first or last name fields before clicking submit'
     }
+
+    if ((lastNameValue.length > 0) && (endpointDict[selectedItem].lastName == false)) {
+    let errorDict = {"error" : "Invalid Input", "errorDetails" : {} }
+    errorDict["errorDetails"] = {
+      "exception" : 'NoValidInput',
+      "message" : 'The selected monster does not accept last name values'
+    }
+    }
+
     console.log(errorDict)
     let errorJson = JSON.stringify(errorDict, null, 4)
     document.getElementById("apiPostResult").innerHTML += errorJson
