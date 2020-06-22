@@ -6,7 +6,7 @@
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
    <!-- Title for the webpage -->
-    <title>Contribute</title>
+    <title>monsternames-api/Contribution Guide</title>
   </head>
   <body>
 
@@ -19,7 +19,8 @@
           <li class="active"><a href= "{{ url_for('home') }}" >Home</a></li>
           <li><a href="https://github.com/Sudoblark/monsternames-api">Git Repo</a></li>
           <li><a href= "{{ url_for('endpoints') }}" >Endpoints</a></li>
-          <li><a href="{{ url_for('contribute') }}" >Contribute</a></li>
+          <li><a href="{{ url_for('contributionGuide') }}" >Contribution Guide</a></li>
+          <li><a href="{{ url_for('addNames') }}" >Add Names</a></li>
       </ul>
     </div>
 
@@ -33,6 +34,9 @@
           <p>To contribute you first need to obtain an API key from myself (email bclark@sudoblark.com).</p>
           <p>Once you have this key you can then authenticate POST requests. POST requests to specific endpoints allow you to expand the list of possible first/last names for enemies.</p>
           <p>Below I'll list the endpoints, go over some POST notes then show examples to help you get started.</p>
+          </p>
+          <p>
+            If this all seems too technical then don't worry! Simply request an API key and then, once you have one, you can <a href="{{ url_for('addNames') }}" >add names</a> right here on the website!
           </p>
         </div>
 

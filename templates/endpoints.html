@@ -9,7 +9,7 @@
       <script type="text/javascript"
       src="{{ url_for('static', filename='js/endpoints.js') }}"></script>
     <!-- Title for the webpage -->
-    <title>Endpoints</title>
+    <title>monsternames-api/Endpoints</title>
   </head>
   <body>
 
@@ -22,7 +22,8 @@
           <li class="active"><a href= "{{ url_for('home') }}" >Home</a></li>
           <li><a href="https://github.com/Sudoblark/monsternames-api">Git Repo</a></li>
           <li><a href= "{{ url_for('endpoints') }}" >Endpoints</a></li>
-          <li><a href="{{ url_for('contribute') }}" >Contribute</a></li>
+          <li><a href="{{ url_for('contributionGuide') }}" >Contribution Guide</a></li>
+          <li><a href="{{ url_for('addNames') }}" >Add Names</a></li>
       </ul>
     </div>
 
@@ -33,7 +34,7 @@
           <!-- Main body for content -->
           <div>
             <h3>But how do i get these silly names?</h3>
-            <p>Let us see how we can get silly names out of this API. Have a look at how to <a href="{{ url_for('contribute') }}" >contribute</a> if you're thinking of adding to the database.</p>
+            <p>Let us see how we can get silly names out of this API. Have a look at the <a href="{{ url_for('contributionGuide') }}" >contribution guide</a> if you're thinking of adding to the database.</p>
         </div>
 
         <div>

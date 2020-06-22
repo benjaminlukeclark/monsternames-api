@@ -21,14 +21,19 @@ application = Flask(__name__)
 def home():
     return render_template('home.html')
 
-@application.route('/contribute')
-def contribute():
-    return render_template('contribute.html')
+@application.route('/contributionGuide')
+def contributionGuide():
+    return render_template('contributionGuide.html')
 
 
 @application.route('/endpoints')
 def endpoints():
     return render_template('endpoints.html')
+
+@application.route('/addNames')
+def addNames():
+    return render_template('addNames.html')
+
 
 
 #################################################
