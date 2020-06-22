@@ -22,7 +22,7 @@ def home():
     return render_template('home.html')
 
 @application.route('/contributionGuide')
-def contribute():
+def contributionGuide():
     return render_template('contributionGuide.html')
 
 
