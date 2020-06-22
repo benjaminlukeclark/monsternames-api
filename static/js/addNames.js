@@ -73,7 +73,7 @@ function apiPost(e) {
     }
     console.log(errorDict)
     let errorJson = JSON.stringify(errorDict, null, 4)
-    document.getElementById("apiGetResult").innerHTML += errorJson
+    document.getElementById("apiPostResult").innerHTML += errorJson
   }
 
  
@@ -93,7 +93,7 @@ function createNewRecord(url, data, apiKey) {
     }
     console.log(errorDict)
     let errorJson = JSON.stringify(errorDict, null, 4)
-    document.getElementById("apiGetResult").innerHTML += errorJson
+    document.getElementById("apiPostResult").innerHTML += errorJson
     })
 }
 
