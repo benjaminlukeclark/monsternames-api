@@ -21,9 +21,9 @@ application = Flask(__name__)
 def home():
     return render_template('home.html')
 
-@application.route('/contribution-guide')
+@application.route('/contributionGuide')
 def contribute():
-    return render_template('contribution_guide.html')
+    return render_template('contributionGuide.html')
 
 
 @application.route('/endpoints')
