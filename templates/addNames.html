@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <!-- Our JS -->
     <script type="text/javascript"
-    src="{{ url_for('static', filename='js/add_names.js') }}"></script>
+    src="{{ url_for('static', filename='js/addNames.js') }}"></script>
     <!-- Title for the webpage -->
     <title>monsternames-api</title>
   </head>
@@ -22,8 +22,8 @@
           <li class="active"><a href= "{{ url_for('home') }}" >Home</a></li>
           <li><a href="https://github.com/Sudoblark/monsternames-api">Git Repo</a></li>
           <li><a href= "{{ url_for('endpoints') }}" >Endpoints</a></li>
-          <li><a href="{{ url_for('contribute_guide') }}" >Contribution Guide</a></li>
-          <li><a href="{{ url_for('add_names') }}" > Add Names </a></li>
+          <li><a href="{{ url_for('contributionGuide') }}" >Contribution Guide</a></li>
+          <li><a href="{{ url_for('addNames') }}" >Add Names</a></li>
       </ul>
     </div>
 

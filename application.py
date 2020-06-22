@@ -32,7 +32,7 @@ def endpoints():
 
 @application.route('/addNames')
 def endpoints():
-    return render_template('add_names.html')
+    return render_template('addNames.html')
 
 
 
