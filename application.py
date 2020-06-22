@@ -31,7 +31,7 @@ def endpoints():
     return render_template('endpoints.html')
 
 @application.route('/addNames')
-def endpoints():
+def addNames():
     return render_template('addNames.html')
 
 
