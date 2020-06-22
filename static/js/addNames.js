@@ -1,5 +1,9 @@
 // function called to post to api to add new entry
 function apiPost(e) {
+  // first we clear whatever data is already in the results column
+  document.getElementById('apiPostResult').innerHTML = ''
+  // then move on to actually doing things...
+
   // base url for post queries
   let baseUrl = 'https://monsternames-api.com/api/v1.0/'
   // create dict to hold verification info
@@ -43,19 +47,33 @@ function apiPost(e) {
   var apiKey = document.getElementById("apiKeyInput").value
   // then attempt POST
   var result = ''
+  // attempt first name post
   if (endpointDict[selectedItem].firstName == true & firstNameValue.length > 0) {
-    firstNameURL = endpointDict[selectedItem].url + 'firstName'
+    firstNameURL = endpointDict[selectedItem].base + 'firstName'
     firstNameData = {
       firstName : firstNameValue
     }
     createNewRecord(firstNameURL, firstNameData, apiKey)
 
-  } else if (endpointDict[selectedItem].lastName == true & lastNameValue.length > 0) {
-    lastNameURL = endpointDict[selectedItem].url + 'lastName'
+  }
+  // attempt last name post
+  if (endpointDict[selectedItem].lastName == true & lastNameValue.length > 0) {
+    lastNameURL = endpointDict[selectedItem].base + 'lastName'
     lastNameData = {
       lastName : lastNameValue
     }
     createNewRecord(lastNameURL, lastNameData, apiKey)
+  }
+
+  if ((firstNameValue.length + lastNameValue.length) == 0) {
+    let errorDict = {"error" : "Unable to query API", "errorDetails" : {} }
+    errorDict["errorDetails"] = {
+      "exception" : 'NoValidInput',
+      "message" : 'You must enter data into either the first or last name fields before clicking submit'
+    }
+    console.log(errorDict)
+    let errorJson = JSON.stringify(errorDict, null, 4)
+    document.getElementById("apiGetResult").innerHTML += errorJson
   }
 
  
@@ -64,8 +82,19 @@ function apiPost(e) {
 function createNewRecord(url, data, apiKey) {
   postData(url, data, apiKey)
   .then(data => {
-    console.log(data); // JSON data parsed by `response.json()` call
-  });
+    let dataJson = JSON.stringify(data, null, 4)
+    document.getElementById('apiPostResult').innerHTML += dataJson
+  })
+  .catch(function(err) {
+    let errorDict = {"error" : "Unable to query API", "errorDetails" : {} }
+    errorDict["errorDetails"] = {
+      "exception" : err.name,
+      "message" : err.message
+    }
+    console.log(errorDict)
+    let errorJson = JSON.stringify(errorDict, null, 4)
+    document.getElementById("apiGetResult").innerHTML += errorJson
+    })
 }
 
 // Example POST method implementation:
@@ -78,6 +107,6 @@ async function postData(url, data, apiKey) {
       'x-api-key': apiKey
     },
     body: JSON.stringify(data) // body data type must match "Content-Type" header
-  });
+  })
   return response.json(); // parses JSON response into native JavaScript objects
 }
