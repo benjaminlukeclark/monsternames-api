@@ -50,18 +50,14 @@ function apiPost(e) {
   // attempt first name post
   if (endpointDict[selectedItem].firstName == true & firstNameValue.length > 0) {
     firstNameURL = endpointDict[selectedItem].base + 'firstName'
-    firstNameData = {
-      firstName : firstNameValue
-    }
+    firstNameData = "firstName=" + firstNameValue
     createNewRecord(firstNameURL, firstNameData, apiKey)
 
   }
   // attempt last name post
   if (endpointDict[selectedItem].lastName == true & lastNameValue.length > 0) {
     lastNameURL = endpointDict[selectedItem].base + 'lastName'
-    lastNameData = {
-      lastName : lastNameValue
-    }
+    lastNameData = "lastName=" + lastNameValue
     createNewRecord(lastNameURL, lastNameData, apiKey)
   }
 
@@ -103,10 +99,10 @@ async function postData(url, data, apiKey) {
   const response = await fetch(url, {
     method: 'POST', // *GET, POST, PUT, DELETE, etc.
     headers: {
-      'Content-Type' : 'application/json',
-      'x-api-key': apiKey
+      'x-api-key': apiKey,
+      'content-type' : 'application/x-www-form-urlencoded'
     },
-    body: JSON.stringify(data) // body data type must match "Content-Type" header
+    body: data // body data type must match "Content-Type" header
   })
   return response.json(); // parses JSON response into native JavaScript objects
 }
