@@ -48,14 +48,14 @@ function apiPost(e) {
   // then attempt POST
   var result = ''
   // attempt first name post
-  if (endpointDict[selectedItem].firstName == true & firstNameValue.length > 0) {
+  if ((endpointDict[selectedItem].firstName == true) && (firstNameValue.length > 0)) {
     firstNameURL = endpointDict[selectedItem].base + 'firstName'
     firstNameData = "firstName=" + firstNameValue
     createNewRecord(firstNameURL, firstNameData, apiKey)
 
   }
   // attempt last name post
-  if (endpointDict[selectedItem].lastName == true & lastNameValue.length > 0) {
+  if ((endpointDict[selectedItem].lastName == true) && (lastNameValue.length > 0)) {
     lastNameURL = endpointDict[selectedItem].base + 'lastName'
     lastNameData = "lastName=" + lastNameValue
     createNewRecord(lastNameURL, lastNameData, apiKey)

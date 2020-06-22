@@ -56,7 +56,7 @@ class monster_endpoint:
         models.db.connect(reuse_if_open=True)
         # First check if the record already exists
         if (self._First_Name_Model.select().where(self._First_Name_Model.firstName == firstName)).exists():
-            return make_response(jsonify({'error' : 'Duplicate record', 'message' : 'Record already exists'}), 400)
+            return make_response(jsonify({'error' : 'Duplicate record', 'message' : 'First name record already exists'}), 400)
         # Insert
         self._First_Name_Model.create(firstName=firstName)
         models.PostAudit.create(user=user, message="{fMonsterName} first name record '{fFirstName}' created".format(fMonsterName = self._Monster_Name, fFirstName = firstName))
@@ -80,7 +80,7 @@ class monster_endpoint:
         models.db.connect(reuse_if_open=True)
         # First check if the record already exists
         if (self._Last_Name_Model.select().where(self._Last_Name_Model.lastName == lastName)).exists():
-            return make_response(jsonify({'error' : 'Duplicate record', 'message' : 'Record already exists'}), 400)
+            return make_response(jsonify({'error' : 'Duplicate record', 'message' : 'Last name record already exists'}), 400)
         # Insert
         self._Last_Name_Model.create(lastName=lastName)
         models.PostAudit.create(user=user, message="{fMonsterName} firstlast name record '{fLastName}' created".format(fMonsterName = self._Monster_Name, fLastName = lastName))
