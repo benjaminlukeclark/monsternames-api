@@ -43,7 +43,7 @@ function apiPost(e) {
   var selectedItem = document.getElementById("monsterSelect").value
   // and value of required items
   var firstNameValue = document.getElementById("firstNameInput").value
-  var lastNameValue = document.getElementById("firstNameInput").value
+  var lastNameValue = document.getElementById("lastNameInput").value
   var apiKey = document.getElementById("apiKeyInput").value
   // then attempt POST
   var result = ''
