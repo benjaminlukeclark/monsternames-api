@@ -123,7 +123,7 @@ def get_orc():
 def post_orc_first_name():
     return OrcEndpoint.insert_first_name(request)
 
-@application.route('/api/v1.0/rc/lastName', methods=['POST'])
+@application.route('/api/v1.0/orc/lastName', methods=['POST'])
 @monster_route
 def post_orc_last_name():
     return OrcEndpoint.insert_last_name(request)
