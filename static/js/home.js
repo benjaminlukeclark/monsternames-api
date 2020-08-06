@@ -9,7 +9,17 @@ function apiGet(e) {
     .then(function(data) {
       let dataJson = JSON.stringify(data, null, 4)
       console.log(dataJson)
+
+      var rowData = `
+      <tr>
+      <th scope="row">1</th>
+      <td>Goatmen</td>
+      <td>Fluffy</td>
+      <td></td>
+    </tr>
+    `
       document.getElementById("apiGetResult").innerHTML = dataJson
+      
       })
     .catch(function(err) {
       let errorDict = {"error" : "Unable to query API", "errorDetails" : {} }
@@ -23,4 +33,24 @@ function apiGet(e) {
     })
 
     return false // done to prevent reload of page
+}
+
+var getResultsTemplate = `
+<table class="table" id="getResults">
+<thead>
+  <tr>
+    <th scope="col">#</th>
+    <th scope="col">Monster</th>
+    <th scope="col">First name</th>
+    <th scope="col">Last name</th>
+  </tr>
+</thead>
+<tbody>
+</tbody>
+</table>
+`;
+
+function clearTable(e) {
+  document.getElementById("getResults").innerHTML = getResultsTemplate
+
 }

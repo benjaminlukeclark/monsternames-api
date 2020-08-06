@@ -1,68 +1,121 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <!-- load bootstrap-->
-    <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-    <!-- Our JS -->
-    <script type="text/javascript"
-    src="{{ url_for('static', filename='js/home.js') }}"></script>
-    <!-- Title for the webpage -->
-    <title>monsternames-api/Home</title>
-  </head>
-  <body>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>monsternames-api/home</title>
+        <!-- Favicon-->
+        <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='images/favicon.ico') }}" />
+        <!-- Font Awesome icons (free version)-->
+        <script src="https://use.fontawesome.com/releases/v5.13.0/js/all.js" crossorigin="anonymous"></script>
+        <!-- Google fonts-->
+        <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
+        <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css" />
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link href="css/styles.css" rel="stylesheet" />
+    </head>
+    <body id="page-top">
+        <!-- Navigation-->
+        <nav class="navbar navbar-expand-lg bg-secondary text-uppercase fixed-top" id="mainNav">
+            <div class="container">
+                <a class="navbar-brand js-scroll-trigger" href="{{ url_for('home') }}">monsternames-api</a>
+                <button class="navbar-toggler navbar-toggler-right text-uppercase font-weight-bold bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                    Menu
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarResponsive">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="https://github.com/Sudoblark/monsternames-api">Git Repo</a></li>
+                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="{{ url_for('endpoints') }}">Endpoints</a></li>
+                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="{{ url_for('contributionGuide') }}">Contribution Guide</a></li>
+                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="{{ url_for('addNames') }}">Add Names</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <!-- Masthead-->
+        <header class="masthead bg-primary text-white text-center">
+            <div class="container d-flex align-items-center flex-column">
+                <!-- Masthead Avatar Image-->
+                <img class="masthead-avatar mb-5" src="{{ url_for('static', filename='images/monster-2523361_640.jpg') }}" alt="" />
+                <!-- Masthead Heading-->
+                <h1 class="masthead-heading text-uppercase mb-0">monsternames-api</h1>
+                <!-- Icon Divider-->
+                <div class="divider-custom divider-light">
+                    <div class="divider-custom-line"></div>
+                    <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
+                    <div class="divider-custom-line"></div>
+                </div>
+                <!-- Masthead Subheading-->
+                <p class="masthead-subheading font-weight-light mb-0">Open-Source monster name generator for all your creative needs</p>
+            </div>
+        </header>
+        <!-- Portfolio Section-->
+        <section class="page-section portfolio" id="portfolio">
+            <div class="container">
+                <!-- Portfolio Grid Items-->
+                <p class="lead mb-1">Simply use the form below to generate random names. If you're interested in using the api programmatically then check out the <a href= "{{ url_for('endpoints') }}" >endpoints</a>  section, you can also <a href= "{{ url_for('addNames') }}" >add names</a>  through the website if you want. Though if programming is more your thing check out the <a href="{{ url_for('contributionGuide') }}" >contribution guide</a>.</p>
+                <br><br>
 
-    <!-- Sidebar -->
-    <div style="position: fixed; top: 0; width: 20%;">
-      <div>
-        <h5 class="font-weight-bold text-center">monsternames-api</h5>
-      </div>
-      <ul class="nav nav-sidebar">
-          <li class="active"><a href= "{{ url_for('home') }}" >Home</a></li>
-          <li><a href="https://github.com/Sudoblark/monsternames-api">Git Repo</a></li>
-          <li><a href= "{{ url_for('endpoints') }}" >Endpoints</a></li>
-          <li><a href="{{ url_for('contributionGuide') }}" >Contribution Guide</a></li>
-          <li><a href="{{ url_for('addNames') }}" >Add Names</a></li>
-      </ul>
-    </div>
 
-    <!-- Main body -->
-    <div class="container-fluid" style="margin-left: 25%;">
-    <div class="row">
-    <div class="col-sm-9 col-md-10 main">
-      <!-- Header and first para -->
-      <h3> Open source monster name generation for all your creative needs.</h3>
-      <p>Simply use the form below to generate random names. If you're interested in using the api programmatically then check out the <a href= "{{ url_for('endpoints') }}" >endpoints</a>  section, you can also <a href= "{{ url_for('addNames') }}" >add names</a>  through the website if you want. Though if programming is more your thing check out the <a href="{{ url_for('contributionGuide') }}" >contribution guide</a>. </p>
-      <!-- Example interaction with endpoints -->
-      <br>
-      <form class="form-inline">
-        <div class="form-group">
-          <label for="endpointSelect">Monster</label>
-          <select id="endpointSelect" class="form-control p-3">
-            <option value="https://monsternames-api.com/api/v1.0/goatmen">Goatmen</option>
-            <option value="https://monsternames-api.com/api/v1.0/goblin">Goblin</option>
-            <option value="https://monsternames-api.com/api/v1.0/ogre">Ogre</option>
-            <option value="https://monsternames-api.com/api/v1.0/orc">Orc</option>
-            <option value="https://monsternames-api.com/api/v1.0/skeleton">Skeleton</option>
-            <option value="https://monsternames-api.com/api/v1.0/troll">Troll</option>
-            <!-- Programmatically add stuff here -->
-          </select>
-        </div>
-        <button type="button" class="btn btn-default" id="apiGetButton" onclick="apiGet()">GET!</button>
-      </form> 
-      <!-- Display results of interaction with endpoint -->
-      <br><br>
-        <pre style="max-width: 80%;" id="apiGetResult">
-{
-    "firstName": "Pot",
-    "fullName": "Pot The ugly",
-    "lastName": "The ugly"
-}
-        </pre>
-      </div>
-  </div>
-</div>
-</div>
-</body>
+
+                <form class="form">
+                    <!-- Select monster -->
+                    <div class="form-group row">
+                      <label for="monsterSelect" class="col-sm-2 col-form-label">Monster</label>
+                      <div class="col-sm-10">
+                        <select id="monsterSelect" class="form-control p-3">
+                          <option value="Goatmen">Goatmen</option>
+                          <option value="Goblin">Goblin</option>
+                          <option value="Ogre">Ogre</option>
+                          <option value="Orc">Orc</option>
+                          <option value="Skeleton">Skeleton</option>
+                          <option value="Troll">Troll</option>
+                        </select>
+                      </div>
+                    </div>
+                    <button type="button" class="btn btn-secondary" id="apiPostButton" onclick="apiGet()">Get names</button>
+                    <button type="button" class="btn btn-info" id="apiPostButton" onclick="apiPost()">Clear names</button>
+                  </form> 
+                  <!-- Display results of interaction with endpoint -->
+                  <br><br>
+                  <h4> Monster Names </h4>
+                  <table class="table" id="getResults">
+                    <thead>
+                      <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Monster</th>
+                        <th scope="col">First name</th>
+                        <th scope="col">Last name</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <th scope="row">1</th>
+                        <td>Goatmen</td>
+                        <td>Fluffy</td>
+                        <td></td>
+                      </tr>
+                    </tbody>
+                  </table>
+
+
+            
+            
+            </div>
+        </section>
+        <!-- Bootstrap core JS-->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.bundle.min.js"></script>
+        <!-- Third party plugin JS-->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
+        <!-- Core theme JS-->
+        <script src="js/scripts.js"></script>
+        <!-- Custom JS -->
+        <script type="text/javascript"
+        src="{{ url_for('static', filename='js/home.js') }}"></script>
+
+    </body>
 </html>
