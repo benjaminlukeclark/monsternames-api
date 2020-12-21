@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <!-- load bootstrap-->
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <!-- Our JS -->
+    <script type="text/javascript"
+    src="{{ url_for('static', filename='js/home.js') }}"></script>
+    <!-- Title for the webpage -->
+    <title>monsternames-api/Home</title>
+  </head>
+  <body>
+
+    <!-- Sidebar -->
+    <div style="position: fixed; top: 0; width: 20%;">
+      <div>
+        <h5 class="font-weight-bold text-center">monsternames-api</h5>
+      </div>
+      <ul class="nav nav-sidebar">
+          <li class="active"><a href= "{{ url_for('home') }}" >Home</a></li>
+          <li><a href="{{ url_for('projectsThatUseThis') }}">Projects That Use This</a></li>
+          <li><a href="https://github.com/Sudoblark/monsternames-api">Git Repo</a></li>
+          <li><a href= "{{ url_for('endpoints') }}" >Endpoints</a></li>
+          <li><a href="{{ url_for('contributionGuide') }}" >Contribution Guide</a></li>
+          <li><a href="{{ url_for('addNames') }}" >Add Names</a></li>
+      </ul>
+    </div>
+
+    <!-- Main body -->
+    <div class="container-fluid" style="margin-left: 25%;">
+    <div class="row">
+    <div class="col-sm-9 col-md-10 main">
+      <!-- Header and first para -->
+      <h3> Projects That Use This.</h3>
+      <p>See below for a list of cool projects that use this API!. </p>
+      <!-- Monstername generator -->
+      <div class="card-deck">
+          <div class="card">
+              <img class="card-img-top" src="{{ url_for('static', filename='images/monster-generator-examples.png') }}" alt="examples of generated monsters">
+              <div class="card-body">
+                  <h5 class="card-title"><a href="https://monster.mnuh.org/">Monster Generator</a></h5>
+                  <p class="card-text">Cool monster generator that mashes this API and a few others to generate monster 'cards' like a playing deck!</p>
+                  <p class="card-text"><small class="text-muted">Created by <a href="https://github.com/mishaelnuh"> Mishael Nuh </a></small></p>
+              </div>
+          </div>
+      </div>
+                        
+    </div>
+  </div>
+</div>
+</div>
+</body>
+</html>
