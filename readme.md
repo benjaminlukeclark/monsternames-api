@@ -283,3 +283,7 @@ What's also neat about this is that we can schedule a cronjob so that the cert a
 crontab -e
 0 12 * * * /usr/bin/certbot renew --quiet
 ```
+
+# Projects that use this API
+## [Monster Generator](https://monster.mnuh.org/)
+Cool monster generator that mashes this API and a few others to generate monster 'cards' like a playing deck! Created by [Mishael Nuh](https://github.com/mishaelnuh).
