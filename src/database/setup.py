@@ -1,14 +1,12 @@
-import peewee
-from peewee import *
-import dbVars
 import CustomOutput
 import models
+import traceback
 
 CustomOutput.OutputInfo('Attempting DB connection...')
 try:
     # Connect to DB
     models.db.connect(reuse_if_open=True)
-        # Create tables
+    # Create tables
     models.GoblinFirstName.create_table()
     models.GoblinLastName.create_table()
     models.GoatmenFirstName.create_table()
@@ -30,6 +28,7 @@ try:
 except Exception as error:
     CustomOutput.OutputError('Error connecting to DB or creating tables')
     CustomOutput.OutputError(error)
+    CustomOutput.OutputError(traceback.format_exc())
 
 
 

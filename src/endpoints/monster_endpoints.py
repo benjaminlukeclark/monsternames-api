@@ -1,7 +1,6 @@
 from flask import make_response, jsonify
 import database.models as models
 import peewee
-from peewee import *
 from peewee import fn
 from database.models import GoblinFirstName, GoblinLastName, GoatmenFirstName, OgreFirstName, OrcFirstName, OrcLastName, SkeletonFirstName, SkeletonLastName, TrollFirstName, TrollLastName
 import json

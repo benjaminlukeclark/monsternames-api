@@ -191,7 +191,3 @@ def post_troll_last_name():
 def not_found(error):
     return make_response(jsonify({'error': 'Path not found, consult repo for valid endpoints',
                                   'repo': 'https://github.com/Sudoblark/monsternames-api'}), 404)
-
-
-if __name__ == '__main__':
-    application.run()
