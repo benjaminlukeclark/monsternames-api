@@ -33,7 +33,7 @@ try:
 except Exception as error:
     logger.error("Unable to connect to DB and/or create tables")
     logger.error(str(error))
-    logger.error(traceback())
+    logger.error(traceback.format_exc())
 
 
 

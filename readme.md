@@ -84,41 +84,32 @@ That adventure never got off the ground, but the name generation did. So I decid
 ## Getting Started
 To get a local dev copy up and running follow these example steps.
 
-Note that all instructions are for development on Windows 10 using Ubuntu 20.04 LTS WSL.
+Note that all instructions are for development on MacOS.
 
 If you're using other platforms same concepts apply just will need to localise to your OS.
 
 These are just development instructions, for prod run with a container orchestrator that has SSL in front via load balancer etc.
 
-~~I don't have a shiny Mac for personal dev purposes just work~~
-
 ### Prerequisites
 
-* Docker desktop for Windows 10
-* A MySQL 5.7.22 instance
-    * This can be spun up relatively easily with docker locally:
-    ```sh
-    # Create custom network so we can connect using docker MySQL client later
-    docker network create monsternames
-    # Pull MySQL 5.7.22 server image from dockerhub
-    docker pull mysql:5.7.22
-    # Setup MySQL server using image
-    docker run -p 3306:3306 --network monsternames --name monsternames_db_container -e MYSQL_ROOT_PASSWORD=password -d mysql:5.7.22 mysqld
-    ```
-* Single database on instance, and user with full access to that database using mysql_native_password
-    * Example below of how to create DB and user on docker mysql created in last step:
-    ```sh
-    # Run interactive docker image with mysql client connected to previous made docker image 
-    # hosting MySQL 5.7.22 on our custom network
-    docker run -it --network monsternames --rm mysql:5.7.22 mysql -hmonsternames_db_container -uroot -p
-    ...
-    # Create a dedicated monsternames database
-    CREATE DATABASE development;
-    # Setup user for local dev environment to use, ensuring mysql_native_password is used for pymysql compatibility
-    CREATE USER 'dev'@'%' IDENTIFIED WITH mysql_native_password BY 'helloWorld!1';
-    # Then grant appropriate permissions
-    GRANT ALL ON development.* TO 'dev'@'%';
-    ```
+* Docker
+* A MySQL 5.7.22 instance with a:
+    * dedicated database for the API
+    * user with full access to dedicated database
+    * user using mysql_native_password authentication
+
+_This can be spun up relatively easily with docker locally_
+    
+```sh
+# Create custom network so we can communicate with DB later
+docker network create monsternames
+# Pull MySQL 5.7.22 server image from dockerhub
+docker pull mysql:5.7.22
+# Setup MySQL server using image
+docker run -p 3306:3306 --network monsternames --name monsternames_db_container -e MYSQL_ROOT_PASSWORD=password -e MYSQL_DATABASE=development -d mysql:5.7.22 mysqld
+```
+* Python 3.8.x
+
 ### Installation
 
 1. Clone the repo
@@ -129,100 +120,55 @@ These are just development instructions, for prod run with a container orchestra
 2. Run docker build with appropriate tagging and passthru of DB connection details for docker sql container:
    1. _example below uses settings appropriately for docker database created in pre-requirement examples_
    ```sh
-    docker build -t monsternames:v0.1 . --build-arg db_host='host.docker.internal' --build-arg db_name='development' --build-arg db_user='dev' --build-arg db_pwd='helloWorld!1' --build-arg web_host='localhost:5000'
+    docker build -t monsternames:v0.1 . --build-arg db_host='host.docker.internal' --build-arg db_name='development' --build-arg db_user='root' --build-arg db_pwd='password' --build-arg web_host='localhost:5000'
     ```
 3. Spin up the docker container, mapping container 5000 to host 5000, in detached mode:
 
    ```sh
    docker run -d -p 5000:5000 monsternames:v0.1
    ```
-
-4. You should then be able to query logs, and confirm in MySQL client, to show that database has been intialised:
+   
+4. Connect to DB and create a new API key for POST requests
 
     ```sh
-    PS D:\Github\monsternames-api> docker container logs 3153fdac23864ec7a24189b458f8ff10084de1ccf64960a2e66438e845010b9b
-    Attempting DB connection... 
-    Connected to DB and created tables 
-   ...
-   mysql> USE development;
-    Reading table information for completion of table and column names
-    You can turn off this feature to get a quicker startup with -A
-    
-    Database changed
-    mysql> SHOW TABLES;
-    +-----------------------+
-    | Tables_in_development |
-    +-----------------------+
-    | apikeys               |
-    | goatmenfirstname      |
-    | goblinfirstname       |
-    | goblinlastname        |
-    | ogrefirstname         |
-    | orcfirstname          |
-    | orclastname           |
-    | postaudit             |
-    | skeletonfirstname     |
-    | skeletonlastname      |
-    | trollfirstname        |
-    | trolllastname         |
-    +-----------------------+
-    12 rows in set (0.00 sec)
-
-    mysql>
-    ```
-
-5. And hit the home page...
-
-<img src="images/home_example.png" alt="home_page_example" width="80" height="80">
-
-6... then see logs confirming this:
-   ```sh
-   PS D:\Github\monsternames-api> docker container logs bcfefca0903dce9d05df6f0a7fd4e9305eacaadcadb5d6c5a34e238804f2413b
-   ...
- * Environment: production
-   WARNING: This is a development server. Do not use it in a production deployment.
-   Use a production WSGI server instead.
- * Debug mode: off
- * Running on all addresses.
-   WARNING: This is a development server. Do not use it in a production deployment.
- * Running on http://172.17.0.2:5000/ (Press CTRL+C to quit)
-172.17.0.1 - - [17/Oct/2021 11:30:05] "GET / HTTP/1.1" 200 -
-   ```
-
-7. You can then make an API key in the database for authentication...
-    ```sh
+    docker run -it --network monsternames --rm mysql:5.7.22 mysql -hmonsternames_db_container -uroot -ppassword
+    ...
     INSERT INTO development.apikeys (apiKey, `user`)
     VALUES ('helloworld', 'testUser');
     ```
-8. ... and use this to create new names...
-    ```sh
-    curl -d "firstName=hello" -X POST http://localhost:5000/api/v1.0/goatmen/firstName -H "x-api-key:helloworld"
-   {"firstName":"hello","message":"New record created"}
-    ```
 
-9. Which the API then returns:
-    ```sh
-    curl -X GET http://localhost:5000/api/v1.0/goatmen
-    {"firstName": "hello", "fullName": "hello"}
-    ```
+5. Run behaviour tests to confirm functionality:
 
-From there you should be good to go for local development with:
+    ```sh
+   python3 -m venv venv
+   source venv/bin/activate
+   pip3 install -r requirements.txt
+   python -m behave
+   ...
+   1 feature passed, 0 failed, 0 skipped
+   50 scenarios passed, 0 failed, 0 skipped
+   150 steps passed, 0 failed, 0 skipped, 0 undefined
+   Took 0m4.310s
+
+   ```
+
+6. You're good to go for development with:
+
 - Locker docker instance running monsternames api
 - Local docker instance running MySQL backend
 - API key setup in DB for POST functionality
+- Functionality confirmed with Behave! behaviour testing
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 
 ### Behave tests
+There is a pre-commit hook setup to run behaviour tests, which tests:
+- POST to every api endpoint with 5 unique values
+- GET to every api endpoint
 CI is setup to run behave tests in features/ on every commit, and before a release is published to prod.
 
-To run behave yourself, you'll need:
-- An instance of the monsternames container up and running
-- A backing MySQL 5.7.22 instance setup as per dev instructions above
-- A valid API key in your backing MySQL 5.7.22 instance
-
-If the above is true, then you can amend `features/steps/environment.py` to point to your setup and it should work.
+Tried to get working on circleCI, but the seperation of docker environments there makes it a bit of a mess.
 
 
 <!-- USAGE EXAMPLES -->
@@ -239,8 +185,8 @@ If the above is true, then you can amend `features/steps/environment.py` to poin
 
 - [x] Get local dev docker image working
 - [x] Get DB initialisation working on local dev environment
-- [ ] Refactor DB initialisation to obscure secrets
-- [ ] Add Behave! behaviour testing with Python using docker image in circleCI
+- [x] Refactor DB initialisation to obscure secrets
+- [x] Add Behave! behaviour testing with Python using docker image in circleCI
 - [ ] Add unit tests
 - [ ] Add CI deployment of docker contain to ECS
 

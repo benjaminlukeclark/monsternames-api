@@ -24,6 +24,11 @@ ARG db_name
 ARG db_user
 ARG db_pwd
 ARG web_host
+# Some get set as env vars for API to use for DB connection
+ENV dbHost=${db_host}
+ENV dbName=${db_name}
+ENV dbUser=${db_user}
+ENV dbPwd=${db_pwd}
 
 # Copy actual contents across
 COPY src src
@@ -32,9 +37,6 @@ COPY src src
 RUN sed -i "s/EXPECTED_HOST/${web_host}/g" /app/src/static/js/addNames.js
 # Do the same for home page so example works
 RUN sed -i "s/EXPECTED_HOST/${web_host}/g" /app/src/templates/home.html
-
-# Setup config file according to env vars
-RUN python3 /app/src/configBootstrap.py "${db_host}" "${db_name}" "${db_user}" "${db_pwd}"
 
 WORKDIR /app/src
 # Make entrypoint script runnable
