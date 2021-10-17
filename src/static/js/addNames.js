@@ -5,7 +5,7 @@ function apiPost(e) {
   // then move on to actually doing things...
 
   // base url for post queries
-  let baseUrl = 'https://monsternames-api.com/api/v1.0/'
+  let baseUrl = 'https://EXPECTED_HOST/api/v1.0/'
   // create dict to hold verification info
   var endpointDict ={
     Goatmen : {

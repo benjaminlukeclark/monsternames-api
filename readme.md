@@ -127,7 +127,7 @@ If you're using other platforms same concepts apply just will need to localise t
 2. Run docker build with appropriate tagging and passthru of DB connection details for docker sql container:
    1. _example below uses settings appropriately for docker database created in pre-requirement examples_
    ```sh
-    docker build -t monsternames:v0.1 . --build-arg db_host='host.docker.internal' --build-arg db_name='development' --build-arg db_user='dev' --build-arg db_pwd='helloWorld!1'
+    docker build -t monsternames:v0.1 . --build-arg db_host='host.docker.internal' --build-arg db_name='development' --build-arg db_user='dev' --build-arg db_pwd='helloWorld!1' --build-arg web_host='localhost:5000'
     ```
 3. Spin up the docker container, mapping container 5000 to host 5000, in detached mode:
 
@@ -141,6 +141,7 @@ If you're using other platforms same concepts apply just will need to localise t
     PS D:\Github\monsternames-api> docker container logs 3153fdac23864ec7a24189b458f8ff10084de1ccf64960a2e66438e845010b9b
     Attempting DB connection... 
     Connected to DB and created tables 
+   ...
    mysql> USE development;
     Reading table information for completion of table and column names
     You can turn off this feature to get a quicker startup with -A
@@ -174,10 +175,39 @@ If you're using other platforms same concepts apply just will need to localise t
 
 6... then see logs confirming this:
    ```sh
-   TBC
+   PS D:\Github\monsternames-api> docker container logs bcfefca0903dce9d05df6f0a7fd4e9305eacaadcadb5d6c5a34e238804f2413b
+   ...
+ * Environment: production
+   WARNING: This is a development server. Do not use it in a production deployment.
+   Use a production WSGI server instead.
+ * Debug mode: off
+ * Running on all addresses.
+   WARNING: This is a development server. Do not use it in a production deployment.
+ * Running on http://172.17.0.2:5000/ (Press CTRL+C to quit)
+172.17.0.1 - - [17/Oct/2021 11:30:05] "GET / HTTP/1.1" 200 -
    ```
 
+7. You can then make an API key in the database for authentication...
+    ```sh
+    INSERT INTO development.apikeys (apiKey, `user`)
+    VALUES ('helloworld', 'testUser');
+    ```
+8. ... and use this to create new names...
+    ```sh
+    curl -d "firstName=hello" -X POST http://localhost:5000/api/v1.0/goatmen/firstName -H "x-api-key:helloworld"
+   {"firstName":"hello","message":"New record created"}
+    ```
 
+9. Which the API then returns:
+    ```sh
+    curl -d "firstName=hello" -X GET http://localhost:5000/api/v1.0/goatmen
+    {"firstName": "hello", "fullName": "hello"}
+    ```
+
+From there you should be good to go for local development with:
+- Locker docker instance running monsternames api
+- Local docker instance running MySQL backend
+- API key setup in DB for POST functionality
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -196,7 +226,7 @@ If you're using other platforms same concepts apply just will need to localise t
 ## Roadmap
 
 - [x] Get local dev docker image working
-- [ ] Get DB initialisation working on local dev environment
+- [x] Get DB initialisation working on local dev environment
 - [ ] Refactor DB initialisation to obscure secrets
 - [ ] Add Behave! behaviour testing with Python using docker image in circleCI
 - [ ] Add unit tests

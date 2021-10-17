@@ -23,16 +23,20 @@ ARG db_host
 ARG db_name
 ARG db_user
 ARG db_pwd
+ARG web_host
 
 # Copy actual contents across
 COPY src src
+
+# Amend JavaScript to work on docker container, as api url is hard coded
+RUN sed -i "s/EXPECTED_HOST/${web_host}/g" /app/src/static/js/addNames.js
 
 # Setup config file according to env vars
 RUN python3 /app/src/configBootstrap.py "${db_host}" "${db_name}" "${db_user}" "${db_pwd}"
 
 WORKDIR /app/src
+# Make entrypoint script runnable
+RUN chmod +x  entrypoint.sh
 
-# Entry point for container to initialise database if required
-ENTRYPOINT ["python3", "database/setup.py"]
-# Actual API worker
-CMD [ "python3", "-m" , "flask", "run", "--host=0.0.0.0"]
+# Entry point for container to initialise database if required then run flask
+ENTRYPOINT ["./entrypoint.sh"]
