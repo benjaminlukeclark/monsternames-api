@@ -88,6 +88,8 @@ Note that all instructions are for development on Windows 10 using Ubuntu 20.04 
 
 If you're using other platforms same concepts apply just will need to localise to your OS.
 
+These are just development instructions, for prod run with a container orchestrator that has SSL in front via load balancer etc.
+
 ~~I don't have a shiny Mac for personal dev purposes just work~~
 
 ### Prerequisites
@@ -211,6 +213,16 @@ From there you should be good to go for local development with:
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
+
+### Behave tests
+CI is setup to run behave tests in features/ on every commit, and before a release is published to prod.
+
+To run behave yourself, you'll need:
+- An instance of the monsternames container up and running
+- A backing MySQL 5.7.22 instance setup as per dev instructions above
+- A valid API key in your backing MySQL 5.7.22 instance
+
+If the above is true, then you can amend `features/steps/environment.py` to point to your setup and it should work.
 
 
 <!-- USAGE EXAMPLES -->
