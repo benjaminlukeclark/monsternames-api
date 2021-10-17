@@ -1,8 +1,13 @@
-import CustomOutput
 import models
 import traceback
+import logging
 
-CustomOutput.OutputInfo('Attempting DB connection...')
+logger = logging.getLogger(__name__)
+stream_handler = logging.StreamHandler()
+formatter = logging.Formatter('%(asctime)s %(app_name)s : %(message)s')
+logger.addHandler(stream_handler)
+
+logger.info("Attempting DB connection...")
 try:
     # Connect to DB
     models.db.connect(reuse_if_open=True)
@@ -24,12 +29,11 @@ try:
     models.db.commit()
 
     # Output success
-    CustomOutput.OutputSuccess('Connected to DB and created tables')
+    logger.info("Successfully connected to DB and, if required, created tables.")
 except Exception as error:
-    CustomOutput.OutputError('Error connecting to DB or creating tables')
-    CustomOutput.OutputError(error)
-    CustomOutput.OutputError(traceback.format_exc())
-
+    logger.error("Unable to connect to DB and/or create tables")
+    logger.error(str(error))
+    logger.error(traceback())
 
 
 

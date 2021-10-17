@@ -1,0 +1,48 @@
+version: 2.1
+
+jobs:
+  run-behaviour-tests:
+    docker:
+      - image: cimg/python:3.8
+      - image: circleci/mysql:5.7
+        environment:
+          MYSQL_ALLOW_EMPTY_PASSWORD: yes
+          MYSQL_ROOT_PASSWORD: ''
+    steps:
+      - checkout
+      - setup_remote_docker
+      - run:
+          name: Wait for test DB to come up
+          command: |
+            dockerize -wait tcp://localhost:3306 -timeout 1m
+
+      - run:
+          name: Setup MySQL DB
+          command: mysql -h 127.0.0.1 -u root -e "CREATE DATABASE development;"
+
+      - run:
+          name: Setup MySQL User
+          command: mysql -h 127.0.0.1 -u root -e "CREATE USER 'dev'@'%' IDENTIFIED WITH mysql_native_password BY 'helloWorld!1';"
+
+      - run:
+          name: Grant MySQL user permissions
+          command: mysql -h 127.0.0.1 -u root -e "GRANT ALL ON development.* TO 'dev'@'%';"
+
+      - run:
+          name: Setup monsternames docker
+          command: |
+            docker build -t monsternames:test . --build-arg db_host='localhost' --build-arg db_name='development' --build-arg db_user='dev' --build-arg db_pwd='helloWorld!1' --build-arg web_host='localhost:5000
+            docker run -d -p 5000:5000 monsternames:test
+
+      - run:
+          name: Install Python dependencies
+          command: pip3 install -r requirements
+
+      - run:
+          name: Run behaviour tests
+          command: python -m behave
+
+workflows:
+  behaviour-tests:
+    jobs:
+    - run-behaviour-tests

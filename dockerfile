@@ -30,6 +30,8 @@ COPY src src
 
 # Amend JavaScript to work on docker container, as api url is hard coded
 RUN sed -i "s/EXPECTED_HOST/${web_host}/g" /app/src/static/js/addNames.js
+# Do the same for home page so example works
+RUN sed -i "s/EXPECTED_HOST/${web_host}/g" /app/src/templates/home.html
 
 # Setup config file according to env vars
 RUN python3 /app/src/configBootstrap.py "${db_host}" "${db_name}" "${db_user}" "${db_pwd}"

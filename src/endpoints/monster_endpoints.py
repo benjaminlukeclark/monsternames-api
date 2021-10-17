@@ -4,6 +4,14 @@ import peewee
 from peewee import fn
 from database.models import GoblinFirstName, GoblinLastName, GoatmenFirstName, OgreFirstName, OrcFirstName, OrcLastName, SkeletonFirstName, SkeletonLastName, TrollFirstName, TrollLastName
 import json
+import logging
+import traceback
+
+
+logger = logging.getLogger(__name__)
+syslog = logging.StreamHandler()
+formatter = logging.Formatter('%(asctime)s %(app_name)s : %(message)s')
+logger.addHandler(syslog)
 
 # Base Class for all monster endpoints
 class monster_endpoint:
@@ -15,6 +23,10 @@ class monster_endpoint:
         self._Monster_Name = self.__verify_param(Monster_Name, "String")
         self._First_Name_Model = self.__verify_model(First_Name_Model, "{fMonsterName} first name model".format(fMonsterName = self._Monster_Name))
         self._Last_Name_Model = self.__verify_model(Last_Name_Model, "{fMonsterName} last name model".format(fMonsterName = self._Monster_Name))
+        self.__logger = logging.getLogger(__name__)
+        self.__stream_handler = logging.StreamHandler()
+        self.__formatter = logging.Formatter('%(asctime)s %(app_name)s : %(message)s')
+        self.__logger.addHandler(self.__stream_handler)
     # Return name method
     def return_name(self):
         # Connect to db
@@ -23,18 +35,30 @@ class monster_endpoint:
         resultDic = {}
         # Append to result based on what names the monster has
         if self._First_Name:
-            FName = self._First_Name_Model.select().order_by(fn.Rand()).limit(1)
-            fullName = (FName[0].firstName)
-            resultDic["firstName"] = FName[0].firstName
+            try:
+                FName = self._First_Name_Model.select().order_by(fn.Rand()).limit(1)
+                fullName = (FName[0].firstName)
+                resultDic["firstName"] = FName[0].firstName
+            except Exception as e:
+                fullName = ""
+                resultDic["firstName"] = ""
+                self.__logger.error(str(e))
+                self.__logger.error(traceback.format_exc())
+
         if self._Last_Name:
-            LName = self._Last_Name_Model.select().order_by(fn.Rand()).limit(1)
-            resultDic["lastName"] = LName[0].lastName
-            if len(fullName) != 0:
-                fullName += " " + (LName[0].lastName)
-            else:
-                fullName = (LName[0].lastName)
+            try:
+                LName = self._Last_Name_Model.select().order_by(fn.Rand()).limit(1)
+                resultDic["lastName"] = LName[0].lastName
+                if len(fullName) != 0:
+                    fullName += " " + (LName[0].lastName)
+                else:
+                    fullName = (LName[0].lastName)
+            except Exception as e:
+                fullName = ""
+                resultDic["lastName"] = ""
+                self.__logger.error(str(e))
+                self.__logger.error(traceback.format_exc())
         resultDic["fullName"] = fullName
-        print(resultDic)
         # Disconnect from DB
         models.db.close()
         # Return json data
@@ -48,7 +72,9 @@ class monster_endpoint:
         # if the key is not found
         try:
             firstName = self.__return_request_first_name(request)
-        except KeyError:
+        except KeyError as e:
+            self.__logger.error(str(e))
+            self.__logger.error(traceback.format_exc())
             return make_response(jsonify({'error' : 'Invalid key error.',
             'errorMessage' : "Ensure firstName key/value is in body"}), 400)
         # Connect to db
@@ -72,7 +98,9 @@ class monster_endpoint:
         # if the key is not found
         try:
             lastName = self.__return_request_last_name(request)
-        except KeyError:
+        except KeyError as e:
+            self.__logger.error(str(e))
+            self.__logger.error(traceback.format_exc())
             return make_response(jsonify({'error' : 'Invalid key error.',
             'errorMessage' : "Ensure lastName key/value is in body"}), 400)
         # Connect to db

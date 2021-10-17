@@ -3,6 +3,7 @@ from flask import Flask, make_response, jsonify, request, render_template
 from endpoints.monster_endpoints import GoblinEndpoint, GoatmenEndpoint, OgreEndpoint, OrcEndpoint, SkeletonEndpoint, \
     TrollEndpoint
 from functools import wraps
+import logging
 
 application = Flask(__name__)
 
@@ -10,46 +11,12 @@ application = Flask(__name__)
 #################################################
 #                                               #
 #                                               #
-#                   Website                     #
+#           Decorators and init                 #
 #                                               #
 #                                               #
 #                                               #
 #################################################
 
-# Home page of the website
-@application.route('/')
-def home():
-    return render_template('home.html')
-
-
-@application.route('/contributionGuide')
-def contributionGuide():
-    return render_template('contributionGuide.html')
-
-
-@application.route('/endpoints')
-def endpoints():
-    return render_template('endpoints.html')
-
-
-@application.route('/addNames')
-def addNames():
-    return render_template('addNames.html')
-
-
-@application.route('/projectsThatUseThis')
-def projectsThatUseThis():
-    return render_template('projectsThatUseThis.html')
-
-
-#################################################
-#                                               #
-#                                               #
-#                   API                         #
-#                                               #
-#                                               #
-#                                               #
-#################################################
 API_Base_v1 = "/api/v1.0/"
 First_Name_Key_Message = "Ensure firstName key/value is in body"
 Last_Name_Key_Message = "Ensure lastName key/value is in body"
@@ -79,15 +46,74 @@ def monster_route(func):
     return decorated
 
 
+# Decorated for GETs to allow CORs
+def get_route(func):
+    @wraps(func)
+    def decorated(*args, **kwargs):
+        return add_cors_headers(func(*args, **kwargs))
+
+    return decorated
+
+
 # Function to cors header to response
 def add_cors_headers(response):
     response.headers['Access-Control-Allow-Origin'] = '*'
     return response
 
 
+
+
+#################################################
+#                                               #
+#                                               #
+#                   Website                     #
+#                                               #
+#                                               #
+#                                               #
+#################################################
+
+
+# Home page of the website
+@application.route('/')
+def home():
+    return render_template('home.html')
+
+
+@application.route('/contributionGuide')
+def contributionGuide():
+    return render_template('contributionGuide.html')
+
+
+@application.route('/endpoints')
+def endpoints():
+    return render_template('endpoints.html')
+
+
+@application.route('/addNames')
+def addNames():
+    return render_template('addNames.html')
+
+
+@application.route('/projectsThatUseThis')
+def projectsThatUseThis():
+    return render_template('projectsThatUseThis.html')
+
+
+
+
+#################################################
+#                                               #
+#                                               #
+#                   API                         #
+#                                               #
+#                                               #
+#                                               #
+#################################################
+
+
 ##### GOBLIN #####
 @application.route('/api/v1.0/goblin', methods=['GET'])
-@monster_route
+@get_route
 def get_goblin():
     return GoblinEndpoint.return_name()
 
@@ -106,7 +132,7 @@ def post_goblin_last_name():
 
 ##### GOATMEN #####
 @application.route('/api/v1.0/goatmen', methods=['GET'])
-@monster_route
+@get_route
 def get_goatmen():
     return GoatmenEndpoint.return_name()
 
@@ -119,7 +145,7 @@ def post_goatmen_first_name():
 
 ##### OGRE #####
 @application.route('/api/v1.0/ogre', methods=['GET'])
-@monster_route
+@get_route
 def get_ogre():
     return OgreEndpoint.return_name()
 
@@ -132,7 +158,7 @@ def post_ogre_first_name():
 
 ##### ORC #####
 @application.route('/api/v1.0/orc', methods=['GET'])
-@monster_route
+@get_route
 def get_orc():
     return OrcEndpoint.return_name()
 
@@ -151,7 +177,7 @@ def post_orc_last_name():
 
 ##### SKELETON #####
 @application.route('/api/v1.0/skeleton', methods=['GET'])
-@monster_route
+@get_route
 def get_skeleton():
     return SkeletonEndpoint.return_name()
 
@@ -170,7 +196,7 @@ def post_skeleton_last_name():
 
 ##### TROLL #####
 @application.route('/api/v1.0/troll', methods=['GET'])
-@monster_route
+@get_route
 def get_troll():
     return TrollEndpoint.return_name()
 

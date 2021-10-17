@@ -202,7 +202,7 @@ These are just development instructions, for prod run with a container orchestra
 
 9. Which the API then returns:
     ```sh
-    curl -d "firstName=hello" -X GET http://localhost:5000/api/v1.0/goatmen
+    curl -X GET http://localhost:5000/api/v1.0/goatmen
     {"firstName": "hello", "fullName": "hello"}
     ```
 
