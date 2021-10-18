@@ -1,289 +1,241 @@
-# monsternames-api
+<div id="top"></div>
 
-This repo hosts code for the monsternames-api hosted at https://monsternames-api.com.
 
-This API allows you to generate random names for monsters.
 
-It originally arose from my attempt at creating a python text based game: https://github.com/Sudoblark/Butterchase
+<!-- PROJECT SHIELDS -->
+TBC - maybe circleCI?
 
-See the website for more details or browse the html directly in the repo if you're adventurous.
 
-# Setup for local development
 
-- clone repo
+<!-- PROJECT LOGO -->
+<br />
+<div align="center">
+  <a href="https://github.com/Sudoblark/monsternames-api">
+    <img src="images/logo.png" alt="Logo" width="80" height="80">
+  </a>
 
-```bash
-git clone https://github.com/Sudoblark/monsternames-api
+  <h3 align="center">monsternames-api</h3>
+
+  <p align="center">
+    Pseudo-random monster name generate
+    <br />
+    <a href="https://monsternames-api.com/"><strong>See the site»</strong></a>
+    <br />
+    <br />
+    <a href="https://monsternames-api.com/endpoints">Consume the API</a>
+    ·
+    <a href="https://monsternames-api.com/contributionGuide">Contribute names programmatically</a>
+    ·
+    <a href="https://monsternames-api.com/addNames">Contribute names in GUI</a>
+  </p>
+</div>
+
+
+
+<!-- TABLE OF CONTENTS -->
+<details>
+  <summary>Table of Contents</summary>
+  <ol>
+    <li>
+      <a href="#about-the-project">About The Project</a>
+      <ul>
+        <li><a href="#built-with">Built With</a></li>
+      </ul>
+    </li>
+    <li>
+      <a href="#getting-started">Getting Started</a>
+      <ul>
+        <li><a href="#prerequisites">Prerequisites</a></li>
+        <li><a href="#installation">Installation</a></li>
+      </ul>
+    </li>
+    <li><a href="#usage">Usage</a></li>
+    <li><a href="#roadmap">Roadmap</a></li>
+    <li><a href="#contributing">Contributing</a></li>
+    <li><a href="#license">License</a></li>
+    <li><a href="#contact">Contact</a></li>
+    <li><a href="#acknowledgments">Acknowledgments</a></li>
+  </ol>
+</details>
+
+
+
+<!-- ABOUT THE PROJECT -->
+## About The Project
+
+This API was originally a standalone name generation program in a text-based adventure I was making.
+
+That adventure never got off the ground, but the name generation did. So I decided to make name generation its own thing and host it in an API.
+
+<p align="right">(<a href="#top">back to top</a>)</p>
+
+
+
+### Built With
+
+* [Flask](https://flask.palletsprojects.com/en/2.0.x/)
+* [peewee](http://docs.peewee-orm.com/en/latest/)
+
+<p align="right">(<a href="#top">back to top</a>)</p>
+
+
+
+<!-- GETTING STARTED -->
+## Getting Started
+To get a local dev copy up and running follow these example steps.
+
+Note that all instructions are for development on MacOS.
+
+If you're using other platforms same concepts apply just will need to localise to your OS.
+
+These are just development instructions, for prod run with a container orchestrator that has SSL in front via load balancer etc.
+
+### Prerequisites
+
+* Docker
+* A MySQL 5.7.22 instance with a:
+    * dedicated database for the API
+    * user with full access to dedicated database
+    * user using mysql_native_password authentication
+
+_This can be spun up relatively easily with docker locally_
+    
+```sh
+# Create custom network so we can communicate with DB later
+docker network create monsternames
+# Pull MySQL 5.7.22 server image from dockerhub
+docker pull mysql:5.7.22
+# Setup MySQL server using image
+docker run -p 3306:3306 --network monsternames --name monsternames_db_container -e MYSQL_ROOT_PASSWORD=password -e MYSQL_DATABASE=development -d mysql:5.7.22 mysqld
 ```
+* Python 3.8.x
 
-- If not already installed, then install virtualenv
+### Installation
 
-```bash
-pip install virtualenv
-```
+1. Clone the repo
+    ```sh
+   git clone https://github.com/Sudoblark/monsternames-api
+    ```
 
-- Ensure terminal is running in virtualenv
+2. Run docker build with appropriate tagging and passthru of DB connection details for docker sql container:
+   1. _example below uses settings appropriately for docker database created in pre-requirement examples_
+   ```sh
+    docker build -t monsternames:v0.1 . --build-arg db_host='host.docker.internal' --build-arg db_name='development' --build-arg db_user='root' --build-arg db_pwd='password' --build-arg web_host='localhost:5000'
+    ```
+3. Spin up the docker container, mapping container 5000 to host 5000, in detached mode:
 
-```bash
-source .env/bin/active
-```
+   ```sh
+   docker run -d -p 5000:5000 monsternames:v0.1
+   ```
+   
+4. Connect to DB and create a new API key for POST requests
 
-- Install requirements in virtualenv
+    ```sh
+    docker run -it --network monsternames --rm mysql:5.7.22 mysql -hmonsternames_db_container -uroot -ppassword
+    ...
+    INSERT INTO development.apikeys (apiKey, `user`)
+    VALUES ('helloworld', 'testUser');
+    ```
 
-```
-pip install -r monsternames-api/requirements.txt
-```
+5. Run behaviour tests to confirm functionality:
 
-## DB Setup for development
+    ```sh
+   python3 -m venv venv
+   source venv/bin/activate
+   pip3 install -r requirements.txt
+   python -m behave
+   ...
+   1 feature passed, 0 failed, 0 skipped
+   50 scenarios passed, 0 failed, 0 skipped
+   150 steps passed, 0 failed, 0 skipped, 0 undefined
+   Took 0m4.310s
 
-After following instructions in setup for local development...
+   ```
 
-- Setup env vars for connection to DB:
+6. You're good to go for development with:
 
-```bash
-benjamin@localhost:~/Documents/Development/monsternames-api$ export dbHost='test-db-2.cflabebiquae.eu-west-2.rds.amazonaws.com'
-benjamin@localhost:~/Documents/Development/monsternames-api$ export dbName='dev'
-benjamin@localhost:~/Documents/Development/monsternames-api$ export dbUser='admin'
-benjamin@localhost:~/Documents/Development/monsternames-api$ export dbPwd='HelloWorld'
-```
+- Locker docker instance running monsternames api
+- Local docker instance running MySQL backend
+- API key setup in DB for POST functionality
+- Functionality confirmed with Behave! behaviour testing
 
-- Run setup.py to create required tables in database
+<p align="right">(<a href="#top">back to top</a>)</p>
 
-```bash 
-cd monsternames-api
-python database/setup.py
-```
 
-- For POST of data you'll need to manually create API Keys in the DB and associate with users for auditing purposes
+### Behave tests
+There is a pre-commit hook setup to run behaviour tests, which tests:
+- POST to every api endpoint with 5 unique values
+- GET to every api endpoint
+CI is setup to run behave tests in features/ on every commit, and before a release is published to prod.
 
-## API
+Tried to get working on circleCI, but the separation of docker environments there makes it a bit of a mess so for now just pushes to ECR.
 
-- Run app.py to run a development instance of the API
 
-```bash
-python app.py
+<!-- USAGE EXAMPLES -->
+## Usage
 
- * Serving Flask app "app" (lazy loading)
- * Environment: production
-   WARNING: This is a development server. Do not use it in a production deployment.
-   Use a production WSGI server instead.
- * Debug mode: on
- * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
- * Restarting with stat
- * Debugger is active!
- * Debugger PIN: 224-606-382
+* [monsternames-api](https://monsternames-api.com/) is where I've got my flavour of the API sitting
+* [monster by mnuh](https://monster.mnuh.org/) is a cool monster card generator combining my API with others to make cards
 
-```
+<p align="right">(<a href="#top">back to top</a>)</p>
 
-- When running a development version you can see errors etc in the terminal when you try to access endpoints
 
+<!-- ROADMAP -->
+## Roadmap
 
-# Suggested Production Deployment
+- [x] Get local dev docker image working
+- [x] Get DB initialisation working on local dev environment
+- [x] Refactor DB initialisation to obscure secrets
+- [x] Add Behave! behaviour testing with Python using docker image in circleCI
 
-- Create AWS RDS Instance
-- Create AWS Ububtu 18.06 instance
-- SSH to instance
-- Change to home dir
+<p align="right">(<a href="#top">back to top</a>)</p>
 
-```bash
-cd /home
-```
 
-- Clone to Server
 
-```bash
-git clone https://github.com/Sudoblark/monsternames-api.git monsternames_api
-```
+<!-- CONTRIBUTING -->
+## Contributing
 
-- Update machine
+Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
 
-```bash
-sudo apt-get update
-```
+If you have a suggestion that would make this better, please fork the repo and create a pull request. You can also simply open an issue with the tag "enhancement".
+Don't forget to give the project a star! Thanks again!
 
-- Install nginx
+1. Fork the Project
+2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the Branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
 
-```bash
-sudo apt install nginx
-```
+<p align="right">(<a href="#top">back to top</a>)</p>
 
-- Generate an SSL cert
-```bash
-cd ubutu
-openssl req -x509 -newkey rsa:4096 -nodes -out cert.pem -keyout key.pem -days 365
-cd ..
-```
 
-- Configure nginx site for api
 
-```bash
-sudo nano /etc/nginx/sites-enabled/monsternames_api
+<!-- LICENSE -->
+## License
 
-server {
-        listen 443 ssl;
-        server_name SERVERNAME;
-        ssl_certificate /path/to/cert.key;
-        ssl_certificate_key /path/to/key.pem;
+Distributed under the MIT License. See `LICENSE.txt` for more information.
 
-        location / {
-                proxy_pass http://127.0.0.1:8000;
-                proxy_set_header Host $host;
-                proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-        }
+<p align="right">(<a href="#top">back to top</a>)</p>
 
-}
 
-server {
-        listen 80;
-        server_name SERVERNAME;
 
-        location / {
-                return 301 https://$host$request_uri;
-        }
+<!-- CONTACT -->
+## Contact
 
-}
+Benjamin Clark - [LinkedIn](https://www.linkedin.com/in/benni/) - bclark@sudoblark.com
 
+Project Link: [monsternames api](https://github.com/Sudoblark/monsternames-api)
 
-```
+<p align="right">(<a href="#top">back to top</a>)</p>
 
-- Unlink default site
 
-```bash
-sudo unlink /etc/nginx/sites-enabled/default
-```
 
-- Reload nginx
+<!-- ACKNOWLEDGMENTS -->
+## Acknowledgments
 
-```bash
-sudo nginx -s reload
-```
+Use this space to list resources you find helpful and would like to give credit to. I've included a few of my favorites to kick things off!
 
-- Go to the site URL and confirm you get a bad gateway error
+* [Monster Creatures Fantasty](https://luizmelo.itch.io/monsters-creatures-fantasy) by luizmelo contains project logo
+* [othneildrew/Best-README-Template](https://github.com/othneildrew/Best-README-Template) for providing readme template
 
-- Install virtualenv
-
-```bash
-sudo apt-get install virtualenv
-```
-
-Note: If you get issues about the python path not existing then run 
-
-```bash
-sudo apt-get install python
-```
-
-- Create a new virtualenv inside default user directory - to ensure we have full access to do what we need - then activate it
-
-```bash
-sudo virtualenv /home/ubuntu/.env
-source /home/ubuntu/.env/bin/activate
-```
-
-- Install required packages
-```bash
-pip install -r /home/monsternames_api/requirements.txt
-```
-
-Note: If you get issues about permission denied when installing packages then recursively give yourself all the permissions 
-```bash 
-sudo chmod a+rwx -R /home/ubuntu/.env
-```
-
-- Create config file
-
-```bash
-sudo nano /etc/config.json
-
-{
-        "dbHost" : "YOUR-HOST",
-        "dbName" : "DB-NAME",
-        "dbPassword" : "PASSWORD",
-        "dbUser" : "USER"
-
-}
-```
-
-
-- Install supervisor (for auto-reloading of the application)
-
-```bash
-sudo apt-get install supervisor
-```
-
-- Create supervisor script
-
-```bash
-sudo nano /etc/supervisor/conf.d/monsternames_api.conf
-
-[program:monsternames_api]
-directory=/home/monsternames_api
-command=/home/ubuntu/.env/bin/gunicorn --workers=3 application:application
-autostart=true
-autorestart=true
-stopasgroup=true
-killasgroup=true
-stderr_logfile=/var/log/monsternames_api/application.err.log
-stdout_logfile=/var/log/monsternames_api/application.out.log
-```
-
-- Create the log directories and files
-
-```bash
-sudo mkdir /var/log/monsternames_api
-sudo touch /var/log/monsternames_api/application.out.log
-sudo touch /var/log/monsternames_api/application.err.log
-```
-
-- Apply supervisor changes
-
-```bash
-sudo supervisorctl reload
-```
-
-- You should now be able to access the app at the specified url
-
-If you have issue consult the logs you created. The most likely issue is that a package did not install or there are permission issues with the directory of the virtualenv.
-
-# Using Lets Encrypt for an actually trusted certificate
-Luckily, as we're using nginx for the proxy of this, we can setup an actually trusted certificate (method above will be self-signed) and have automatic renewal. Neat.
-
-If you already have a self-signed certificiate, ensure you remove the following lines from ```/etc/nginx/sites-enabled/monsternames_api``` before continuing:
-```bash
-ssl_certificate = xxx
-ssl_certificate_key = xxx
-```
-Ensure you also reboot nginx after to prevent any errors
-
-1) First, trust the [certbot](https://certbot.eff.org/) repo:
-
-```bash
-add-apt-repository ppa:certbot/certbot
-```
-
-2) Install certbot:
-
-```bash
-apt-get update
-apt-get install python-certbot-nginx
-```
-
-3) Generate an SSL cert:
-
-```bash
-sudo certbot --nginx -d monsternames-api.com
-```
-
-Now if you view ```/etc/nginx/sites-enabled/monsternames_api``` you should see that the ```ssl_certificate``` and ```ssl_certificate_key``` blocks state they're managed by certbot.
-
-If, for whatever reason, the certificate was created but not installed then you'll need to manually add ssl_certificate and ssl_certificate_key directives to the server block in nginx.
-
-What's also neat about this is that we can schedule a cronjob so that the cert automatically renews:
-
-```bash
-crontab -e
-0 12 * * * /usr/bin/certbot renew --quiet
-```
-
-# Projects that use this API
-## [Monster Generator](https://monster.mnuh.org/)
-Cool monster generator that mashes this API and a few others to generate monster 'cards' like a playing deck! Created by [Mishael Nuh](https://github.com/mishaelnuh).
+<p align="right">(<a href="#top">back to top</a>)</p>

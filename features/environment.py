@@ -1,0 +1,3 @@
+def before_all(context):
+    context.base_url = "http://localhost:5000"
+    context.api_key = "helloworld"

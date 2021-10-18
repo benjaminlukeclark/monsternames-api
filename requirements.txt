@@ -1,10 +1,6 @@
-Click==7.0
 Flask==1.1.1
-itsdangerous==1.1.0
-Jinja2==2.11.1
-MarkupSafe==1.1.1
 peewee==3.13.1
 PyMySQL==0.9.3
-Werkzeug==0.16.1
-gunicorn==19.10.0
-
+behave==1.2.6
+requests==2.26.0
+asserts==0.11.1
