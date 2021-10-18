@@ -1,0 +1,43 @@
+version: 2.1
+
+jobs:
+  push-to-ecr:
+    docker:
+      - image: circleci/python:3.8
+
+    steps:
+      - checkout
+      - run:
+          name: Login to Prod ECR
+          command: |
+            set -eo pipefail
+            aws configure set aws_access_key_id $PROD_AWS_ACCESS_KEY_ID --profile default
+            aws configure set aws_secret_access_key $PROD_AWS_SECRET_ACCESS_KEY --profile default
+            aws configure set default.region $AWS_REGION --profile default
+            aws ecr get-login-password --region $AWS_REGION --profile default | docker login --username AWS --password-stdin $PROD_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com
+      - run:
+          name: Build image
+          command: |
+            docker build -t monsternames . --build-arg db_host="$DB_HOST" --build-arg db_name="$DB_NAME" --build-arg db_user="$DB_USER" --build-arg db_pwd="$DB_PWD" --build-arg web_host="$WEB_HOST"
+      - run:
+          name: Tag with circleCI tag and push
+          command: |
+            docker tag monsternames:latest $PROD_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/monsternames:$CICLE_TAG
+            docker push $PROD_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/monsternames:$CIRCLE_TAG
+
+workflows:
+  main-image-update:
+    jobs:
+      - push-to-ecr:
+          filters:
+            branches:
+              only:
+                main
+  release-image-update:
+    jobs:
+      - push-to-ecr:
+          filters:
+            branches:
+              ignore: /.*/
+            tags:
+              only: /^v\d+\.\d+\.\d+/

@@ -168,7 +168,7 @@ There is a pre-commit hook setup to run behaviour tests, which tests:
 - GET to every api endpoint
 CI is setup to run behave tests in features/ on every commit, and before a release is published to prod.
 
-Tried to get working on circleCI, but the seperation of docker environments there makes it a bit of a mess.
+Tried to get working on circleCI, but the separation of docker environments there makes it a bit of a mess so for now just pushes to ECR.
 
 
 <!-- USAGE EXAMPLES -->
@@ -187,8 +187,6 @@ Tried to get working on circleCI, but the seperation of docker environments ther
 - [x] Get DB initialisation working on local dev environment
 - [x] Refactor DB initialisation to obscure secrets
 - [x] Add Behave! behaviour testing with Python using docker image in circleCI
-- [ ] Add unit tests
-- [ ] Add CI deployment of docker contain to ECS
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
