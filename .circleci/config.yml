@@ -8,6 +8,9 @@ jobs:
     steps:
       - checkout
       - run:
+          name: Install AWS CLI
+          command: pip install awscli
+      - run:
           name: Login to Prod ECR
           command: |
             set -eo pipefail
