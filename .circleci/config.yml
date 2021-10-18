@@ -26,8 +26,8 @@ jobs:
       - run:
           name: Tag with circleCI tag and push
           command: |
-            docker tag monsternames:latest $PROD_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/monsternames:$CIRCLE_TAG
-            docker push $PROD_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/monsternames:$CIRCLE_TAG
+            docker tag monsternames:latest $PROD_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/monsternames:${CIRCLE_SHA1:0:7}
+            docker push $PROD_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/monsternames:${CIRCLE_SHA1:0:7}
 
 workflows:
   main-image-update:
