@@ -32,7 +32,7 @@ workflows:
           filters:
             branches:
               only:
-                main
+                master
   release-image-update:
     jobs:
       - push-to-ecr:
