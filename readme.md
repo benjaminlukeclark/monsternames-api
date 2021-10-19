@@ -3,7 +3,13 @@
 
 
 <!-- PROJECT SHIELDS -->
-TBC - maybe circleCI?
+[![Sudoblark](https://circleci.com/gh/Sudoblark/monsternames-api.svg?style=shield)](https://app.circleci.com/pipelines/github/Sudoblark/monsternames-api)
+[![made-with-python](https://img.shields.io/badge/Made%20with-Python-1f425f.svg)](https://www.python.org/)
+[![GitHub license](https://img.shields.io/github/license/Naereen/StrapDown.js.svg)](https://github.com/Naereen/StrapDown.js/blob/master/LICENSE)
+[![Open Source? Yes!](https://badgen.net/badge/Open%20Source%20%3F/Yes%21/blue?icon=github)](https://github.com/Naereen/badges/)
+
+
+
 
 
 
@@ -47,6 +53,7 @@ TBC - maybe circleCI?
       <ul>
         <li><a href="#prerequisites">Prerequisites</a></li>
         <li><a href="#installation">Installation</a></li>
+        <li><a href="#behave-tests">Behave tests</a></li>
       </ul>
     </li>
     <li><a href="#usage">Usage</a></li>
@@ -163,13 +170,15 @@ docker run -p 3306:3306 --network monsternames --name monsternames_db_container 
 
 
 ### Behave tests
-There is a pre-commit hook setup to run behaviour tests, which tests:
-- POST to every api endpoint with 5 unique values
-- GET to every api endpoint
-CI is setup to run behave tests in features/ on every commit, and before a release is published to prod.
+There are behave feature tests setup to run behaviour tests, which tests:
+* POST to every api endpoint with 5 unique values
+  * This in turn tests that API authentication works via the `x-api-key` header
+* GET to every api endpoint between 5-10 times depending on underlying monster schema
 
-Tried to get working on circleCI, but the separation of docker environments there makes it a bit of a mess so for now just pushes to ECR.
 
+Tried to get working on circleCI, but the separation of docker environments there makes it a bit of a mess so for now just pushes to ECR. But behaviour tests can run run locally steps outlined in local setup instructions.
+
+<p align="right">(<a href="#top">back to top</a>)</p>
 
 <!-- USAGE EXAMPLES -->
 ## Usage
@@ -183,10 +192,11 @@ Tried to get working on circleCI, but the separation of docker environments ther
 <!-- ROADMAP -->
 ## Roadmap
 
-- [x] Get local dev docker image working
-- [x] Get DB initialisation working on local dev environment
-- [x] Refactor DB initialisation to obscure secrets
-- [x] Add Behave! behaviour testing with Python using docker image in circleCI
+- [ ] Update frontend with [WAI](https://www.w3.org/WAI/) and [WCAG2.1](https://www.w3.org/TR/WCAG21/) guidelines
+- [ ] Decouple frontend (website) and backend (API)
+- [ ] Add [seleneium](https://www.selenium.dev/) testing
+- [ ] At some point, once it's covered in my uni studies, add an ML model that uses existing database to generate new names
+- [ ] Maybe some plotly graphs to show usage, but given how this is probably not used that much the data might not be much to show
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -194,8 +204,6 @@ Tried to get working on circleCI, but the separation of docker environments ther
 
 <!-- CONTRIBUTING -->
 ## Contributing
-
-Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
 
 If you have a suggestion that would make this better, please fork the repo and create a pull request. You can also simply open an issue with the tag "enhancement".
 Don't forget to give the project a star! Thanks again!
@@ -232,8 +240,6 @@ Project Link: [monsternames api](https://github.com/Sudoblark/monsternames-api)
 
 <!-- ACKNOWLEDGMENTS -->
 ## Acknowledgments
-
-Use this space to list resources you find helpful and would like to give credit to. I've included a few of my favorites to kick things off!
 
 * [Monster Creatures Fantasty](https://luizmelo.itch.io/monsters-creatures-fantasy) by luizmelo contains project logo
 * [othneildrew/Best-README-Template](https://github.com/othneildrew/Best-README-Template) for providing readme template
