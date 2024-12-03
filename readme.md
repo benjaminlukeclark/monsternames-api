@@ -1,3 +1,5 @@
+> :warning: **ARCHIVED**: This has been migrated to [sudoblark.monsternames.api](https://github.com/sudoblark/sudoblark.monsternames.api)
+
 <div id="top"></div>
 
 
